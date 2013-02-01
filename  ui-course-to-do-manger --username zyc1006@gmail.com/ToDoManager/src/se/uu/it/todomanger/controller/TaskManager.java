@@ -16,7 +16,8 @@ import se.uu.it.todomanger.model.Task;
 public class TaskManager {
 	
 	
-	public void addTask(Task task){
+	public void addTask(Task task)
+	{
 		
 	}
 	public void editTask(Task task){
