@@ -22,6 +22,7 @@ import se.uu.it.todomanger.model.Task;
 import se.uu.it.todomanger.model.TaskTableModel;
 
 /**
+ * @author Shiyu
  * @author Edward
  *
  */
