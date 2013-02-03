@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JToolBar;
 /**
  *  A singleton of tool bar for ToDoManager
+ * @author Shiyu
  * @author Yucheng
  *
  */
