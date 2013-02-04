@@ -24,4 +24,7 @@ public class AddEditDialog extends JFrame {
 		throw new UnsupportedOperationException("Not implemented.");
 	}
 	
+	// or just a creator that creates the window, and then call with ShowEdit(Task)
+	// and add by calling ShowAdd()? might be better... I don't know.
+	
 }
