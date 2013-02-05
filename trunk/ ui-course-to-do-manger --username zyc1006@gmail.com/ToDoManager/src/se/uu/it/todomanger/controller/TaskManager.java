@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 
 import se.uu.it.todomanger.model.Task;
-import se.uu.it.todomanger.model.TaskTableModel;
+import se.uu.it.todomanger.ui.ToDoManagerTaskTable;
 
 /**
  * A singleton TaskManger used for creating, editing and deleting tasks.
@@ -23,8 +23,8 @@ public class TaskManager {
 	//An arraylist stores all the task, used for sorting
 	private ArrayList<Task> taskArrayList = new ArrayList<Task>();
 	
-	//An instance of TableModel, linked with a JTable
-	public TaskTableModel  taskTableModel = new TaskTableModel();
+	//A task table instance to handle the display operation on the task table
+	private ToDoManagerTaskTable taskTable = ToDoManagerTaskTable.getInstance();
 	
 	//Singleton of TaskManager
 	private static TaskManager tm = null;
@@ -70,10 +70,10 @@ public class TaskManager {
 	}
 
 	public void displayTaskByDueDateAsc() {
-		taskTableModel.displayAllTasksByOrder(taskArrayList, new SortByDueDateAsc());
+		taskTable.displayAllTasksByOrder(taskArrayList, new SortByDueDateAsc());
 	}
-	public void displayTaskByDueDatDesc() {
-		taskTableModel.displayAllTasksByOrder(taskArrayList, new SortByDueDateDesc());
+	public void displayTaskByDueDateDesc() {
+		taskTable.displayAllTasksByOrder(taskArrayList, new SortByDueDateDesc());
 	}
 	
 	//inner class for sorting
@@ -91,8 +91,7 @@ public class TaskManager {
 
 	//inner class for sorting
 	class SortByDueDateDesc implements Comparator<Task> {
-		public int compare(Task s1, Task s2) {
-			
+		public int compare(Task s1, Task s2) {		
 			if (s1.getDueDate().before(s2.getDueDate())) {
 				return 1;
 			} else {
