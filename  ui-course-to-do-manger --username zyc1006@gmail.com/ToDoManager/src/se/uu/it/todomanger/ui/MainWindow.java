@@ -106,27 +106,11 @@
  */
 package se.uu.it.todomanger.ui;
 import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Date;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.border.BevelBorder;
-import javax.swing.plaf.DimensionUIResource;
-
-import se.uu.it.todomanger.controller.TaskManager;
-import se.uu.it.todomanger.model.Task;
-import se.uu.it.todomanger.model.TaskTableModel;
 
 /**
  * @author Shiyu
