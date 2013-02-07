@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -61,7 +63,7 @@ public class AddEditDialog extends JDialog {
 	public static final String ADDEDITDIALOG_OK_LABEL = "OK";
 	public static final String ADDEDITDIALOG_CANCEL_LABEL = "Cancel";
 	public static final String ADDEDITDIALOG_TITLE_LABEL = "Title:";
-	public static final String ADDEDITDIALOG_DUEDATE_LABEL = "Due date (YMDhm):";
+	public static final String ADDEDITDIALOG_DUEDATE_LABEL = "Due date, hour, minute:";
 	public static final String ADDEDITDIALOG_CATEGORY_LABEL = "Category:";
 	public static final String ADDEDITDIALOG_PRIORITY_LABEL = "Priority:";
 	public static final String ADDEDITDIALOG_DESCRIPTION_LABEL = "Description:";
@@ -120,13 +122,15 @@ public class AddEditDialog extends JDialog {
 
 	// Data for date columns
 	public static final int ADDEDITDIALOG_LAYOUT_DATEFIELD_ANCHOR = GridBagConstraints.WEST;
-	public static final int ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_YEAR = 1;
-	public static final int ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_MONTH = 2;
-	public static final int ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_DAY = 3;
-	public static final int ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_HOUR = 4;
-	public static final int ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_MINUTE = 5;
-	public static final int ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_SPAN = 1;
-	public static final double ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_WEIGHT = 0.2;
+	public static final int ADDEDITDIALOG_LAYOUT_DATEFIELD_DATE_COLUMN = 1;
+	public static final int ADDEDITDIALOG_LAYOUT_DATEFIELD_DATE_COLUMN_SPAN = 3;
+	public static final double ADDEDITDIALOG_LAYOUT_DATEFIELD_DATE_COLUMN_WEIGHT = 0.6;
+	public static final int ADDEDITDIALOG_LAYOUT_DATEFIELD_HOUR_COLUMN = 4;
+	public static final int ADDEDITDIALOG_LAYOUT_DATEFIELD_HOUR_COLUMN_SPAN = 1;
+	public static final double ADDEDITDIALOG_LAYOUT_DATEFIELD_HOUR_COLUMN_WEIGHT = 0.2;
+	public static final int ADDEDITDIALOG_LAYOUT_DATEFIELD_MINUTE_COLUMN = 5;
+	public static final int ADDEDITDIALOG_LAYOUT_DATEFIELD_MINUTE_COLUMN_SPAN = 1;
+	public static final double ADDEDITDIALOG_LAYOUT_DATEFIELD_MINUTE_COLUMN_WEIGHT = 0.2;
 
 	// Data for buttons
 	public static final int ADDEDITDIALOG_LAYOUT_BUTTONS_ANCHOR = GridBagConstraints.EAST;
@@ -153,9 +157,7 @@ public class AddEditDialog extends JDialog {
 
 	// Error messages
 	public static final String ADDEDITDIALOG_ERROR_NOTITLE = "Please enter a title.";
-	public static final String ADDEDITDIALOG_ERROR_INVALIDYEAR = "Please enter a valid year.";
-	public static final String ADDEDITDIALOG_ERROR_INVALIDMONTH = "Please enter a month between 1 and 12.";
-	public static final String ADDEDITDIALOG_ERROR_INVALIDDAY = "Please enter a day between 1 and 31.";
+	public static final String ADDEDITDIALOG_ERROR_NODATE = "Please enter a valid date.";
 	public static final String ADDEDITDIALOG_ERROR_INVALIDHOUR = "Please enter an hour between 0 and 23.";
 	public static final String ADDEDITDIALOG_ERROR_INVALIDMINUTE = "Please enter a minute between 0 and 59.";
 	public static final String ADDEDITDIALOG_ERROR_DIALOG_TITLE = "Error";
@@ -174,9 +176,7 @@ public class AddEditDialog extends JDialog {
 	private DialogMode dialogMode;
 
 	private JTextField txtTitle;
-	private JTextField txtDueDateYear;
-	private JTextField txtDueDateMonth;
-	private JTextField txtDueDateDay;
+	private JTextField txtDueDate;
 	private JTextField txtDueDateHour;
 	private JTextField txtDueDateMinute;
 	private JTextArea txtDescription;
@@ -225,12 +225,10 @@ public class AddEditDialog extends JDialog {
 		cmbCategory.setPreferredSize(wideTextDimension);
 
 		// Text fields for due date
-		txtDueDateYear = new JTextField();
-		txtDueDateYear.setPreferredSize(dateFieldDimension);
-		txtDueDateMonth = new JTextField();
-		txtDueDateMonth.setPreferredSize(dateFieldDimension);
-		txtDueDateDay = new JTextField();
-		txtDueDateDay.setPreferredSize(dateFieldDimension);
+		txtDueDate = new JTextField();
+		txtDueDate.setPreferredSize(dateFieldDimension);
+		CalendarPanel cp = CalendarPanel.getInstance();
+		cp.register(txtDueDate);
 		txtDueDateHour = new JTextField();
 		txtDueDateHour.setPreferredSize(dateFieldDimension);
 		txtDueDateMinute = new JTextField();
@@ -319,10 +317,8 @@ public class AddEditDialog extends JDialog {
 				ADDEDITDIALOG_LAYOUT_FIELDS_PADDING_BOTTOM,
 				ADDEDITDIALOG_LAYOUT_COMMON_PADDING_RIGHT);
 		dateConstraint.gridy = ADDEDITDIALOG_LAYOUT_DUEDATE_ROW;
-		dateConstraint.gridwidth = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_SPAN;
 		dateConstraint.anchor = ADDEDITDIALOG_LAYOUT_DATEFIELD_ANCHOR;
 		dateConstraint.fill = ADDEDITDIALOG_LAYOUT_DATEFIELD_FILL;
-		dateConstraint.weightx = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_WEIGHT;
 
 		// Common information for the buttons
 		buttonConstraint.insets = new Insets(
@@ -357,15 +353,17 @@ public class AddEditDialog extends JDialog {
 		labelConstraint.weighty = ADDEDITDIALOG_LAYOUT_DUEDATE_ROW_WEIGHT;
 		labelConstraint.gridy = ADDEDITDIALOG_LAYOUT_DUEDATE_ROW;
 		gridBagContainer.add(lblDueDate, labelConstraint);
-		dateConstraint.gridx = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_YEAR;
-		gridBagContainer.add(txtDueDateYear, dateConstraint);
-		dateConstraint.gridx = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_MONTH;
-		gridBagContainer.add(txtDueDateMonth, dateConstraint);
-		dateConstraint.gridx = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_DAY;
-		gridBagContainer.add(txtDueDateDay, dateConstraint);
-		dateConstraint.gridx = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_HOUR;
+		dateConstraint.gridx = ADDEDITDIALOG_LAYOUT_DATEFIELD_DATE_COLUMN;
+		dateConstraint.gridwidth = ADDEDITDIALOG_LAYOUT_DATEFIELD_DATE_COLUMN_SPAN;
+		dateConstraint.weightx = ADDEDITDIALOG_LAYOUT_DATEFIELD_DATE_COLUMN_WEIGHT;
+		gridBagContainer.add(txtDueDate, dateConstraint);
+		dateConstraint.gridx = ADDEDITDIALOG_LAYOUT_DATEFIELD_HOUR_COLUMN;
+		dateConstraint.gridwidth = ADDEDITDIALOG_LAYOUT_DATEFIELD_HOUR_COLUMN_SPAN;
+		dateConstraint.weightx = ADDEDITDIALOG_LAYOUT_DATEFIELD_HOUR_COLUMN_WEIGHT;
 		gridBagContainer.add(txtDueDateHour, dateConstraint);
-		dateConstraint.gridx = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_MINUTE;
+		dateConstraint.gridx = ADDEDITDIALOG_LAYOUT_DATEFIELD_MINUTE_COLUMN;
+		dateConstraint.gridwidth = ADDEDITDIALOG_LAYOUT_DATEFIELD_MINUTE_COLUMN_SPAN;
+		dateConstraint.weightx = ADDEDITDIALOG_LAYOUT_DATEFIELD_MINUTE_COLUMN_WEIGHT;
 		gridBagContainer.add(txtDueDateMinute, dateConstraint);
 
 		// Add priority components
@@ -405,22 +403,6 @@ public class AddEditDialog extends JDialog {
 		this.getRootPane().setDefaultButton(btnOK);
 	}
 
-	private Boolean IsDateValid(int year, int month, int day, int hour,
-			int minute) {
-		Date date = new Date(year, month, day, hour, minute);
-
-		// If Date constructor doesn't create the same date the user has
-		// entered, display an error message.
-		// This, as an example, happens if a user enters 31th of April (a
-		// month which only has 30 days). The Date class compensates for
-		// this by referring to the 1st of May instead. This means that the
-		// Date object will refer to another date than the user entered,
-		// which is very confusing.
-		return (date.getYear() == year && date.getMonth() == month
-				&& date.getDate() == day && date.getHours() == hour && date
-					.getMinutes() == minute);
-	}
-
 	/**
 	 * OKButtonHandler
 	 * 
@@ -430,17 +412,12 @@ public class AddEditDialog extends JDialog {
 	 */
 	private void OKButtonHandler() {
 
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				CalendarPanel.dateFormat);
+		Date taskDueDate = new Date();
 		// Create variables with the data from the UI.
 		String taskTitle = txtTitle.getText();
-		// The Date class stores YEAR-1900, so subtract 1900. Add leading 0 to
-		// prevent parseInt empty string exception.
-		int taskDueDateYear = Integer.parseInt("0" + txtDueDateYear.getText()) - 1900;
-		// The Date class stores MONTH-1, so subtract 1. Add leading 0 to
-		// prevent parseInt empty string exception.
-		int taskDueDateMonth = Integer
-				.parseInt("0" + txtDueDateMonth.getText()) - 1;
-		// Add leading 0 to prevent parseInt empty string exception.
-		int taskDueDateDay = Integer.parseInt("0" + txtDueDateDay.getText());
+		String taskDueDateString = txtDueDate.getText();
 		// Add leading 0 to prevent parseInt empty string exception.
 		int taskDueDateHour = Integer.parseInt("0" + txtDueDateHour.getText());
 		// Add leading 0 to prevent parseInt empty string exception.
@@ -459,37 +436,25 @@ public class AddEditDialog extends JDialog {
 			errorMessage += ADDEDITDIALOG_ERROR_NOTITLE + "\n";
 			incorrectDataFormat = true;
 		}
-		// // Year has to be within set limits
-		if (taskDueDateYear > Integer.MAX_VALUE || taskDueDateYear < 1) {
-			errorMessage += ADDEDITDIALOG_ERROR_INVALIDYEAR + "\n";
-			incorrectDataFormat = true;
-		}
-
-		// Month has to be between 1 and 12.
-		if (taskDueDateMonth > 12 || taskDueDateMonth < 1) {
-			errorMessage += ADDEDITDIALOG_ERROR_INVALIDMONTH + "\n";
-			incorrectDataFormat = true;
-		}
-		// Day has to be between 1 and 31.
-		if (taskDueDateDay > 31 || taskDueDateDay < 1) {
-			errorMessage += ADDEDITDIALOG_ERROR_INVALIDDAY + "\n";
-			incorrectDataFormat = true;
-		}
-		// Hour has to be between 0 and 23
-		if (taskDueDateHour > 23 || taskDueDateHour < 0) {
+		// Hour has to be set within limits.
+		if (taskDueDateHour < 0 || taskDueDateHour > 23) {
 			errorMessage += ADDEDITDIALOG_ERROR_INVALIDHOUR + "\n";
 			incorrectDataFormat = true;
 		}
-		// Minute has to be between 0 and 59.
-		if (taskDueDateMinute > 59 || taskDueDateMinute < 0) {
+		// Minute has to be set within limits.
+		if (taskDueDateMinute < 0 || taskDueDateMinute > 59) {
 			errorMessage += ADDEDITDIALOG_ERROR_INVALIDMINUTE + "\n";
 			incorrectDataFormat = true;
 		}
-		// If everything has gone well this far, check if the specified date
-		// actually exists (since some months have less than 31 days).
-		if (!incorrectDataFormat
-				&& !IsDateValid(taskDueDateYear, taskDueDateMonth,
-						taskDueDateDay, taskDueDateHour, taskDueDateMinute)) {
+		// Date has to be set
+		if (txtDueDate.getText().toString().isEmpty()) {
+			errorMessage += ADDEDITDIALOG_ERROR_NODATE + "\n";
+			incorrectDataFormat = true;
+		}
+		// Create the date object from the user information.
+		try {
+			taskDueDate = dateFormat.parse(taskDueDateString);
+		} catch (ParseException e) {
 			errorMessage += ADDEDITDIALOG_ERROR_DATEINVALID + "\n";
 			incorrectDataFormat = true;
 		}
@@ -501,15 +466,14 @@ public class AddEditDialog extends JDialog {
 							JOptionPane.ERROR_MESSAGE);
 		} else {
 
-			// Create the date object from the user information.
-			Date taskDueDate = new Date(taskDueDateYear, taskDueDateMonth,
-					taskDueDateDay, taskDueDateHour, taskDueDateMinute);
-
-			// If no errors occured, we start the Task creation/changing.
+			// If no errors occurred, we start the Task creation/changing.
 
 			// Make sure the calling class knows we have clicked OK.
 			clickedOK = true;
 
+			taskDueDate.setHours(taskDueDateHour);
+			taskDueDate.setMinutes(taskDueDateMinute);
+			
 			// If the task is a new task, create it. Otherwise edit the
 			// provided task.
 			if (dialogMode == DialogMode.ADD_DIALOG) {
@@ -558,13 +522,15 @@ public class AddEditDialog extends JDialog {
 	 */
 	public void ShowAddDialog() {
 		Date currentDate = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				CalendarPanel.dateFormat);
+		SimpleDateFormat hourFormat = new SimpleDateFormat("HH");
+		SimpleDateFormat minuteFormat = new SimpleDateFormat("mm");
 		dialogMode = DialogMode.ADD_DIALOG;
 		clickedOK = false;
-		txtDueDateYear.setText(Integer.toString(currentDate.getYear() + 1900));
-		txtDueDateMonth.setText(Integer.toString(currentDate.getMonth() + 1));
-		txtDueDateDay.setText(Integer.toString(currentDate.getDate()));
-		txtDueDateHour.setText(Integer.toString(currentDate.getHours()));
-		txtDueDateMinute.setText(Integer.toString(currentDate.getMinutes()));
+		txtDueDate.setText(dateFormat.format(currentDate));
+		txtDueDateHour.setText(hourFormat.format(currentDate));
+		txtDueDateMinute.setText(minuteFormat.format(currentDate));
 		this.setTitle(ADDEDITDIALOG_ADD_DIALOG_TITLE);
 		this.setVisible(true);
 	}
@@ -579,21 +545,18 @@ public class AddEditDialog extends JDialog {
 	 *              data from editTask.
 	 */
 	public void ShowEditDialog(Task editTask) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				CalendarPanel.dateFormat);
+		SimpleDateFormat hourFormat = new SimpleDateFormat("HH");
+		SimpleDateFormat minuteFormat = new SimpleDateFormat("mm");
 		dialogMode = DialogMode.EDIT_DIALOG;
 		task = editTask;
 		clickedOK = false;
 		this.setTitle(ADDEDITDIALOG_EDIT_DIALOG_TITLE);
 		txtTitle.setText(editTask.getTitle());
-		txtDueDateYear.setText(Integer
-				.toString(editTask.getDueDate().getYear() + 1900));
-		txtDueDateMonth.setText(Integer.toString(editTask.getDueDate()
-				.getMonth() + 1));
-		txtDueDateDay
-				.setText(Integer.toString(editTask.getDueDate().getDate()));
-		txtDueDateHour.setText(Integer.toString(editTask.getDueDate()
-				.getHours()));
-		txtDueDateMinute.setText(Integer.toString(editTask.getDueDate()
-				.getMinutes()));
+		txtDueDate.setText(dateFormat.format(editTask.getDueDate()));
+		txtDueDateHour.setText(hourFormat.format(editTask.getDueDate()));
+		txtDueDateMinute.setText(minuteFormat.format(editTask.getDueDate()));
 		sliPriority.setValue(editTask.getPriority());
 		this.setVisible(true);
 
