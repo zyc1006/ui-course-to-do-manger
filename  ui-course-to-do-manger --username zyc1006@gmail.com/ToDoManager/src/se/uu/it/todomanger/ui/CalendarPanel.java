@@ -73,6 +73,8 @@ public class CalendarPanel extends JPanel {
  
 	private JComponent showDate;
  
+	public static final String dateFormat = "dd/MM/yyyy";
+	
 	public static CalendarPanel getInstance() {
 		return new CalendarPanel();
 	}
@@ -97,7 +99,7 @@ public class CalendarPanel extends JPanel {
 	}
  
 	private CalendarPanel(Date date) {
-		this(date, "dd/MM/yyyy");
+		this(date, dateFormat);
 	}
  
 	private CalendarPanel(String format) {
