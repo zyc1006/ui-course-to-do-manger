@@ -7,8 +7,11 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Date;
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -83,8 +86,17 @@ public class AddEditDialog extends JDialog {
 	public static final int ADDEDITDIALOG_BUTTON_HEIGHT = 36;
 
 	// Padding of GridBagView
-	public static final int ADDEDITDIALOG_LAYOUT_PADDING_X = 5;
-	public static final int ADDEDITDIALOG_LAYOUT_PADDING_Y = 5;
+	public static final int ADDEDITDIALOG_LAYOUT_COMMON_PADDING_TOP = 10;
+	public static final int ADDEDITDIALOG_LAYOUT_COMMON_PADDING_RIGHT = 10;
+
+	public static final int ADDEDITDIALOG_LAYOUT_LABEL_PADDING_LEFT = 10;
+	public static final int ADDEDITDIALOG_LAYOUT_LABEL_PADDING_BOTTOM = 0;
+
+	public static final int ADDEDITDIALOG_LAYOUT_FIELDS_PADDING_LEFT = 0;
+	public static final int ADDEDITDIALOG_LAYOUT_FIELDS_PADDING_BOTTOM = 0;
+
+	public static final int ADDEDITDIALOG_LAYOUT_BUTTON_PADDING_LEFT = 10;
+	public static final int ADDEDITDIALOG_LAYOUT_BUTTON_PADDING_BOTTOM = 10;
 
 	// Grid cell filling
 	public static final int ADDEDITDIALOG_LAYOUT_WIDETEXT_FILL = GridBagConstraints.HORIZONTAL;
@@ -141,6 +153,7 @@ public class AddEditDialog extends JDialog {
 
 	// Error messages
 	public static final String ADDEDITDIALOG_ERROR_NOTITLE = "Please enter a title.";
+	public static final String ADDEDITDIALOG_ERROR_INVALIDYEAR = "Please enter a valid year.";
 	public static final String ADDEDITDIALOG_ERROR_INVALIDMONTH = "Please enter a month between 1 and 12.";
 	public static final String ADDEDITDIALOG_ERROR_INVALIDDAY = "Please enter a day between 1 and 31.";
 	public static final String ADDEDITDIALOG_ERROR_INVALIDHOUR = "Please enter an hour between 0 and 23.";
@@ -170,8 +183,19 @@ public class AddEditDialog extends JDialog {
 	private JSlider sliPriority;
 	private JComboBox cmbCategory;
 
+	private Dimension wideTextDimension = new Dimension(
+			ADDEDITDIALOG_WIDETEXT_WIDTH, ADDEDITDIALOG_WIDETEXT_HEIGHT);
+	private Dimension dateFieldDimension = new Dimension(
+			ADDEDITDIALOG_SHORTTEXT_WIDTH, ADDEDITDIALOG_SHORTTEXT_HEIGHT);
+	private Dimension sliderDimension = new Dimension(
+			ADDEDITDIALOG_SLIDER_WIDTH, ADDEDITDIALOG_SLIDER_HEIGHT);
+	private Dimension longTextDimension = new Dimension(
+			ADDEDITDIALOG_LONGTEXT_WIDTH, ADDEDITDIALOG_LONGTEXT_HEIGHT);
+	private Dimension buttonDimension = new Dimension(
+			ADDEDITDIALOG_BUTTON_WIDTH, ADDEDITDIALOG_BUTTON_HEIGHT);
+
 	// The content pane of the dialog
-	Container container = null;
+	private Container gridBagContainer;
 
 	/**
 	 * AddEditDialog
@@ -183,12 +207,7 @@ public class AddEditDialog extends JDialog {
 	 */
 	public AddEditDialog() {
 
-		// Use the GridLayout for the dialog.
-		container = this.getContentPane();
-		container.setLayout(new GridBagLayout());
-
-		// A GridBagConstraints for placing the controls in the dialog.
-		GridBagConstraints constraint = new GridBagConstraints();
+		// Step 1: Create and set properties of components
 
 		// Information labels
 		JLabel lblTitle = new JLabel(ADDEDITDIALOG_TITLE_LABEL);
@@ -199,37 +218,27 @@ public class AddEditDialog extends JDialog {
 
 		// Text field for title
 		txtTitle = new JTextField();
-		txtTitle.setPreferredSize(new Dimension(ADDEDITDIALOG_WIDETEXT_WIDTH,
-				ADDEDITDIALOG_WIDETEXT_HEIGHT));
+		txtTitle.setPreferredSize(wideTextDimension);
 
 		// Combo box for categories
 		cmbCategory = new JComboBox();
-		cmbCategory.setPreferredSize(new Dimension(
-				ADDEDITDIALOG_WIDETEXT_WIDTH, ADDEDITDIALOG_WIDETEXT_HEIGHT));
-
-		cmbCategory.setEnabled(false);
+		cmbCategory.setPreferredSize(wideTextDimension);
 
 		// Text fields for due date
 		txtDueDateYear = new JTextField();
-		txtDueDateYear.setPreferredSize(new Dimension(
-				ADDEDITDIALOG_SHORTTEXT_WIDTH, ADDEDITDIALOG_SHORTTEXT_HEIGHT));
+		txtDueDateYear.setPreferredSize(dateFieldDimension);
 		txtDueDateMonth = new JTextField();
-		txtDueDateMonth.setPreferredSize(new Dimension(
-				ADDEDITDIALOG_SHORTTEXT_WIDTH, ADDEDITDIALOG_SHORTTEXT_HEIGHT));
+		txtDueDateMonth.setPreferredSize(dateFieldDimension);
 		txtDueDateDay = new JTextField();
-		txtDueDateDay.setPreferredSize(new Dimension(
-				ADDEDITDIALOG_SHORTTEXT_WIDTH, ADDEDITDIALOG_SHORTTEXT_HEIGHT));
+		txtDueDateDay.setPreferredSize(dateFieldDimension);
 		txtDueDateHour = new JTextField();
-		txtDueDateHour.setPreferredSize(new Dimension(
-				ADDEDITDIALOG_SHORTTEXT_WIDTH, ADDEDITDIALOG_SHORTTEXT_HEIGHT));
+		txtDueDateHour.setPreferredSize(dateFieldDimension);
 		txtDueDateMinute = new JTextField();
-		txtDueDateMinute.setPreferredSize(new Dimension(
-				ADDEDITDIALOG_SHORTTEXT_WIDTH, ADDEDITDIALOG_SHORTTEXT_HEIGHT));
+		txtDueDateMinute.setPreferredSize(dateFieldDimension);
 
 		// JSlider for Priority
 		sliPriority = new JSlider();
-		sliPriority.setPreferredSize(new Dimension(ADDEDITDIALOG_SLIDER_WIDTH,
-				ADDEDITDIALOG_SLIDER_HEIGHT));
+		sliPriority.setPreferredSize(sliderDimension);
 		sliPriority.setMinimum(ADDEDITDIALOG_PRIORITY_MIN);
 		sliPriority.setMaximum(ADDEDITDIALOG_PRIORITY_MAX);
 		sliPriority.setMajorTickSpacing(ADDEDITDIALOG_PRIORITY_TICK_SPACING);
@@ -246,174 +255,137 @@ public class AddEditDialog extends JDialog {
 
 		// JTextFields for Description
 		txtDescription = new JTextArea();
-		txtDescription.setPreferredSize(new Dimension(
-				ADDEDITDIALOG_LONGTEXT_WIDTH, ADDEDITDIALOG_LONGTEXT_HEIGHT));
+		txtDescription.setPreferredSize(longTextDimension);
 
 		// JButtons for OK and Cancel
-		JButton btnCancel = new JButton(ADDEDITDIALOG_CANCEL_LABEL);
 		JButton btnOK = new JButton(ADDEDITDIALOG_OK_LABEL);
-
-		btnCancel.setSize(ADDEDITDIALOG_BUTTON_WIDTH,
-				ADDEDITDIALOG_BUTTON_HEIGHT);
-		btnOK.setSize(ADDEDITDIALOG_BUTTON_WIDTH, ADDEDITDIALOG_BUTTON_HEIGHT);
+		btnOK.setSize(buttonDimension);
+		JButton btnCancel = new JButton(ADDEDITDIALOG_CANCEL_LABEL);
+		btnCancel.setSize(buttonDimension);
 
 		// Action handlers for buttons
 		btnOK.addActionListener(new ActionListener() {
 			@Override
-			/** actionPerformed
-			 * @author bjoern
-			 * @author sara
-			 * @param event
-			 * @description Handles the click of the OK button.
-			 */
 			public void actionPerformed(ActionEvent event) {
 				OKButtonHandler();
 			}
 		});
 		btnCancel.addActionListener(new ActionListener() {
 			@Override
-			/** actionPerformed
-			 * @author bjoern
-			 * @author sara
-			 * @param event
-			 * @description Handles the click of the Cancel button.
-			 */
 			public void actionPerformed(ActionEvent event) {
 				CancelButtonHandler();
 			}
 		});
 
-		// Set padding for the GridBagView
-		constraint.ipadx = ADDEDITDIALOG_LAYOUT_PADDING_X;
-		constraint.ipady = ADDEDITDIALOG_LAYOUT_PADDING_Y;
+		// Step 2: Place the components in the content pane
+
+		// Use the GridBagLayout for the dialog.
+		gridBagContainer = this.getContentPane();
+		gridBagContainer.setLayout(new GridBagLayout());
+
+		// A GridBagConstraints for placing the controls in the dialog.
+		GridBagConstraints labelConstraint = new GridBagConstraints();
+		GridBagConstraints fieldsConstraint = new GridBagConstraints();
+		GridBagConstraints dateConstraint = new GridBagConstraints();
+		GridBagConstraints buttonConstraint = new GridBagConstraints();
+
+		// Common information for the labels
+		labelConstraint.insets = new Insets(
+				ADDEDITDIALOG_LAYOUT_COMMON_PADDING_TOP,
+				ADDEDITDIALOG_LAYOUT_LABEL_PADDING_LEFT,
+				ADDEDITDIALOG_LAYOUT_LABEL_PADDING_BOTTOM,
+				ADDEDITDIALOG_LAYOUT_COMMON_PADDING_RIGHT);
+		labelConstraint.gridx = ADDEDITDIALOG_LAYOUT_LABEL_COLUMN;
+		labelConstraint.gridwidth = ADDEDITDIALOG_LAYOUT_LABEL_COLUMN_SPAN;
+		labelConstraint.anchor = ADDEDITDIALOG_LAYOUT_LABEL_ANCHOR;
+		labelConstraint.fill = ADDEDITDIALOG_LABEL_FILL;
+		labelConstraint.weightx = ADDEDITDIALOG_LAYOUT_LABEL_COLUMN_WEIGHT;
+
+		// Common information for the fields/sliders/combobox
+		fieldsConstraint.insets = new Insets(
+				ADDEDITDIALOG_LAYOUT_COMMON_PADDING_TOP,
+				ADDEDITDIALOG_LAYOUT_FIELDS_PADDING_LEFT,
+				ADDEDITDIALOG_LAYOUT_FIELDS_PADDING_BOTTOM,
+				ADDEDITDIALOG_LAYOUT_COMMON_PADDING_RIGHT);
+		fieldsConstraint.gridx = ADDEDITDIALOG_LAYOUT_FIELDS_COLUMN;
+		fieldsConstraint.gridwidth = ADDEDITDIALOG_LAYOUT_FIELDS_COLUMN_SPAN;
+		fieldsConstraint.anchor = ADDEDITDIALOG_LAYOUT_FIELDS_ANCHOR;
+		fieldsConstraint.weightx = ADDEDITDIALOG_LAYOUT_FIELDS_COLUMN_WEIGHT;
+
+		// Common information for the date fields
+		dateConstraint.insets = new Insets(
+				ADDEDITDIALOG_LAYOUT_COMMON_PADDING_TOP,
+				ADDEDITDIALOG_LAYOUT_FIELDS_PADDING_LEFT,
+				ADDEDITDIALOG_LAYOUT_FIELDS_PADDING_BOTTOM,
+				ADDEDITDIALOG_LAYOUT_COMMON_PADDING_RIGHT);
+		dateConstraint.gridy = ADDEDITDIALOG_LAYOUT_DUEDATE_ROW;
+		dateConstraint.gridwidth = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_SPAN;
+		dateConstraint.anchor = ADDEDITDIALOG_LAYOUT_DATEFIELD_ANCHOR;
+		dateConstraint.fill = ADDEDITDIALOG_LAYOUT_DATEFIELD_FILL;
+		dateConstraint.weightx = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_WEIGHT;
+
+		// Common information for the buttons
+		buttonConstraint.insets = new Insets(
+				ADDEDITDIALOG_LAYOUT_COMMON_PADDING_TOP,
+				ADDEDITDIALOG_LAYOUT_BUTTON_PADDING_LEFT,
+				ADDEDITDIALOG_LAYOUT_BUTTON_PADDING_BOTTOM,
+				ADDEDITDIALOG_LAYOUT_COMMON_PADDING_RIGHT);
+		buttonConstraint.weighty = ADDEDITDIALOG_LAYOUT_BUTTONS_ROW_WEIGHT;
+		buttonConstraint.gridx = ADDEDITDIALOG_LAYOUT_BUTTONS_COLUMN;
+		buttonConstraint.gridy = ADDEDITDIALOG_LAYOUT_BUTTONS_ROW;
+		buttonConstraint.gridwidth = ADDEDITDIALOG_LAYOUT_BUTTONS_COLUMN_SPAN;
+		buttonConstraint.anchor = ADDEDITDIALOG_LAYOUT_BUTTONS_ANCHOR;
+		buttonConstraint.fill = ADDEDITDIALOG_LAYOUT_BUTTONS_FILL;
 
 		// Add Title components
-		constraint.weighty = ADDEDITDIALOG_LAYOUT_TITLE_ROW_WEIGHT;
-		constraint.gridx = ADDEDITDIALOG_LAYOUT_LABEL_COLUMN;
-		constraint.gridy = ADDEDITDIALOG_LAYOUT_TITLE_ROW;
-		constraint.gridwidth = ADDEDITDIALOG_LAYOUT_LABEL_COLUMN_SPAN;
-		constraint.anchor = ADDEDITDIALOG_LAYOUT_LABEL_ANCHOR;
-		constraint.fill = ADDEDITDIALOG_LABEL_FILL;
-		constraint.weightx = ADDEDITDIALOG_LAYOUT_LABEL_COLUMN_WEIGHT;
-		container.add(lblTitle, constraint);
-		constraint.gridx = ADDEDITDIALOG_LAYOUT_FIELDS_COLUMN;
-		constraint.gridy = ADDEDITDIALOG_LAYOUT_TITLE_ROW;
-		constraint.gridwidth = ADDEDITDIALOG_LAYOUT_FIELDS_COLUMN_SPAN;
-		constraint.anchor = ADDEDITDIALOG_LAYOUT_FIELDS_ANCHOR;
-		constraint.fill = ADDEDITDIALOG_LAYOUT_WIDETEXT_FILL;
-		container.add(txtTitle, constraint);
+		labelConstraint.gridy = ADDEDITDIALOG_LAYOUT_TITLE_ROW;
+		gridBagContainer.add(lblTitle, labelConstraint);
+		fieldsConstraint.weighty = ADDEDITDIALOG_LAYOUT_TITLE_ROW_WEIGHT;
+		fieldsConstraint.gridy = ADDEDITDIALOG_LAYOUT_TITLE_ROW;
+		fieldsConstraint.fill = ADDEDITDIALOG_LAYOUT_WIDETEXT_FILL;
+		gridBagContainer.add(txtTitle, fieldsConstraint);
 
 		// Add Category components
-		constraint.weighty = ADDEDITDIALOG_LAYOUT_CATEGORY_ROW_WEIGHT;
-		constraint.gridx = ADDEDITDIALOG_LAYOUT_LABEL_COLUMN;
-		constraint.gridy = ADDEDITDIALOG_LAYOUT_CATEGORY_ROW;
-		constraint.gridwidth = ADDEDITDIALOG_LAYOUT_LABEL_COLUMN_SPAN;
-		constraint.anchor = ADDEDITDIALOG_LAYOUT_LABEL_ANCHOR;
-		constraint.fill = ADDEDITDIALOG_LABEL_FILL;
-		constraint.weightx = ADDEDITDIALOG_LAYOUT_LABEL_COLUMN_WEIGHT;
-		container.add(lblCategory, constraint);
-		constraint.gridx = ADDEDITDIALOG_LAYOUT_FIELDS_COLUMN;
-		constraint.gridy = ADDEDITDIALOG_LAYOUT_CATEGORY_ROW;
-		constraint.gridwidth = ADDEDITDIALOG_LAYOUT_FIELDS_COLUMN_SPAN;
-		constraint.anchor = ADDEDITDIALOG_LAYOUT_FIELDS_ANCHOR;
-		constraint.fill = ADDEDITDIALOG_LAYOUT_WIDETEXT_FILL;
-		constraint.weightx = ADDEDITDIALOG_LAYOUT_FIELDS_COLUMN_WEIGHT;
-		container.add(cmbCategory, constraint);
+		labelConstraint.gridy = ADDEDITDIALOG_LAYOUT_CATEGORY_ROW;
+		gridBagContainer.add(lblCategory, labelConstraint);
+		fieldsConstraint.weighty = ADDEDITDIALOG_LAYOUT_CATEGORY_ROW_WEIGHT;
+		fieldsConstraint.gridy = ADDEDITDIALOG_LAYOUT_CATEGORY_ROW;
+		fieldsConstraint.fill = ADDEDITDIALOG_LAYOUT_WIDETEXT_FILL;
+		gridBagContainer.add(cmbCategory, fieldsConstraint);
 
 		// Add Date components
-		constraint.weighty = ADDEDITDIALOG_LAYOUT_DUEDATE_ROW_WEIGHT;
-
-		constraint.gridx = ADDEDITDIALOG_LAYOUT_LABEL_COLUMN;
-		constraint.gridy = ADDEDITDIALOG_LAYOUT_DUEDATE_ROW;
-		constraint.gridwidth = ADDEDITDIALOG_LAYOUT_LABEL_COLUMN_SPAN;
-		constraint.anchor = ADDEDITDIALOG_LAYOUT_LABEL_ANCHOR;
-		constraint.fill = ADDEDITDIALOG_LABEL_FILL;
-		constraint.weightx = ADDEDITDIALOG_LAYOUT_LABEL_COLUMN_WEIGHT;
-		container.add(lblDueDate, constraint);
-
-		constraint.gridx = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_YEAR;
-		constraint.gridy = ADDEDITDIALOG_LAYOUT_DUEDATE_ROW;
-		constraint.gridwidth = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_SPAN;
-		constraint.anchor = ADDEDITDIALOG_LAYOUT_DATEFIELD_ANCHOR;
-		constraint.fill = ADDEDITDIALOG_LAYOUT_DATEFIELD_FILL;
-		constraint.weightx = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_WEIGHT;
-		container.add(txtDueDateYear, constraint);
-
-		constraint.gridx = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_MONTH;
-		constraint.gridy = ADDEDITDIALOG_LAYOUT_DUEDATE_ROW;
-		constraint.gridwidth = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_SPAN;
-		constraint.anchor = ADDEDITDIALOG_LAYOUT_DATEFIELD_ANCHOR;
-		constraint.fill = ADDEDITDIALOG_LAYOUT_DATEFIELD_FILL;
-		constraint.weightx = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_WEIGHT;
-		container.add(txtDueDateMonth, constraint);
-
-		constraint.gridx = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_DAY;
-		constraint.gridy = ADDEDITDIALOG_LAYOUT_DUEDATE_ROW;
-		constraint.gridwidth = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_SPAN;
-		constraint.anchor = ADDEDITDIALOG_LAYOUT_DATEFIELD_ANCHOR;
-		constraint.fill = ADDEDITDIALOG_LAYOUT_DATEFIELD_FILL;
-		constraint.weightx = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_WEIGHT;
-		container.add(txtDueDateDay, constraint);
-
-		constraint.gridx = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_HOUR;
-		constraint.gridy = ADDEDITDIALOG_LAYOUT_DUEDATE_ROW;
-		constraint.gridwidth = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_SPAN;
-		constraint.anchor = ADDEDITDIALOG_LAYOUT_DATEFIELD_ANCHOR;
-		constraint.fill = ADDEDITDIALOG_LAYOUT_DATEFIELD_FILL;
-		constraint.weightx = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_WEIGHT;
-		container.add(txtDueDateHour, constraint);
-
-		constraint.gridx = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_MINUTE;
-		constraint.gridy = ADDEDITDIALOG_LAYOUT_DUEDATE_ROW;
-		constraint.gridwidth = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_SPAN;
-		constraint.anchor = ADDEDITDIALOG_LAYOUT_DATEFIELD_ANCHOR;
-		constraint.fill = ADDEDITDIALOG_LAYOUT_DATEFIELD_FILL;
-		constraint.weightx = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_WEIGHT;
-		container.add(txtDueDateMinute, constraint);
+		labelConstraint.weighty = ADDEDITDIALOG_LAYOUT_DUEDATE_ROW_WEIGHT;
+		labelConstraint.gridy = ADDEDITDIALOG_LAYOUT_DUEDATE_ROW;
+		gridBagContainer.add(lblDueDate, labelConstraint);
+		dateConstraint.gridx = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_YEAR;
+		gridBagContainer.add(txtDueDateYear, dateConstraint);
+		dateConstraint.gridx = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_MONTH;
+		gridBagContainer.add(txtDueDateMonth, dateConstraint);
+		dateConstraint.gridx = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_DAY;
+		gridBagContainer.add(txtDueDateDay, dateConstraint);
+		dateConstraint.gridx = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_HOUR;
+		gridBagContainer.add(txtDueDateHour, dateConstraint);
+		dateConstraint.gridx = ADDEDITDIALOG_LAYOUT_DATEFIELD_COLUMN_MINUTE;
+		gridBagContainer.add(txtDueDateMinute, dateConstraint);
 
 		// Add priority components
-		constraint.weighty = ADDEDITDIALOG_LAYOUT_PRIORITY_ROW_WEIGHT;
-		constraint.gridx = ADDEDITDIALOG_LAYOUT_LABEL_COLUMN;
-		constraint.gridy = ADDEDITDIALOG_LAYOUT_PRIORITY_ROW;
-		constraint.gridwidth = ADDEDITDIALOG_LAYOUT_LABEL_COLUMN_SPAN;
-		constraint.anchor = ADDEDITDIALOG_LAYOUT_LABEL_ANCHOR;
-		constraint.fill = ADDEDITDIALOG_LABEL_FILL;
-		constraint.weightx = ADDEDITDIALOG_LAYOUT_LABEL_COLUMN_WEIGHT;
-		container.add(lblPriority, constraint);
-		constraint.gridx = ADDEDITDIALOG_LAYOUT_FIELDS_COLUMN;
-		constraint.gridy = ADDEDITDIALOG_LAYOUT_PRIORITY_ROW;
-		constraint.gridwidth = ADDEDITDIALOG_LAYOUT_FIELDS_COLUMN_SPAN;
-		constraint.anchor = ADDEDITDIALOG_LAYOUT_FIELDS_ANCHOR;
-		constraint.fill = ADDEDITDIALOG_LAYOUT_SLIDER_FILL;
-		constraint.weightx = ADDEDITDIALOG_LAYOUT_FIELDS_COLUMN_WEIGHT;
-		container.add(sliPriority, constraint);
+		labelConstraint.gridy = ADDEDITDIALOG_LAYOUT_PRIORITY_ROW;
+		gridBagContainer.add(lblPriority, labelConstraint);
+		fieldsConstraint.weighty = ADDEDITDIALOG_LAYOUT_PRIORITY_ROW_WEIGHT;
+		fieldsConstraint.gridy = ADDEDITDIALOG_LAYOUT_PRIORITY_ROW;
+		fieldsConstraint.fill = ADDEDITDIALOG_LAYOUT_SLIDER_FILL;
+		gridBagContainer.add(sliPriority, fieldsConstraint);
 
 		// Add description components
-		constraint.weighty = ADDEDITDIALOG_LAYOUT_DESCRIPTION_ROW_WEIGHT;
-		constraint.gridx = ADDEDITDIALOG_LAYOUT_LABEL_COLUMN;
-		constraint.gridy = ADDEDITDIALOG_LAYOUT_DESCRIPTION_ROW;
-		constraint.gridwidth = ADDEDITDIALOG_LAYOUT_LABEL_COLUMN_SPAN;
-		constraint.anchor = ADDEDITDIALOG_LAYOUT_LABEL_ANCHOR;
-		constraint.fill = ADDEDITDIALOG_LABEL_FILL;
-		constraint.weightx = ADDEDITDIALOG_LAYOUT_LABEL_COLUMN_WEIGHT;
-		container.add(lblDescription, constraint);
-		constraint.gridx = ADDEDITDIALOG_LAYOUT_FIELDS_COLUMN;
-		constraint.gridy = ADDEDITDIALOG_LAYOUT_DESCRIPTION_ROW;
-		constraint.gridwidth = ADDEDITDIALOG_LAYOUT_FIELDS_COLUMN_SPAN;
-		constraint.anchor = ADDEDITDIALOG_LAYOUT_FIELDS_ANCHOR;
-		constraint.fill = ADDEDITDIALOG_LAYOUT_LONGTEXT_FILL;
-		constraint.weightx = ADDEDITDIALOG_LAYOUT_FIELDS_COLUMN_WEIGHT;
-		container.add(txtDescription, constraint);
+		labelConstraint.gridy = ADDEDITDIALOG_LAYOUT_DESCRIPTION_ROW;
+		gridBagContainer.add(lblDescription, labelConstraint);
+		fieldsConstraint.weighty = ADDEDITDIALOG_LAYOUT_DESCRIPTION_ROW_WEIGHT;
+		fieldsConstraint.gridy = ADDEDITDIALOG_LAYOUT_DESCRIPTION_ROW;
+		fieldsConstraint.fill = ADDEDITDIALOG_LAYOUT_LONGTEXT_FILL;
+		gridBagContainer.add(txtDescription, fieldsConstraint);
 
 		// Add OK/Cancel components
-		constraint.weighty = ADDEDITDIALOG_LAYOUT_BUTTONS_ROW_WEIGHT;
 		JPanel pnlButtonPanel = new JPanel();
-
-		constraint.gridx = ADDEDITDIALOG_LAYOUT_BUTTONS_COLUMN;
-		constraint.gridy = ADDEDITDIALOG_LAYOUT_BUTTONS_ROW;
-		constraint.gridwidth = ADDEDITDIALOG_LAYOUT_BUTTONS_COLUMN_SPAN;
-		constraint.anchor = ADDEDITDIALOG_LAYOUT_BUTTONS_ANCHOR;
-		constraint.fill = ADDEDITDIALOG_LAYOUT_BUTTONS_FILL;
 		if (ADDEDITDIALOG_LAYOUT_ORDER_CANCELOK) {
 			pnlButtonPanel.add(btnCancel);
 			pnlButtonPanel.add(btnOK);
@@ -421,13 +393,32 @@ public class AddEditDialog extends JDialog {
 			pnlButtonPanel.add(btnOK);
 			pnlButtonPanel.add(btnCancel);
 		}
-		container.add(pnlButtonPanel, constraint);
+		gridBagContainer.add(pnlButtonPanel, buttonConstraint);
+
+		// Step 3: Set the overall settings for the dialog.
 
 		// Dialog settings
 		this.setModal(true);
 		this.pack();
 		this.setResizable(ADDEDITDIALOG_WINDOW_RESIZABLE);
 		this.setLocationRelativeTo(null);
+		this.getRootPane().setDefaultButton(btnOK);
+	}
+
+	private Boolean IsDateValid(int year, int month, int day, int hour,
+			int minute) {
+		Date date = new Date(year, month, day, hour, minute);
+
+		// If Date constructor doesn't create the same date the user has
+		// entered, display an error message.
+		// This, as an example, happens if a user enters 31th of April (a
+		// month which only has 30 days). The Date class compensates for
+		// this by referring to the 1st of May instead. This means that the
+		// Date object will refer to another date than the user entered,
+		// which is very confusing.
+		return (date.getYear() == year && date.getMonth() == month
+				&& date.getDate() == day && date.getHours() == hour && date
+					.getMinutes() == minute);
 	}
 
 	/**
@@ -441,50 +432,69 @@ public class AddEditDialog extends JDialog {
 
 		// Create variables with the data from the UI.
 		String taskTitle = txtTitle.getText();
+		// The Date class stores YEAR-1900, so subtract 1900. Add leading 0 to
+		// prevent parseInt empty string exception.
 		int taskDueDateYear = Integer.parseInt("0" + txtDueDateYear.getText()) - 1900;
+		// The Date class stores MONTH-1, so subtract 1. Add leading 0 to
+		// prevent parseInt empty string exception.
 		int taskDueDateMonth = Integer
 				.parseInt("0" + txtDueDateMonth.getText()) - 1;
+		// Add leading 0 to prevent parseInt empty string exception.
 		int taskDueDateDay = Integer.parseInt("0" + txtDueDateDay.getText());
+		// Add leading 0 to prevent parseInt empty string exception.
 		int taskDueDateHour = Integer.parseInt("0" + txtDueDateHour.getText());
+		// Add leading 0 to prevent parseInt empty string exception.
 		int taskDueDateMinute = Integer.parseInt("0"
 				+ txtDueDateMinute.getText());
 		int taskCategory = cmbCategory.getSelectedIndex();
 		String taskDescription = txtDescription.getText();
 		int taskPriority = sliPriority.getValue();
 
-
 		// Make sure the user has entered correct data
+		Boolean incorrectDataFormat = false;
 		String errorMessage = "";
-		Boolean noError = true;
-		
+
 		// There has to be a title
 		if (txtTitle.getText().length() == 0) {
-			errorMessage += ADDEDITDIALOG_ERROR_NOTITLE;
-			noError = false;
+			errorMessage += ADDEDITDIALOG_ERROR_NOTITLE + "\n";
+			incorrectDataFormat = true;
 		}
+		// // Year has to be within set limits
+		if (taskDueDateYear > Integer.MAX_VALUE || taskDueDateYear < 1) {
+			errorMessage += ADDEDITDIALOG_ERROR_INVALIDYEAR + "\n";
+			incorrectDataFormat = true;
+		}
+
 		// Month has to be between 1 and 12.
 		if (taskDueDateMonth > 12 || taskDueDateMonth < 1) {
-			errorMessage += ADDEDITDIALOG_ERROR_INVALIDMONTH;
-			noError = false;
+			errorMessage += ADDEDITDIALOG_ERROR_INVALIDMONTH + "\n";
+			incorrectDataFormat = true;
 		}
 		// Day has to be between 1 and 31.
-		if (taskDueDateDay > 31 || taskDueDateMonth < 1) {
-			errorMessage += ADDEDITDIALOG_ERROR_INVALIDDAY;
-			noError = false;
+		if (taskDueDateDay > 31 || taskDueDateDay < 1) {
+			errorMessage += ADDEDITDIALOG_ERROR_INVALIDDAY + "\n";
+			incorrectDataFormat = true;
 		}
 		// Hour has to be between 0 and 23
-		if (taskDueDateHour > 23 || taskDueDateMonth < 0) {
-			errorMessage += ADDEDITDIALOG_ERROR_INVALIDHOUR;
-			noError = false;
+		if (taskDueDateHour > 23 || taskDueDateHour < 0) {
+			errorMessage += ADDEDITDIALOG_ERROR_INVALIDHOUR + "\n";
+			incorrectDataFormat = true;
 		}
 		// Minute has to be between 0 and 59.
 		if (taskDueDateMinute > 59 || taskDueDateMinute < 0) {
-			errorMessage += ADDEDITDIALOG_ERROR_INVALIDMINUTE;
-			noError = false;
+			errorMessage += ADDEDITDIALOG_ERROR_INVALIDMINUTE + "\n";
+			incorrectDataFormat = true;
 		}
-
-		// If an error occured, display the error message.
-		if (!noError) {
+		// If everything has gone well this far, check if the specified date
+		// actually exists (since some months have less than 31 days).
+		if (!incorrectDataFormat
+				&& !IsDateValid(taskDueDateYear, taskDueDateMonth,
+						taskDueDateDay, taskDueDateHour, taskDueDateMinute)) {
+			errorMessage += ADDEDITDIALOG_ERROR_DATEINVALID + "\n";
+			incorrectDataFormat = true;
+		}
+		// If an error occurred, display the error message.
+		if (incorrectDataFormat) {
 			JOptionPane
 					.showMessageDialog(this, errorMessage,
 							ADDEDITDIALOG_ERROR_DIALOG_TITLE,
@@ -494,44 +504,28 @@ public class AddEditDialog extends JDialog {
 			// Create the date object from the user information.
 			Date taskDueDate = new Date(taskDueDateYear, taskDueDateMonth,
 					taskDueDateDay, taskDueDateHour, taskDueDateMinute);
-			
-			// If the Date doesn't create the same date the user has entered, display an error message.
-			// This happens if a user enters for example if the user enters 31th of February (a month which
-			// only has 28 (or 29) days, the Date object will then refer to another date than the user
-			// entered, which is bad usability.
-			if (taskDueDate.getYear() != taskDueDateYear
-					|| taskDueDate.getMonth() != taskDueDateMonth
-					|| taskDueDate.getDate() != taskDueDateDay
-					|| taskDueDate.getHours() != taskDueDateHour
-					|| taskDueDate.getMinutes() != taskDueDateMinute) {
-				JOptionPane.showMessageDialog(this,
-						ADDEDITDIALOG_ERROR_DATEINVALID,
-						ADDEDITDIALOG_ERROR_DIALOG_TITLE,
-						JOptionPane.ERROR_MESSAGE);
+
+			// If no errors occured, we start the Task creation/changing.
+
+			// Make sure the calling class knows we have clicked OK.
+			clickedOK = true;
+
+			// If the task is a new task, create it. Otherwise edit the
+			// provided task.
+			if (dialogMode == DialogMode.ADD_DIALOG) {
+				task = new Task(1, taskTitle, taskDueDate, taskCategory,
+						taskDescription, taskPriority, false);
 			} else {
-
-				// If no errors occured, we start the Task creation/changing.
-				
-				// Make sure the calling class knows we have clicked OK.
-				clickedOK = true;
-				
-				// If the task is a new task, create it. Otherwise edit the
-				// provided task.
-				if (dialogMode == DialogMode.ADD_DIALOG) {
-					task = new Task(1, taskTitle, taskDueDate, taskCategory,
-							taskDescription, taskPriority, false);
-				} else {
-					task.setTitle(taskTitle);
-					task.setDueDate(taskDueDate);
-					task.setCategory(taskCategory);
-					task.setDescription(taskDescription);
-					task.setPriority(taskPriority);
-				}
-
-				// Hide the dialog.
-				HideAddEditDialog();
-
+				task.setTitle(taskTitle);
+				task.setDueDate(taskDueDate);
+				task.setCategory(taskCategory);
+				task.setDescription(taskDescription);
+				task.setPriority(taskPriority);
 			}
+
+			// Hide the dialog.
+			HideAddEditDialog();
+
 		}
 	}
 
@@ -563,8 +557,14 @@ public class AddEditDialog extends JDialog {
 	 *              new task.
 	 */
 	public void ShowAddDialog() {
+		Date currentDate = new Date();
 		dialogMode = DialogMode.ADD_DIALOG;
 		clickedOK = false;
+		txtDueDateYear.setText(Integer.toString(currentDate.getYear() + 1900));
+		txtDueDateMonth.setText(Integer.toString(currentDate.getMonth() + 1));
+		txtDueDateDay.setText(Integer.toString(currentDate.getDate()));
+		txtDueDateHour.setText(Integer.toString(currentDate.getHours()));
+		txtDueDateMinute.setText(Integer.toString(currentDate.getMinutes()));
 		this.setTitle(ADDEDITDIALOG_ADD_DIALOG_TITLE);
 		this.setVisible(true);
 	}
