@@ -25,7 +25,8 @@ public class TaskTableModel extends DefaultTableModel {
 	/**
 	 * Column name of the task table
 	 */
-	private final static String[] columnName = {"Title", 
+	private final static String[] columnName = {"Id",
+												"Title", 
 										 		"Category",
 										 		"Priority",
 										 		"Due Date"}; 
@@ -39,8 +40,9 @@ public class TaskTableModel extends DefaultTableModel {
 	private void addTaskAsRow(Task task){
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		Object[] row = {task.getTitle(),
-						(task.getCategory()),
+		Object[] row = {task.getId(),
+						task.getTitle(),
+						task.getCategory(),
 						task.getPriority(),
 						sdf.format(task.getDueDate())};
 		
