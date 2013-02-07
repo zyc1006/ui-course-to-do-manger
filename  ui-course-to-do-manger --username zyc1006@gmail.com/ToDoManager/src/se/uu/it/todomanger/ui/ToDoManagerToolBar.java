@@ -2,6 +2,8 @@ package se.uu.it.todomanger.ui;
 
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -62,6 +64,25 @@ public class ToDoManagerToolBar extends JToolBar {
 		toolBar.add(createTaskButton);
 		toolBar.add(editTaskButton);
 		toolBar.add(delTaskButton);
+		
+		//Actions for the buttons 
+		createTaskButton.addActionListener(new ActionListener() {
+			
+			//Open a dialog for adding tasks
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				AddEditDialog aed = new AddEditDialog();
+				aed.ShowAddDialog();
+//				if(aed.clickedOK()){
+//					System.out.println("ok");
+//				}
+//				else {
+//					System.out.println("cancel");
+//				}
+				
+				
+			}
+		});
 		
 	}
 	

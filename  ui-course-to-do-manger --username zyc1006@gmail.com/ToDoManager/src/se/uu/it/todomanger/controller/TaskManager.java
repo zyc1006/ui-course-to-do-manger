@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import se.uu.it.todomanger.model.Task;
@@ -16,6 +17,14 @@ import se.uu.it.todomanger.ui.ToDoManagerTaskTable;
  * 
  */
 public class TaskManager {
+	
+//----------------------------------------------------------------	
+	//temp category for testing	
+	public ArrayList<String> categoryList = new ArrayList<String>();
+	//temp taskid for testing
+	public int taskid = 0;
+//---------------------------------------------------	
+	
 	
 	//A hashmap stores all the task
 	private HashMap<Integer, Task> taskHashMap = new HashMap<Integer, Task>();
@@ -30,7 +39,10 @@ public class TaskManager {
 	private static TaskManager tm = null;
 
 	private TaskManager() {
-
+		categoryList.add("Study");
+		categoryList.add("Work");
+		categoryList.add("Family");
+		
 	}
 
 	public static TaskManager getInstance() {

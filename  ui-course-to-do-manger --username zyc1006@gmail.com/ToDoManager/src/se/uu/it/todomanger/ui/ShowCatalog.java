@@ -1,5 +1,7 @@
 package se.uu.it.todomanger.ui;
 
+import java.awt.Dimension;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -31,6 +33,9 @@ public class ShowCatalog {
 		sub1.add(sub1_1);
 		sub1.add(sub1_2);
 		JTree tree = new JTree(root);
+//		tree.setMaximumSize(new Dimension(200,100));
+//		tree.setMinimumSize(new Dimension(200,100));
+//		tree.setPreferredSize(new Dimension(200,100));
 		//JScrollPane scroll = new JScrollPane(tree);
 		//panel.add(scroll);
 		

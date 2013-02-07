@@ -121,8 +121,8 @@ public class MainWindow extends JFrame {
 	
 	
 	// Window  data
-	public static final int MAINWINDOW_WIDTH = 600;
-	public static final int MAINWINDOW_HEIGHT = 420;
+	public static final int MAINWINDOW_WIDTH = 800;
+	public static final int MAINWINDOW_HEIGHT = 600;
 	
 	// Language data
 	public static final String MAINWINDOW_TITLE = "To Do Manager";
@@ -136,8 +136,10 @@ public class MainWindow extends JFrame {
 	}
 	public void init()
 	{
+
 		this.setTitle(MAINWINDOW_TITLE);
 		this.setSize(MAINWINDOW_WIDTH,MAINWINDOW_HEIGHT);
+
 		this.setContentPane(createPanel());
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
