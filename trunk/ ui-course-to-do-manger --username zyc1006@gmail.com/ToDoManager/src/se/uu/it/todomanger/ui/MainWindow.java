@@ -117,8 +117,18 @@ import javax.swing.JPanel;
  * @author Edward
  *
  */
-public class MainWindow extends JFrame 
-{
+public class MainWindow extends JFrame {
+	
+	
+	// Window  data
+	public static final int MAINWINDOW_WIDTH = 600;
+	public static final int MAINWINDOW_HEIGHT = 420;
+	
+	// Language data
+	public static final String MAINWINDOW_TITLE = "To Do Manager";
+	
+	
+	
 	public MainWindow(/*ClientController controller*/)
 	{
 		//this.controller = controller;
@@ -126,8 +136,8 @@ public class MainWindow extends JFrame
 	}
 	public void init()
 	{
-		this.setTitle("To Do Manager");
-		this.setSize(600,420);
+		this.setTitle(MAINWINDOW_TITLE);
+		this.setSize(MAINWINDOW_WIDTH,MAINWINDOW_HEIGHT);
 		this.setContentPane(createPanel());
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -155,10 +165,7 @@ public class MainWindow extends JFrame
 	}
 
 	public static void main(String[] args){
-		MainWindow window = new MainWindow();
-                // Bjšrn was here again
-		//Sara too
-	
+		MainWindow window = new MainWindow();	
 		
 	}
 }

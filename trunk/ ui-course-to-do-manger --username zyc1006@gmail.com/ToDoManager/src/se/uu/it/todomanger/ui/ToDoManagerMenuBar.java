@@ -20,6 +20,23 @@ import javax.swing.JPanel;
  */
 public class ToDoManagerMenuBar extends JMenuBar {
 
+	// Window  data
+	public static final int MENUBAR_PANEL_WIDTH = 80;
+	public static final int MENUBAR_PANEL_HEIGHT = 80;
+	
+	// Language data
+	public static final String MENUBAR_FILE_MENU = "File";
+	public static final String MENUBAR_TASK_MENU = "Task";
+	public static final String MENUBAR_HELP_MENU = "Help";
+	public static final String MENUBAR_OPEN_FILE_OPTION = "Open file";
+	public static final String MENUBAR_SAVE_FILE_OPTION = "Save file";
+	public static final String MENUBAR_QUIT_OPTION = "Quit";
+	public static final String MENUBAR_ADD_TASK_OPTION = "Add task";
+	public static final String MENUBAR_EDIT_TASK_OPTION = "Edit task";
+	public static final String MENUBAR_DELETE_TASK_OPTION = "Delete task";
+	public static final String MENUBAR_ABOUT_OPTION = "About us";
+	public static final String MENUBAR_HELP_OPTION = "Help";
+	
 	private static ToDoManagerMenuBar MenuBar = null;
 
 	private ToDoManagerMenuBar() {
@@ -47,38 +64,38 @@ public class ToDoManagerMenuBar extends JMenuBar {
 		 */
 		// to create MenuPanel
 		JPanel panel = new JPanel(new GridLayout(1, 3));
-		panel.setSize(80, 80);
+		panel.setSize(MENUBAR_PANEL_WIDTH, MENUBAR_PANEL_HEIGHT);
 		// JMenuBar MenuBar = new JMenuBar();
 		panel.add(MenuBar);
-		JMenu FileMenu = new JMenu("File");
+		JMenu FileMenu = new JMenu(MENUBAR_FILE_MENU);
 		// FileMenu.setFont(new Font("»ªÎÄ²ÊÔÆ",0,30));
-		JMenu TaskMenu = new JMenu("Task");
-		JMenu HelpMenu = new JMenu("Help");
+		JMenu TaskMenu = new JMenu(MENUBAR_TASK_MENU);
+		JMenu HelpMenu = new JMenu(MENUBAR_HELP_MENU);
 		// HelpMenu.setSize(100, 100);
 		// FileMenu.setSize(50, 50);
 		MenuBar.add(FileMenu);
 		MenuBar.add(TaskMenu);
 		MenuBar.add(HelpMenu);
-		JMenuItem OpenItem = new JMenuItem("Open File", KeyEvent.VK_O);
-		JMenuItem SaveItem = new JMenuItem("Save File", KeyEvent.VK_S);
-		JMenuItem QuitItem = new JMenuItem("Quit", KeyEvent.VK_Q);
+		JMenuItem OpenItem = new JMenuItem(MENUBAR_OPEN_FILE_OPTION, KeyEvent.VK_O);
+		JMenuItem SaveItem = new JMenuItem(MENUBAR_SAVE_FILE_OPTION, KeyEvent.VK_S);
+		JMenuItem QuitItem = new JMenuItem(MENUBAR_QUIT_OPTION, KeyEvent.VK_Q);
 		FileMenu.add(OpenItem);
 		FileMenu.addSeparator();
 		FileMenu.add(SaveItem);
 		FileMenu.addSeparator();
 		FileMenu.add(QuitItem);
 
-		JMenuItem EditItem = new JMenuItem("Edit Task", KeyEvent.VK_E);
-		JMenuItem DeleteItem = new JMenuItem("Delete Task", KeyEvent.VK_T);
-		JMenuItem AddItem = new JMenuItem("Add Task", KeyEvent.VK_A);
+		JMenuItem EditItem = new JMenuItem(MENUBAR_EDIT_TASK_OPTION, KeyEvent.VK_E);
+		JMenuItem DeleteItem = new JMenuItem(MENUBAR_DELETE_TASK_OPTION, KeyEvent.VK_T);
+		JMenuItem AddItem = new JMenuItem(MENUBAR_ADD_TASK_OPTION, KeyEvent.VK_A);
 		TaskMenu.add(AddItem);
 		TaskMenu.addSeparator();
 		TaskMenu.add(EditItem);
 		TaskMenu.addSeparator();
 		TaskMenu.add(DeleteItem);
 
-		JMenuItem AboutUsItem = new JMenuItem("About Us", KeyEvent.VK_A);
-		JMenuItem HelpItem = new JMenuItem("Help", KeyEvent.VK_H);
+		JMenuItem AboutUsItem = new JMenuItem(MENUBAR_ABOUT_OPTION, KeyEvent.VK_A);
+		JMenuItem HelpItem = new JMenuItem(MENUBAR_HELP_OPTION, KeyEvent.VK_H);
 		HelpMenu.add(HelpItem);
 		HelpMenu.addSeparator();
 		HelpMenu.add(AboutUsItem);
