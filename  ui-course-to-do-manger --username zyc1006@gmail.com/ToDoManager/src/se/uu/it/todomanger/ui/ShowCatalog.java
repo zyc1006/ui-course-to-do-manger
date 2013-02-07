@@ -9,8 +9,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * 
  * @author Shiyu
  */
-public class ShowCatalog
-{
+public class ShowCatalog {
+	
 //private static ShowCatalog tree = null;
 	
 	/*private ShowCatalog() 

@@ -16,8 +16,8 @@ import se.uu.it.todomanger.model.Task;
  * 
  * @author Shiyu
  */
-public class MainShowPanel 
-{
+public class MainShowPanel {
+	
 private static MainShowPanel Panel = null;
 	
 	public JPanel initMainShow()

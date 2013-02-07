@@ -14,6 +14,25 @@ import javax.swing.JToolBar;
  */
 public class ToDoManagerToolBar extends JToolBar {
 	
+	
+	// Window  data
+	public static final int TOOLBAR_BUTTON_WIDTH = 50;
+	public static final int TOOLBAR_BUTTON_HEIGHT = 50;
+	public static final int TOOLBAR_BUTTON_MAX_WIDTH = 50;
+	public static final int TOOLBAR_BUTTON_MAX_HEIGHT = 50;
+	
+	
+	// Language data
+	public static final String TOOLBAR_ADD_TASK = "Create task";
+	public static final String TOOLBAR_EDIT_TASK = "Edit task";
+	public static final String TOOLBAR_DELETE_TASK = "Delete task";
+	
+	// Icon file data
+	public static final String TOOLBAR_ICON_ADD_TASK = "res/image/Create.png";
+	public static final String TOOLBAR_ICON_EDIT_TASK = "res/image/edit.png";
+	public static final String TOOLBAR_ICON_DELETE_TASK = "res/image/delete.png";
+	
+	
 	private static ToDoManagerToolBar toolBar = null;
 	
 	private ToDoManagerToolBar(){
@@ -22,22 +41,22 @@ public class ToDoManagerToolBar extends JToolBar {
 	
 	private static void initToolBar(){
 		
-		ImageIcon imageIcon = new ImageIcon("res/image/Create.png");
-		JButton createTaskButton = new JButton(scaleImage(imageIcon, 50, 50));
-		createTaskButton.setToolTipText("Create task");
-		createTaskButton.setMaximumSize(new Dimension(50, 50));
+		ImageIcon imageIcon = new ImageIcon(TOOLBAR_ICON_ADD_TASK);
+		JButton createTaskButton = new JButton(scaleImage(imageIcon, TOOLBAR_BUTTON_WIDTH, TOOLBAR_BUTTON_HEIGHT));
+		createTaskButton.setToolTipText(TOOLBAR_ADD_TASK);
+		createTaskButton.setMaximumSize(new Dimension(TOOLBAR_BUTTON_MAX_WIDTH, TOOLBAR_BUTTON_MAX_HEIGHT));
 		createTaskButton.setBorderPainted(false);
 		
-		imageIcon = new ImageIcon("res/image/edit.png");
-		JButton editTaskButton = new JButton(scaleImage(imageIcon, 50, 50));
-		editTaskButton.setToolTipText("Edit task");
-		editTaskButton.setMaximumSize(new Dimension(50, 50));
+		imageIcon = new ImageIcon(TOOLBAR_ICON_EDIT_TASK);
+		JButton editTaskButton = new JButton(scaleImage(imageIcon, TOOLBAR_BUTTON_WIDTH, TOOLBAR_BUTTON_HEIGHT));
+		editTaskButton.setToolTipText(TOOLBAR_EDIT_TASK);
+		editTaskButton.setMaximumSize(new Dimension(TOOLBAR_BUTTON_MAX_WIDTH, TOOLBAR_BUTTON_MAX_HEIGHT));
 		editTaskButton.setBorderPainted(false);
 		
-		imageIcon = new ImageIcon("res/image/delete.png");
-		JButton delTaskButton = new JButton(scaleImage(imageIcon, 50, 50));
-		delTaskButton.setToolTipText("Delte task");
-		delTaskButton.setMaximumSize(new Dimension(50, 50));
+		imageIcon = new ImageIcon(TOOLBAR_ICON_DELETE_TASK);
+		JButton delTaskButton = new JButton(scaleImage(imageIcon, TOOLBAR_BUTTON_WIDTH, TOOLBAR_BUTTON_HEIGHT));
+		delTaskButton.setToolTipText(TOOLBAR_DELETE_TASK);
+		delTaskButton.setMaximumSize(new Dimension(TOOLBAR_BUTTON_MAX_WIDTH, TOOLBAR_BUTTON_MAX_HEIGHT));
 		delTaskButton.setBorderPainted(false);
 		
 		toolBar.add(createTaskButton);
