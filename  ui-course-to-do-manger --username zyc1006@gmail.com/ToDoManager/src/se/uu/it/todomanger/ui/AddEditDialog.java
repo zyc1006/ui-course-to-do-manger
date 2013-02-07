@@ -177,8 +177,8 @@ public class AddEditDialog extends JDialog {
 
 	private JTextField txtTitle;
 	private JTextField txtDueDate;
-	private JTextField txtDueDateHour;
-	private JTextField txtDueDateMinute;
+	private JComboBox cmbDueDateHour;
+	private JComboBox cmbDueDateMinute;
 	private JTextArea txtDescription;
 	private JSlider sliPriority;
 	private JComboBox cmbCategory;
@@ -229,10 +229,10 @@ public class AddEditDialog extends JDialog {
 		txtDueDate.setPreferredSize(dateFieldDimension);
 		CalendarPanel cp = CalendarPanel.getInstance();
 		cp.register(txtDueDate);
-		txtDueDateHour = new JTextField();
-		txtDueDateHour.setPreferredSize(dateFieldDimension);
-		txtDueDateMinute = new JTextField();
-		txtDueDateMinute.setPreferredSize(dateFieldDimension);
+		cmbDueDateHour = new JComboBox();
+		cmbDueDateHour.setPreferredSize(dateFieldDimension);
+		cmbDueDateMinute = new JComboBox();
+		cmbDueDateMinute.setPreferredSize(dateFieldDimension);
 
 		// JSlider for Priority
 		sliPriority = new JSlider();
@@ -360,11 +360,11 @@ public class AddEditDialog extends JDialog {
 		dateConstraint.gridx = ADDEDITDIALOG_LAYOUT_DATEFIELD_HOUR_COLUMN;
 		dateConstraint.gridwidth = ADDEDITDIALOG_LAYOUT_DATEFIELD_HOUR_COLUMN_SPAN;
 		dateConstraint.weightx = ADDEDITDIALOG_LAYOUT_DATEFIELD_HOUR_COLUMN_WEIGHT;
-		gridBagContainer.add(txtDueDateHour, dateConstraint);
+		gridBagContainer.add(cmbDueDateHour, dateConstraint);
 		dateConstraint.gridx = ADDEDITDIALOG_LAYOUT_DATEFIELD_MINUTE_COLUMN;
 		dateConstraint.gridwidth = ADDEDITDIALOG_LAYOUT_DATEFIELD_MINUTE_COLUMN_SPAN;
 		dateConstraint.weightx = ADDEDITDIALOG_LAYOUT_DATEFIELD_MINUTE_COLUMN_WEIGHT;
-		gridBagContainer.add(txtDueDateMinute, dateConstraint);
+		gridBagContainer.add(cmbDueDateMinute, dateConstraint);
 
 		// Add priority components
 		labelConstraint.gridy = ADDEDITDIALOG_LAYOUT_PRIORITY_ROW;
@@ -395,6 +395,10 @@ public class AddEditDialog extends JDialog {
 
 		// Step 3: Set the overall settings for the dialog.
 
+		// Populate the time combo boxes
+		PopulateHourComboBox();
+		PopulateMinuteComboBox();
+
 		// Dialog settings
 		this.setModal(true);
 		this.pack();
@@ -419,10 +423,11 @@ public class AddEditDialog extends JDialog {
 		String taskTitle = txtTitle.getText();
 		String taskDueDateString = txtDueDate.getText();
 		// Add leading 0 to prevent parseInt empty string exception.
-		int taskDueDateHour = Integer.parseInt("0" + txtDueDateHour.getText());
+		int taskDueDateHour = Integer.parseInt("0"
+				+ cmbDueDateHour.getSelectedItem());
 		// Add leading 0 to prevent parseInt empty string exception.
 		int taskDueDateMinute = Integer.parseInt("0"
-				+ txtDueDateMinute.getText());
+				+ cmbDueDateMinute.getSelectedItem());
 		int taskCategory = cmbCategory.getSelectedIndex();
 		String taskDescription = txtDescription.getText();
 		int taskPriority = sliPriority.getValue();
@@ -473,7 +478,7 @@ public class AddEditDialog extends JDialog {
 
 			taskDueDate.setHours(taskDueDateHour);
 			taskDueDate.setMinutes(taskDueDateMinute);
-			
+
 			// If the task is a new task, create it. Otherwise edit the
 			// provided task.
 			if (dialogMode == DialogMode.ADD_DIALOG) {
@@ -514,6 +519,45 @@ public class AddEditDialog extends JDialog {
 	}
 
 	/**
+	 * PopulateCategoryComboBox()
+	 * 
+	 * @description Adds all the categories to the combobox.
+	 */
+	private void PopulateCategoryComboBox() {
+		cmbCategory.removeAllItems();
+		cmbCategory.addItem("HARDCODED_TEST_1");
+		cmbCategory.addItem("HARDCODED_TEST_2");
+		cmbCategory.addItem("HARDCODED_TEST_3");
+		cmbCategory.updateUI();
+	}
+
+	/**
+	 * PopulateHourComboBox
+	 * 
+	 * @description Adds the hours of the clock to the hour combo box.
+	 */
+	private void PopulateHourComboBox() {
+		cmbDueDateHour.removeAll();
+		for (int hour = 0; hour < 24; hour++) {
+			cmbDueDateHour.addItem(String.format("%02d", hour));
+		}
+		cmbDueDateHour.updateUI();
+	}
+
+	/**
+	 * PopulateMinuteComboBox
+	 * 
+	 * @description Adds the quarters of the clock to the minute combo box.
+	 */
+	private void PopulateMinuteComboBox() {
+		cmbDueDateMinute.removeAll();
+		for (int minute = 0; minute < 60; minute++) {
+			cmbDueDateMinute.addItem(String.format("%02d", minute));
+		}
+		cmbDueDateMinute.updateUI();
+	}
+
+	/**
 	 * ShowAddDialog
 	 * 
 	 * @author bjorn
@@ -529,8 +573,10 @@ public class AddEditDialog extends JDialog {
 		dialogMode = DialogMode.ADD_DIALOG;
 		clickedOK = false;
 		txtDueDate.setText(dateFormat.format(currentDate));
-		txtDueDateHour.setText(hourFormat.format(currentDate));
-		txtDueDateMinute.setText(minuteFormat.format(currentDate));
+		// Select the quarter closest to the current time.
+		cmbDueDateMinute.setSelectedIndex(currentDate.getMinutes());
+		cmbDueDateHour.setSelectedIndex(currentDate.getHours());
+		PopulateCategoryComboBox();
 		this.setTitle(ADDEDITDIALOG_ADD_DIALOG_TITLE);
 		this.setVisible(true);
 	}
@@ -552,12 +598,14 @@ public class AddEditDialog extends JDialog {
 		dialogMode = DialogMode.EDIT_DIALOG;
 		task = editTask;
 		clickedOK = false;
-		this.setTitle(ADDEDITDIALOG_EDIT_DIALOG_TITLE);
 		txtTitle.setText(editTask.getTitle());
 		txtDueDate.setText(dateFormat.format(editTask.getDueDate()));
-		txtDueDateHour.setText(hourFormat.format(editTask.getDueDate()));
-		txtDueDateMinute.setText(minuteFormat.format(editTask.getDueDate()));
+		// Select the quarter closest to the current time.
+		cmbDueDateMinute.setSelectedIndex(editTask.getDueDate().getMinutes());
+		cmbDueDateHour.setSelectedIndex(editTask.getDueDate().getHours());
 		sliPriority.setValue(editTask.getPriority());
+		PopulateCategoryComboBox();
+		this.setTitle(ADDEDITDIALOG_EDIT_DIALOG_TITLE);
 		this.setVisible(true);
 
 	}
@@ -588,8 +636,8 @@ public class AddEditDialog extends JDialog {
 	// Just for testing purposes
 	public static void main(String[] args) {
 
-		Task theTask = new Task(1, "first", new Date(2012 - 1900, 12 - 1, 1),
-				1, "hello", 5, true);
+		Task theTask = new Task(1, "first", new Date(2012 - 1900, 12 - 1, 1,
+				22, 52), 1, "hello", 5, true);
 
 		AddEditDialog addEdit = new AddEditDialog();
 		addEdit.ShowAddDialog();
