@@ -1,10 +1,13 @@
 package se.uu.it.todomanger.model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 import javax.swing.table.DefaultTableModel;
+
+import se.uu.it.todomanger.controller.TaskManager;
 
 
 /**
@@ -33,19 +36,22 @@ public class TaskTableModel extends DefaultTableModel {
 	 * Add a task into the table
 	 * @param task
 	 */
-	public void addTaskAsRow(Task task){
+	private void addTaskAsRow(Task task){
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Object[] row = {task.getTitle(),
-						task.getCategory(),
+						(task.getCategory()),
 						task.getPriority(),
-						task.getDueDate()};
+						sdf.format(task.getDueDate())};
+		
 		super.addRow(row);
 	}
 	
 	public void displayAllTasksByOrder(ArrayList<Task> taskList, Comparator<Task> comparator){
 		
-		
+		setRowCount(0);
 		Collections.sort(taskList, comparator);
+		
 		for(int i = 0; i < taskList.size(); i++){
 			addTaskAsRow(taskList.get(i));
 		}
@@ -54,6 +60,11 @@ public class TaskTableModel extends DefaultTableModel {
 		
 	}
 	
+	@Override
+	public boolean isCellEditable(int row, int column) {
+	      return false;
+	}
+	 
 	
 	
 	
