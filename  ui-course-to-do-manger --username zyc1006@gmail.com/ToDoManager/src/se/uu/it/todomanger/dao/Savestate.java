@@ -162,7 +162,7 @@ public class Savestate
             // Go through the task list to find the highest id
             for(int i = 0; i < taskList.length; i++)
             {
-                int tmpTaskId = taskList[i].getTaskId();
+                int tmpTaskId = taskList[i].getId();
                 
                 if(newTaskId < tmpTaskId)
                 {
@@ -240,9 +240,9 @@ public class Savestate
             if(!taskList[i].isCompleted())
             {
                 System.out.println(getCategoryTitle(taskList[i].
-                        getTaskCategoryId()) + " - " + taskList[i].
-                        getTaskTitle() + "\n" + simpleDateFormat.
-                        format(taskList[i].getTaskDate()) + "\n");
+                        getCategory()) + " - " + taskList[i].
+                        getTitle() + "\n" + simpleDateFormat.
+                        format(taskList[i].getDueDate()) + "\n");
             }
         }
     }

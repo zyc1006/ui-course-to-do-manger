@@ -43,12 +43,15 @@ public class ToDoManagerTaskTable extends JTable {
 		
 	}
 	
-	/**Display all tasks by specified comparator
+	/**
+	 * public void displayAllTasksByOrder ({@link ArrayList} taskList, {@link Comparator} comparator)<br>
+	 * Display all tasks by specified comparator
 	 * 
 	 * @param taskList 
 	 * A task list includes the tasks to be displayed
 	 * @param comparator 
 	 * In what order the tasks will be displayed
+	 * @see TaskManager
 	 */
 	public void displayAllTasksByOrder(ArrayList<Task> taskList, Comparator<Task> comparator){
 

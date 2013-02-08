@@ -10,7 +10,14 @@ import java.util.Date;
  */
 public class Task {
 	
+	
+	//temp taskid for testing
+	public static int nexttaskid = 0;
+	
+	
 	protected Integer id;
+	
+	public Task(){};
 	
 	public Task(Integer id, String title, Date dueDate, int category,
 			String description, int priority, boolean completed) {

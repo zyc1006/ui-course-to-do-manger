@@ -1,7 +1,14 @@
 package se.uu.it.todomanger.model;
 
+import java.util.ArrayList;
+
 public class Category
 {
+	
+	//temp category for testing	
+		public static String[] category = {"Study","Work","Family"};
+			
+	
     // Attributes
     private int id;
     private String title;
