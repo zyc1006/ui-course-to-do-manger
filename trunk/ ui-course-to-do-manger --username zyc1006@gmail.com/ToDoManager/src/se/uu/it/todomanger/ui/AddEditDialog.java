@@ -29,6 +29,7 @@ import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import se.uu.it.todomanger.model.Category;
 // Todo manager imports
 import se.uu.it.todomanger.model.Task;
 
@@ -482,7 +483,8 @@ public class AddEditDialog extends JDialog {
 			// If the task is a new task, create it. Otherwise edit the
 			// provided task.
 			if (dialogMode == DialogMode.ADD_DIALOG) {
-				task = new Task(1, taskTitle, taskDueDate, taskCategory,
+				//temp task id
+				task = new Task(Task.nexttaskid++, taskTitle, taskDueDate, taskCategory,
 						taskDescription, taskPriority, false);
 			} else {
 				task.setTitle(taskTitle);
@@ -525,9 +527,12 @@ public class AddEditDialog extends JDialog {
 	 */
 	private void PopulateCategoryComboBox() {
 		cmbCategory.removeAllItems();
-		cmbCategory.addItem("HARDCODED_TEST_1");
-		cmbCategory.addItem("HARDCODED_TEST_2");
-		cmbCategory.addItem("HARDCODED_TEST_3");
+//		cmbCategory.addItem("HARDCODED_TEST_1");
+//		cmbCategory.addItem("HARDCODED_TEST_2");
+//		cmbCategory.addItem("HARDCODED_TEST_3");
+		for(int i = 0; i < Category.category.length; i++){
+			cmbCategory.addItem(Category.category[i]);
+		}
 		cmbCategory.updateUI();
 	}
 

@@ -19,55 +19,73 @@ import se.uu.it.todomanger.ui.ToDoManagerTaskTable;
 public class TaskManager {
 	
 //----------------------------------------------------------------	
-	//temp category for testing	
-	public ArrayList<String> categoryList = new ArrayList<String>();
-	//temp taskid for testing
-	public int taskid = 0;
+	
+	
 //---------------------------------------------------	
 	
 	
-	//A hashmap stores all the task
+	/**A hashmap stores all the task*/
 	private HashMap<Integer, Task> taskHashMap = new HashMap<Integer, Task>();
 	
-	//An arraylist stores all the task, used for sorting
+	/**An arraylist stores all the task, used for sorting */
 	private ArrayList<Task> taskArrayList = new ArrayList<Task>();
 	
-	//A task table instance to handle the display operation on the task table
+	/**A task table instance to handle the display operation on the task table */
 	private ToDoManagerTaskTable taskTable = ToDoManagerTaskTable.getInstance();
 	
-	//Singleton of TaskManager
+	/**Singleton of TaskManager*/
 	private static TaskManager tm = null;
 
 	private TaskManager() {
-		categoryList.add("Study");
-		categoryList.add("Work");
-		categoryList.add("Family");
+		
 		
 	}
-
+	/**
+	 * Initialize the task manager
+	 * @return A singleton of Task Manager
+	 * @see Task
+	 */
 	public static TaskManager getInstance() {
 		if (tm == null) {
 			tm = new TaskManager();
 		}
 		return tm;
 	}
-
+	
+	/**
+	 * public void addTask ({@link Task} task)<br>
+	 * add a task
+	 * @param task a task model
+	 */
 	public void addTask(Task task) {
 		taskHashMap.put(task.getId(), task);
 		toArrayList();
 	}
 
+	/**
+	 * public void editTask ({@link Task} task)<br>
+	 * edit a task
+	 * @param task a task model
+	 */
 	public void editTask(Task task) {
 		taskHashMap.put(task.getId(), task);
 		toArrayList();
 	}
-
+	/**
+	 * public void deleteTask ({@link Task} task)<br>
+	 * delete a task
+	 * @param task a task model
+	 */
 	public void deleteTask(Task task) {
 		taskHashMap.remove(task.getId());
 		toArrayList();
 	}
 
-	//Convert hashmap to arraylist
+	/**
+	 * private {@link ArrayList} toArrayList() <br>
+	 * Convert hashmap to arraylist
+	 * @return an arraylist contains all tasks to be displayed
+	 */
 	private ArrayList<Task> toArrayList() {
 		taskArrayList.clear();
 		if (taskHashMap != null) {
@@ -81,9 +99,15 @@ public class TaskManager {
 		return taskArrayList;
 	}
 
+	/**
+	 * display the tasks by due date in ascending order
+	 */
 	public void displayTaskByDueDateAsc() {
 		taskTable.displayAllTasksByOrder(taskArrayList, new SortByDueDateAsc());
 	}
+	/**
+	 * display the tasks by due date in descending order
+	 */
 	public void displayTaskByDueDateDesc() {
 		taskTable.displayAllTasksByOrder(taskArrayList, new SortByDueDateDesc());
 	}

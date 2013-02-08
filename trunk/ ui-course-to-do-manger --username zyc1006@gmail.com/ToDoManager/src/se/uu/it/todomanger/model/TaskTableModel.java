@@ -39,10 +39,10 @@ public class TaskTableModel extends DefaultTableModel {
 	 */
 	private void addTaskAsRow(Task task){
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		Object[] row = {task.getId(),
 						task.getTitle(),
-						task.getCategory(),
+						Category.category[task.getCategory()],
 						task.getPriority(),
 						sdf.format(task.getDueDate())};
 		

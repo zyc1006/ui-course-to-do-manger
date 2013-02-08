@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
+
+import se.uu.it.todomanger.controller.TaskManager;
 /**
  *  A singleton of tool bar for ToDoManager
  * @author Shiyu
@@ -71,14 +73,17 @@ public class ToDoManagerToolBar extends JToolBar {
 			//Open a dialog for adding tasks
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				AddEditDialog aed = new AddEditDialog();
-				aed.ShowAddDialog();
-//				if(aed.clickedOK()){
-//					System.out.println("ok");
-//				}
-//				else {
-//					System.out.println("cancel");
-//				}
+				AddEditDialog addEditDialog = new AddEditDialog();
+				addEditDialog.ShowAddDialog();
+				if(addEditDialog.clickedOK()){
+					//Add a task here
+					TaskManager tm = TaskManager.getInstance();
+					tm.addTask(addEditDialog.getTask());
+					tm.displayTaskByDueDateAsc();
+				}
+				else {
+					System.out.println("cancel");
+				}
 				
 				
 			}
