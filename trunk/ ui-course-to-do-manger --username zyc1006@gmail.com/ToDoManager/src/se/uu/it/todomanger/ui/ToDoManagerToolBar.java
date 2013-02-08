@@ -89,6 +89,15 @@ public class ToDoManagerToolBar extends JToolBar {
 			}
 		});
 		
+		editTaskButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				TaskManager.getInstance().displayTaskByDueDateDesc();
+			}
+		});
+		
 	}
 	
 	public static ToDoManagerToolBar getInstance(){
