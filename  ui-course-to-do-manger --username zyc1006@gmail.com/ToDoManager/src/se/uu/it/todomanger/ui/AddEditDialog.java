@@ -639,23 +639,23 @@ public class AddEditDialog extends JDialog {
 
 	// OUTSIDE
 	// Just for testing purposes
-	public static void main(String[] args) {
-
-		Task theTask = new Task(1, "first", new Date(2012 - 1900, 12 - 1, 1,
-				22, 52), 1, "hello", 5, true);
-
-		AddEditDialog addEdit = new AddEditDialog();
-		addEdit.ShowAddDialog();
-		if (addEdit.clickedOK()) {
-			theTask = addEdit.getTask();
-		}
-
-		for (int i = 0; i < 2; i++) {
-			addEdit.ShowEditDialog(theTask);
-			if (addEdit.clickedOK()) {
-				theTask = addEdit.getTask();
-			}
-		}
-	}
+//	public static void main(String[] args) {
+//
+//		Task theTask = new Task(1, "first", new Date(2012 - 1900, 12 - 1, 1,
+//				22, 52), 1, "hello", 5, true);
+//
+//		AddEditDialog addEdit = new AddEditDialog();
+//		addEdit.ShowAddDialog();
+//		if (addEdit.clickedOK()) {
+//			theTask = addEdit.getTask();
+//		}
+//
+//		for (int i = 0; i < 2; i++) {
+//			addEdit.ShowEditDialog(theTask);
+//			if (addEdit.clickedOK()) {
+//				theTask = addEdit.getTask();
+//			}
+//		}
+//	}
 
 }

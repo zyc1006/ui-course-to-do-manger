@@ -116,11 +116,17 @@ public class TaskManager {
 	class SortByDueDateAsc implements Comparator<Task> {
 		public int compare(Task s1, Task s2) {
 			
+			System.out.println(s1.getDueDate().toLocaleString());
+			System.out.println(s2.getDueDate().toLocaleString());
+			System.out.println(s1.getDueDate().after(s2.getDueDate()));
+			System.out.println(s1.getDueDate().equals(s2.getDueDate()));
 			if (s1.getDueDate().after(s2.getDueDate())) {
 				return 1;
-			} else {
+			} else if(s1.getDueDate().equals(s2.getDueDate())){
 				return 0;
 			}
+			else
+				return -1;
 
 		}
 	}
@@ -130,9 +136,10 @@ public class TaskManager {
 		public int compare(Task s1, Task s2) {		
 			if (s1.getDueDate().before(s2.getDueDate())) {
 				return 1;
-			} else {
+			} else if(s1.getDueDate().equals(s2.getDueDate())){
 				return 0;
-			}
+			}else
+				return -1;
 
 		}
 	}
