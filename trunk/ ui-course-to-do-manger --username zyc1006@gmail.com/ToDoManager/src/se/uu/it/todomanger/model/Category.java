@@ -8,7 +8,10 @@ public class Category
 	//temp category for testing	
 		public static String[] category = {"Study","Work","Family"};
 			
-	
+	//temp categoryid for testing
+	public static int nextcategoryid = 0;
+		
+		
     // Attributes
     private int id;
     private String title;

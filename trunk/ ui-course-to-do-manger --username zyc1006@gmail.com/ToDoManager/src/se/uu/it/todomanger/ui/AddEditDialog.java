@@ -16,6 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.Hashtable;
 
 // Swing imports
@@ -29,6 +30,7 @@ import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import se.uu.it.todomanger.controller.CategoryManager;
 import se.uu.it.todomanger.model.Category;
 // Todo manager imports
 import se.uu.it.todomanger.model.Task;
@@ -530,8 +532,12 @@ public class AddEditDialog extends JDialog {
 //		cmbCategory.addItem("HARDCODED_TEST_1");
 //		cmbCategory.addItem("HARDCODED_TEST_2");
 //		cmbCategory.addItem("HARDCODED_TEST_3");
-		for(int i = 0; i < Category.category.length; i++){
-			cmbCategory.addItem(Category.category[i]);
+		
+		CategoryManager cm = CategoryManager.getInstance();
+		
+		HashMap<Integer, Category> cat = cm.getCategories();
+		for(int i = 0; i < cat.size(); i++){
+			cmbCategory.addItem(cat.get(i).getCategoryTitle());
 		}
 		cmbCategory.updateUI();
 	}
