@@ -1,43 +1,74 @@
 package se.uu.it.todomanger.ui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
+
+import se.uu.it.todomanger.controller.CategoryManager;
+import se.uu.it.todomanger.model.Category;
 /**
  * 
  * @author Shiyu
  */
-public class ShowCatalog {
+public class ShowCatalog extends JFrame {
 	
-//private static ShowCatalog tree = null;
+	DefaultMutableTreeNode root = new DefaultMutableTreeNode("All");
 	
-	/*private ShowCatalog() 
-	{
-	}*/
-	public JTree initJTree()
-	{
-		//JButton j = new JButton("asd");
-		//JPanel panel = new JPanel();
+	DefaultTreeModel model = new DefaultTreeModel(root);
+
+    JPanel panel = new JPanel();
+	JTree tree = new JTree(model);
+	JButton addButton = new JButton("Add Cateogry");;
+	
+	
+	public JTree initJTree() {
+	    addButton.addActionListener(new ActionListener() {
+		      public void actionPerformed(ActionEvent event) {
+		        DefaultMutableTreeNode selNode = (DefaultMutableTreeNode) tree
+		            .getLastSelectedPathComponent();
+		        if (selNode != null) {
+		          DefaultMutableTreeNode newNode = new DefaultMutableTreeNode("New Node");
+		          model.insertNodeInto(newNode, selNode, selNode.getChildCount());
+		          TreeNode[] nodes = model.getPathToRoot(newNode);
+		          TreePath path = new TreePath(nodes);
+		          tree.scrollPathToVisible(path);
+		          tree.setSelectionPath(path);
+		          tree.startEditingAtPath(path);
+		          
+		          Category nc = new Category(Category.nextcategoryid, newNode.getUserObject().toString());
+		          Category.nextcategoryid++;
+		          
+		          CategoryManager cm = CategoryManager.getInstance();
+		          cm.addCategory(nc);
+		        }
+		      }
+		    });
+		    
 		
-		DefaultMutableTreeNode root = new DefaultMutableTreeNode("catalog");
-		DefaultMutableTreeNode sub1 = new DefaultMutableTreeNode("ALL");
-		DefaultMutableTreeNode sub2 = new DefaultMutableTreeNode("Today");
-		root.add(sub1);
-		root.add(sub2);
-		DefaultMutableTreeNode sub1_1 = new DefaultMutableTreeNode("Need to do");
-		DefaultMutableTreeNode sub1_2 = new DefaultMutableTreeNode("Have done");
-		sub1.add(sub1_1);
-		sub1.add(sub1_2);
-		JTree tree = new JTree(root);
-//		tree.setMaximumSize(new Dimension(200,100));
-//		tree.setMinimumSize(new Dimension(200,100));
-//		tree.setPreferredSize(new Dimension(200,100));
-		//JScrollPane scroll = new JScrollPane(tree);
-		//panel.add(scroll);
+		tree.setEditable(true);
+	    tree.setSelectionRow(0);
+
+	    
+
+	    
+	    panel.add(addButton);
+	    getContentPane().add(panel, BorderLayout.SOUTH);
+	    setSize(300, 400);
+	    setVisible(true);
+	  
+		
+		
 		
 		return tree;
 	}
