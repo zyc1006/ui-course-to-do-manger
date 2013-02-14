@@ -11,6 +11,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+import se.uu.it.todomanger.controller.TaskManager;
+
 /**
  * A singleton of menu bar for ToDoManager
  * 
@@ -134,7 +136,15 @@ public class ToDoManagerMenuBar extends JMenuBar {
 		// Add task
 		AddItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				AddEditDialog addEditDialog = new AddEditDialog();
+				addEditDialog.ShowAddDialog();
+				if(addEditDialog.clickedOK())
+				{
+					//Add a task here
+					TaskManager tm = TaskManager.getInstance();
+					tm.addTask(addEditDialog.getTask());
+					tm.displayTaskByDueDateAsc();
+				}
 			}
 		});
 		// Help

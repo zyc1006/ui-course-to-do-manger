@@ -20,10 +20,10 @@ public class ToDoManagerToolBar extends JToolBar {
 	
 	
 	// Window  data
-	public static final int TOOLBAR_BUTTON_WIDTH = 50;
-	public static final int TOOLBAR_BUTTON_HEIGHT = 50;
-	public static final int TOOLBAR_BUTTON_MAX_WIDTH = 50;
-	public static final int TOOLBAR_BUTTON_MAX_HEIGHT = 50;
+	public static final int TOOLBAR_BUTTON_WIDTH = 35;
+	public static final int TOOLBAR_BUTTON_HEIGHT = 35;
+	public static final int TOOLBAR_BUTTON_MAX_WIDTH = 35;
+	public static final int TOOLBAR_BUTTON_MAX_HEIGHT = 35;
 	
 	
 	// Language data
@@ -32,9 +32,9 @@ public class ToDoManagerToolBar extends JToolBar {
 	public static final String TOOLBAR_DELETE_TASK = "Delete task";
 	
 	// Icon file data
-	public static final String TOOLBAR_ICON_ADD_TASK = "res/image/Create.png";
-	public static final String TOOLBAR_ICON_EDIT_TASK = "res/image/edit.png";
-	public static final String TOOLBAR_ICON_DELETE_TASK = "res/image/delete.png";
+	public static final String TOOLBAR_ICON_ADD_TASK = "res/image/Add.gif";
+	public static final String TOOLBAR_ICON_EDIT_TASK = "res/image/Edit.gif";
+	public static final String TOOLBAR_ICON_DELETE_TASK = "res/image/Delete.gif";
 	
 	
 	private static ToDoManagerToolBar toolBar = null;
@@ -64,7 +64,9 @@ public class ToDoManagerToolBar extends JToolBar {
 		delTaskButton.setBorderPainted(false);
 		
 		toolBar.add(createTaskButton);
+		toolBar.addSeparator();
 		toolBar.add(editTaskButton);
+		toolBar.addSeparator();
 		toolBar.add(delTaskButton);
 		
 		//Actions for the buttons 
