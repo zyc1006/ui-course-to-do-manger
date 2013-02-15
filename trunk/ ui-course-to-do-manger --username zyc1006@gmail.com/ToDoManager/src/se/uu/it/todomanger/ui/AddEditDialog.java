@@ -199,6 +199,7 @@ public class AddEditDialog extends JDialog {
 		
 		// Step 0: Load the locale resource.
 		
+		// Load the resource bundle for the current locale.
 		try {
 			resLocale = ResourceBundle.getBundle("locale.ToDoManager", 
 		                                         Locale.getDefault());
