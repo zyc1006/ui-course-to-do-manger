@@ -107,15 +107,20 @@
 package se.uu.it.todomanger.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Locale;
 import java.util.MissingResourceException;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import se.uu.it.todomanger.dao.Savestate;
 
 /**
  * @author Shiyu
@@ -154,14 +159,33 @@ public class MainWindow extends JFrame {
 			System.err.println("res/locale/ToDoManager.properties not found");
 			System.exit(1);
 		}
-
-		this.setTitle(resLocale.getString("MainWindow_Title"));
-		this.setSize(MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
-
+		
+		this.setTitle(resLocale.getString("MainWindow_Title"));		
+		Savestate save = new Savestate();
+		//load saved size and location
+		Properties prop = save.loadLocation(System.getProperty("user.home")+ 
+				"/TODOgroup12.properties");
+		if( null != prop){
+			Point point = new Point();
+			point.x = Integer.parseInt(prop.getProperty("x"));
+			point.y = Integer.parseInt(prop.getProperty("y"));
+			this.setLocation(point);
+			
+			Dimension size = new Dimension();
+			size.width = Integer.parseInt(prop.getProperty("width"));
+			size.height = Integer.parseInt(prop.getProperty("height"));
+			this.setSize(size);
+			
+		}
+		//load default size and location
+		else{
+			this.setSize(MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
+			this.setLocationRelativeTo(null);
+		}
 		this.setContentPane(createPanel());
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
+		
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				{
@@ -171,8 +195,14 @@ public class MainWindow extends JFrame {
 									.getString("MainWindow_ConfirmExit_Message"),
 							resLocale.getString("MainWindow_ConfirmExit_Title"),
 							0);
-					if (val == JOptionPane.OK_OPTION)
+					if (val == JOptionPane.OK_OPTION) {
+						JFrame main = (JFrame) e.getSource();
+						Dimension size = main.getSize();
+						Point location = main.getLocationOnScreen();
+						Savestate save = new Savestate();
+						save.saveLocation(size, location);
 						System.exit(0);
+					}
 				}
 			}
 		});
