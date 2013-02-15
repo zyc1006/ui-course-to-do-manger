@@ -5,6 +5,9 @@ import java.awt.MenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -26,27 +29,34 @@ public class ToDoManagerMenuBar extends JMenuBar {
 	public static final int MENUBAR_PANEL_WIDTH = 80;
 	public static final int MENUBAR_PANEL_HEIGHT = 80;
 	
-	// Language data
-	public static final String MENUBAR_FILE_MENU = "File";
-	public static final String MENUBAR_TASK_MENU = "Task";
-	public static final String MENUBAR_HELP_MENU = "Help";
-	public static final String MENUBAR_OPEN_FILE_OPTION = "Open file";
-	public static final String MENUBAR_SAVE_FILE_OPTION = "Save file";
-	public static final String MENUBAR_QUIT_OPTION = "Quit";
-	public static final String MENUBAR_ADD_TASK_OPTION = "Add task";
-	public static final String MENUBAR_EDIT_TASK_OPTION = "Edit task";
-	public static final String MENUBAR_DELETE_TASK_OPTION = "Delete task";
-	public static final String MENUBAR_ABOUT_OPTION = "About us";
-	public static final String MENUBAR_HELP_OPTION = "Help";
-	
 	private static ToDoManagerMenuBar MenuBar = null;
+	
+	// A ResourceBundle for loading international words/phrases.
+	private static ResourceBundle resLocale;
 
 	private ToDoManagerMenuBar() {
-
+		
 	}
 
+	/**
+	 * initMenuBar
+	 * @author Shiyu
+	 * @author Yucheng
+	 * @author Bjorn
+	 * 
+	 * @description Sets up the menu bar with the words/phrases from the local resource bundle.
+	 */
 	private static void initMenuBar() {
 
+		// Load the international words/phrases from the resourcebundle.
+		try {
+			resLocale = ResourceBundle.getBundle("locale.ToDoManager", 
+		                                         Locale.getDefault());
+		} catch (MissingResourceException mre) {
+		    System.err.println("res/locale/ToDoManager.properties not found");
+		    System.exit(1);
+		}
+		
 		/*
 		 * JMenu fileMenu = new JMenu("File"); JMenu taskMenu = new
 		 * JMenu("Task"); JMenu helpMenu = new JMenu("Help");
@@ -69,35 +79,35 @@ public class ToDoManagerMenuBar extends JMenuBar {
 		panel.setSize(MENUBAR_PANEL_WIDTH, MENUBAR_PANEL_HEIGHT);
 		// JMenuBar MenuBar = new JMenuBar();
 		panel.add(MenuBar);
-		JMenu FileMenu = new JMenu(MENUBAR_FILE_MENU);
+		JMenu FileMenu = new JMenu(resLocale.getString("MenuBar_File_Menu"));
 		// FileMenu.setFont(new Font("»ªÎÄ²ÊÔÆ",0,30));
-		JMenu TaskMenu = new JMenu(MENUBAR_TASK_MENU);
-		JMenu HelpMenu = new JMenu(MENUBAR_HELP_MENU);
+		JMenu TaskMenu = new JMenu(resLocale.getString("MenuBar_Task_Menu"));
+		JMenu HelpMenu = new JMenu(resLocale.getString("MenuBar_Help_Menu"));
 		// HelpMenu.setSize(100, 100);
 		// FileMenu.setSize(50, 50);
 		MenuBar.add(FileMenu);
 		MenuBar.add(TaskMenu);
 		MenuBar.add(HelpMenu);
-		JMenuItem OpenItem = new JMenuItem(MENUBAR_OPEN_FILE_OPTION, KeyEvent.VK_O);
-		JMenuItem SaveItem = new JMenuItem(MENUBAR_SAVE_FILE_OPTION, KeyEvent.VK_S);
-		JMenuItem QuitItem = new JMenuItem(MENUBAR_QUIT_OPTION, KeyEvent.VK_Q);
+		JMenuItem OpenItem = new JMenuItem(resLocale.getString("MenuBar_Open_File_Option"), KeyEvent.VK_O);
+		JMenuItem SaveItem = new JMenuItem(resLocale.getString("MenuBar_Save_File_Option"), KeyEvent.VK_S);
+		JMenuItem QuitItem = new JMenuItem(resLocale.getString("MenuBar_Quit_Option"), KeyEvent.VK_Q);
 		FileMenu.add(OpenItem);
 		FileMenu.addSeparator();
 		FileMenu.add(SaveItem);
 		FileMenu.addSeparator();
 		FileMenu.add(QuitItem);
 
-		JMenuItem EditItem = new JMenuItem(MENUBAR_EDIT_TASK_OPTION, KeyEvent.VK_E);
-		JMenuItem DeleteItem = new JMenuItem(MENUBAR_DELETE_TASK_OPTION, KeyEvent.VK_T);
-		JMenuItem AddItem = new JMenuItem(MENUBAR_ADD_TASK_OPTION, KeyEvent.VK_A);
+		JMenuItem EditItem = new JMenuItem(resLocale.getString("MenuBar_Edit_Task_Option"), KeyEvent.VK_E);
+		JMenuItem DeleteItem = new JMenuItem(resLocale.getString("MenuBar_Delete_Task_Option"), KeyEvent.VK_T);
+		JMenuItem AddItem = new JMenuItem(resLocale.getString("MenuBar_Add_Task_Option"), KeyEvent.VK_A);
 		TaskMenu.add(AddItem);
 		TaskMenu.addSeparator();
 		TaskMenu.add(EditItem);
 		TaskMenu.addSeparator();
 		TaskMenu.add(DeleteItem);
 
-		JMenuItem AboutUsItem = new JMenuItem(MENUBAR_ABOUT_OPTION, KeyEvent.VK_A);
-		JMenuItem HelpItem = new JMenuItem(MENUBAR_HELP_OPTION, KeyEvent.VK_H);
+		JMenuItem AboutUsItem = new JMenuItem(resLocale.getString("MenuBar_About_Option"), KeyEvent.VK_A);
+		JMenuItem HelpItem = new JMenuItem(resLocale.getString("MenuBar_Help_Option"), KeyEvent.VK_H);
 		HelpMenu.add(HelpItem);
 		HelpMenu.addSeparator();
 		HelpMenu.add(AboutUsItem);
