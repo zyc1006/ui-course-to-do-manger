@@ -105,9 +105,13 @@
  * A test main window, will be modified later
  */
 package se.uu.it.todomanger.ui;
+
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -116,64 +120,82 @@ import javax.swing.JPanel;
 /**
  * @author Shiyu
  * @author Edward
- *
+ * 
  */
 public class MainWindow extends JFrame {
-	
-	
-	// Window  data
+
+	// Window data
 	public static final int MAINWINDOW_WIDTH = 800;
 	public static final int MAINWINDOW_HEIGHT = 600;
-	
+
 	// Language data
-	public static final String MAINWINDOW_TITLE = "To Do Manager";
-	
-	
-	
-	public MainWindow(/*ClientController controller*/)
-	{
-		//this.controller = controller;
+	private ResourceBundle resLocale;
+
+	public MainWindow(/* ClientController controller */) {
+		// this.controller = controller;
 		init();
 	}
-	public void init()
-	{
 
-		this.setTitle(MAINWINDOW_TITLE);
-		this.setSize(MAINWINDOW_WIDTH,MAINWINDOW_HEIGHT);
+	/**
+	 * init
+	 * @author Shiyu
+	 * @author Edward
+	 * @author Bjorn
+	 * 
+	 * @description Set up the main window.
+	 */
+	public void init() {
+
+		// Load the international words/phrases from the resourcebundle.
+		try {
+			resLocale = ResourceBundle.getBundle("locale.ToDoManager",
+					Locale.getDefault());
+		} catch (MissingResourceException mre) {
+			System.err.println("res/locale/ToDoManager.properties not found");
+			System.exit(1);
+		}
+
+		this.setTitle(resLocale.getString("MainWindow_Title"));
+		this.setSize(MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
 
 		this.setContentPane(createPanel());
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		
-		this.addWindowListener(new WindowAdapter(){
-			public void windowClosing(WindowEvent e)
-			{
+
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
 				{
-					int val = JOptionPane.showConfirmDialog(null,"Do you want to exit?","yes or no",0);
+					int val = JOptionPane.showConfirmDialog(
+							null,
+							resLocale
+									.getString("MainWindow_ConfirmExit_Message"),
+							resLocale.getString("MainWindow_ConfirmExit_Title"),
+							0);
 					if (val == JOptionPane.OK_OPTION)
 						System.exit(0);
 				}
 			}
 		});
 	}
-	public JPanel createPanel()
-	{
-		JPanel menu_toolbar_panel = new JPanel(new BorderLayout()); 
+
+	public JPanel createPanel() {
+		JPanel menu_toolbar_panel = new JPanel(new BorderLayout());
 		JPanel panel = new JPanel(new BorderLayout());
-		//create menubar
-		//MenuBar mb = new MenuBar();
-		menu_toolbar_panel.add(BorderLayout.NORTH, ToDoManagerMenuBar.getInstance());
-		menu_toolbar_panel.add(BorderLayout.SOUTH , ToDoManagerToolBar.getInstance());
-		
-		panel.add(BorderLayout.NORTH , menu_toolbar_panel);
-		MainShowPanel msp = new MainShowPanel(); 
+		// create menubar
+		// MenuBar mb = new MenuBar();
+		menu_toolbar_panel.add(BorderLayout.NORTH,
+				ToDoManagerMenuBar.getInstance());
+		menu_toolbar_panel.add(BorderLayout.SOUTH,
+				ToDoManagerToolBar.getInstance());
+
+		panel.add(BorderLayout.NORTH, menu_toolbar_panel);
+		MainShowPanel msp = new MainShowPanel();
 		panel.add(msp.initMainShow());
 		return panel;
 	}
 
-	public static void main(String[] args){
-		MainWindow window = new MainWindow();	
-		
+	public static void main(String[] args) {
+		MainWindow window = new MainWindow();
+
 	}
 }
-
