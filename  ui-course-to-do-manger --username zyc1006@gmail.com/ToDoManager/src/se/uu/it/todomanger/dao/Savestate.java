@@ -1,10 +1,19 @@
 
 package se.uu.it.todomanger.dao;
 
+import java.awt.Dimension;
+import java.awt.Point;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Properties;
+
+import javax.tools.JavaFileManager.Location;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -26,6 +35,10 @@ public class Savestate
     SimpleDateFormat simpleDateFormat =
             new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
     
+    public Savestate()
+    {
+    
+    }
     // Constructor
     public Savestate(String fileName)
     {
@@ -245,5 +258,48 @@ public class Savestate
                         format(taskList[i].getDueDate()) + "\n");
             }
         }
+    }
+    
+    
+    /** public void saveLocation({@link Dimension} size, {@link Point} location)
+     * <br>Save the window's size and location when the window is closed
+     * @param size
+     * @param location
+     */
+    public void saveLocation(Dimension size, Point location){
+    	String userHome = System.getProperty("user.home");
+    	try {
+			OutputStream os = new FileOutputStream(userHome + "/TODOgroup12.properties");
+			Properties prop = new Properties();
+			prop.put("x", Integer.toString(location.x));
+			prop.put("y", Integer.toString(location.y));
+			prop.put("width", Integer.toString(size.width));
+			prop.put("height", Integer.toString(size.height));
+			prop.store(os, "Window size and location");
+			os.close();
+		} catch (FileNotFoundException e) {
+			
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    }
+    public Properties loadLocation(String filename) {
+    	
+    	Properties prop = new Properties();
+    	try {
+			prop.load(new FileInputStream(new File(filename)));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+    	return prop;
     }
 }
