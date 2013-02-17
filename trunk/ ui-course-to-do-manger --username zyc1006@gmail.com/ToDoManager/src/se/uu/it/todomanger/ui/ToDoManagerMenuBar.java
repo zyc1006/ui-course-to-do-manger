@@ -75,7 +75,7 @@ public class ToDoManagerMenuBar extends JMenuBar {
 		 * menuBar.add(fileMenu); menuBar.add(taskMenu); menuBar.add(helpMenu);
 		 */
 		// to create MenuPanel
-		JPanel panel = new JPanel(new GridLayout(1, 3));
+		JPanel panel = new JPanel(new GridLayout(1, 4));
 		panel.setSize(MENUBAR_PANEL_WIDTH, MENUBAR_PANEL_HEIGHT);
 		// JMenuBar MenuBar = new JMenuBar();
 		panel.add(MenuBar);
@@ -83,10 +83,12 @@ public class ToDoManagerMenuBar extends JMenuBar {
 		// FileMenu.setFont(new Font("»ªÎÄ²ÊÔÆ",0,30));
 		JMenu TaskMenu = new JMenu(resLocale.getString("MenuBar_Task_Menu"));
 		JMenu HelpMenu = new JMenu(resLocale.getString("MenuBar_Help_Menu"));
+		JMenu LanguageMenu = new JMenu("Language");//(resLocale.getString("MenuBar_Language_Menu"));
 		// HelpMenu.setSize(100, 100);
 		// FileMenu.setSize(50, 50);
 		MenuBar.add(FileMenu);
 		MenuBar.add(TaskMenu);
+		MenuBar.add(LanguageMenu);
 		MenuBar.add(HelpMenu);
 		JMenuItem OpenItem = new JMenuItem(resLocale.getString("MenuBar_Open_File_Option"), KeyEvent.VK_O);
 		JMenuItem SaveItem = new JMenuItem(resLocale.getString("MenuBar_Save_File_Option"), KeyEvent.VK_S);
@@ -111,6 +113,12 @@ public class ToDoManagerMenuBar extends JMenuBar {
 		HelpMenu.add(HelpItem);
 		HelpMenu.addSeparator();
 		HelpMenu.add(AboutUsItem);
+		
+		JMenuItem German = new JMenuItem("German" , KeyEvent.VK_G);//(resLocale.getString("MenuBar_German_Option"), KeyEvent.VK_G);
+		JMenuItem English = new JMenuItem("English", KeyEvent.VK_E);//(resLocale.getString("MenuBar_English_Option"), KeyEvent.VK_E);
+		LanguageMenu.add(German);
+		LanguageMenu.addSeparator();
+		LanguageMenu.add(English);
 
 		// add ActionListener methods
 		// Open File
