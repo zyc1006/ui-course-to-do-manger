@@ -128,7 +128,7 @@ public class ToDoManagerMenuBar extends JMenuBar {
 		// Quit
 		QuitItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				
 			}
 		});
 		// Edit task
