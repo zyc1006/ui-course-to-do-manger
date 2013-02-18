@@ -1,7 +1,9 @@
 package se.uu.it.todomanger.ui;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.MenuItem;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -13,11 +15,13 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 import se.uu.it.todomanger.controller.LanguageManager;
 import se.uu.it.todomanger.controller.TaskManager;
+import se.uu.it.todomanger.dao.Savestate;
 
 /**
  * A singleton of menu bar for ToDoManager
@@ -76,7 +80,6 @@ public class ToDoManagerMenuBar extends JMenuBar {
 		    System.err.println("res/locale/ToDoManager.properties not found");
 		    System.exit(1);
 		}
-		
 		/*
 		 * JMenu fileMenu = new JMenu("File"); JMenu taskMenu = new
 		 * JMenu("Task"); JMenu helpMenu = new JMenu("Help");
@@ -160,7 +163,24 @@ public class ToDoManagerMenuBar extends JMenuBar {
 		// Quit
 		QuitItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				int val = JOptionPane.showConfirmDialog(
+						null,
+						resLocale
+								.getString("MainWindow_ConfirmExit_Message"),
+						resLocale.getString("MainWindow_ConfirmExit_Title"),
+						0);
+				if (val == JOptionPane.OK_OPTION) {
+					
+					//save status
+					MainWindow main = (MainWindow)MenuBar.getTopLevelAncestor();
+					//JFrame main = (JFrame) e.getSource();
+					Dimension size = main.getSize();
+					Point location = main.getLocationOnScreen();
+					Savestate save = new Savestate();
+					
+					save.saveLocation(size, location);
+					System.exit(0);
+				}
 			}
 		});
 		// Edit task
@@ -231,13 +251,13 @@ public class ToDoManagerMenuBar extends JMenuBar {
 		// Help
 		HelpItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				HelpDialog hd = new HelpDialog();
 			}
 		});
 		// About us
 		AboutUsItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				AboutUsDialog aud = new AboutUsDialog();
 			}
 		});
 
