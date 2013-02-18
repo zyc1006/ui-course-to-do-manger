@@ -286,6 +286,12 @@ public class Savestate
 		}
     	
     }
+    
+    /** public void loadLocation({@link Dimension} size, {@link Point} location)
+     * <br>load the previous window's size and location
+     * @param size
+     * @param location
+     */
     public Properties loadLocation(String filename) {
     	
     	Properties prop = new Properties();

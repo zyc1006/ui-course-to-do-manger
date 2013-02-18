@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 
 import javax.swing.table.DefaultTableModel;
 
+import se.uu.it.todomanger.controller.LanguageManager;
 import se.uu.it.todomanger.controller.TaskManager;
 
 /**
@@ -43,9 +44,9 @@ public class TaskTableModel extends DefaultTableModel {
 		// Load the resource bundle for the current locale.
 		ResourceBundle resLocale;
 		try {
-			resLocale = ResourceBundle.getBundle("locale.ToDoManager",
-					Locale.getDefault());
-
+//			resLocale = ResourceBundle.getBundle("locale.ToDoManager",
+//					Locale.getDefault());
+			resLocale = LanguageManager.getDefaultResourceBundle();
 			// Create the list of column header names
 			String[] localColumnTitles = { "id",
 					resLocale.getString("TaskTable_Column_Title_Label"),
@@ -62,6 +63,21 @@ public class TaskTableModel extends DefaultTableModel {
 		}
 
 	}
+	
+	public void setTaskTableText(){
+		ResourceBundle resLocale = LanguageManager.getDefaultResourceBundle();
+		// Create the list of column header names
+		String[] localColumnTitles = { "id",
+				resLocale.getString("TaskTable_Column_Title_Label"),
+				resLocale.getString("TaskTable_Column_Category_Label"),
+				resLocale.getString("TaskTable_Column_Priority_Label"),
+				resLocale.getString("TaskTable_Column_DueDate_Label") };
+
+		// Set the column header names
+		this.setColumnIdentifiers(localColumnTitles);
+	}
+	
+
 
 	/**
 	 * Add a task into the table
