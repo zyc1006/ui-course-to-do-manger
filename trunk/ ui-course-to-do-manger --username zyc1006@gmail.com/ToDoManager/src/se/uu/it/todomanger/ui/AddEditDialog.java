@@ -34,6 +34,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import se.uu.it.todomanger.controller.CategoryManager;
+import se.uu.it.todomanger.controller.LanguageManager;
 import se.uu.it.todomanger.model.Category;
 // Todo manager imports
 import se.uu.it.todomanger.model.Task;
@@ -201,8 +202,9 @@ public class AddEditDialog extends JDialog {
 		
 		// Load the resource bundle for the current locale.
 		try {
-			resLocale = ResourceBundle.getBundle("locale.ToDoManager", 
-		                                         Locale.getDefault());
+//			resLocale = ResourceBundle.getBundle("locale.ToDoManager", 
+//		                                         Locale.getDefault());
+			resLocale = LanguageManager.getDefaultResourceBundle();
 		} catch (MissingResourceException mre) {
 		    System.err.println("res/locale/ToDoManager.properties not found");
 		    System.exit(1);
