@@ -21,7 +21,7 @@ import se.uu.it.todomanger.model.Category;
  * 
  * @author Shiyu
  */
-public class ShowCatalog extends JFrame {
+public class ShowCatalog  {
 	
 	DefaultMutableTreeNode root = new DefaultMutableTreeNode("All");
 	
@@ -63,9 +63,9 @@ public class ShowCatalog extends JFrame {
 
 	    
 	    panel.add(addButton);
-	    getContentPane().add(panel, BorderLayout.SOUTH);
-	    setSize(300, 400);
-	    setVisible(true);
+//	    getContentPane().add(panel, BorderLayout.SOUTH);
+//	    setSize(300, 400);
+//	    setVisible(true);
 	  
 		
 		

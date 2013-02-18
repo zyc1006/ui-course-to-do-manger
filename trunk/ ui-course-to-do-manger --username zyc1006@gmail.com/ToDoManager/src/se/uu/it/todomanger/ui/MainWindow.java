@@ -120,7 +120,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import se.uu.it.todomanger.controller.LanguageManager;
 import se.uu.it.todomanger.dao.Savestate;
+import se.uu.it.todomanger.model.TaskTableModel;
 
 /**
  * @author Shiyu
@@ -153,8 +155,10 @@ public class MainWindow extends JFrame {
 
 		// Load the international words/phrases from the resourcebundle.
 		try {
-			resLocale = ResourceBundle.getBundle("locale.ToDoManager",
-					Locale.getDefault());
+//			resLocale = ResourceBundle.getBundle("locale.ToDoManager",
+//					Locale.getDefault());
+//			resLocale = LanguageManager.getDefaultResourceBundle();
+			resLocale = LanguageManager.resetResourceBundle(LanguageManager.ENGLISH);
 		} catch (MissingResourceException mre) {
 			System.err.println("res/locale/ToDoManager.properties not found");
 			System.exit(1);
@@ -196,10 +200,13 @@ public class MainWindow extends JFrame {
 							resLocale.getString("MainWindow_ConfirmExit_Title"),
 							0);
 					if (val == JOptionPane.OK_OPTION) {
+						
+						//save status
 						JFrame main = (JFrame) e.getSource();
 						Dimension size = main.getSize();
 						Point location = main.getLocationOnScreen();
 						Savestate save = new Savestate();
+						
 						save.saveLocation(size, location);
 						System.exit(0);
 					}
@@ -223,6 +230,26 @@ public class MainWindow extends JFrame {
 		panel.add(msp.initMainShow());
 		return panel;
 	}
+	
+	/**
+	 * reset application language
+	 * @param language
+	 */
+	public void resetAllLanguage(){
+		this.setMainWindowText();
+		ToDoManagerMenuBar.getInstance().setMenuBarText();
+		ToDoManagerToolBar.getInstance().setToolBarText();
+		ToDoManagerTaskTable.getInstance().setTaskTableText();
+		
+	}
+	
+	
+	
+	private void setMainWindowText(){
+		this.resLocale = LanguageManager.getDefaultResourceBundle();
+		this.setTitle(resLocale.getString("MainWindow_Title"));	
+	}
+	
 
 	public static void main(String[] args) {
 		MainWindow window = new MainWindow();

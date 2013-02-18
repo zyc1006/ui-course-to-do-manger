@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
+import se.uu.it.todomanger.controller.LanguageManager;
 import se.uu.it.todomanger.controller.TaskManager;
 
 /**
@@ -36,6 +37,12 @@ public class ToDoManagerToolBar extends JToolBar {
 
 	private static ToDoManagerToolBar toolBar = null;
 	
+	
+	//tool bar buttons
+	private static JButton createTaskButton;
+	private static JButton editTaskButton;
+	private static JButton delTaskButton;
+	
 	// A ResourceBundle for handling internationalization
 	private static ResourceBundle resLocale;
 
@@ -57,15 +64,16 @@ public class ToDoManagerToolBar extends JToolBar {
 
 		// Load the international words/phrases from the resourcebundle.
 		try {
-			resLocale = ResourceBundle.getBundle("locale.ToDoManager",
-					Locale.getDefault());
+//			resLocale = ResourceBundle.getBundle("locale.ToDoManager",
+//					Locale.getDefault());
+			resLocale = LanguageManager.getDefaultResourceBundle();
 		} catch (MissingResourceException mre) {
 			System.err.println("res/locale/ToDoManager.properties not found");
 			System.exit(1);
 		}
 
 		ImageIcon imageIcon = new ImageIcon(TOOLBAR_ICON_ADD_TASK);
-		JButton createTaskButton = new JButton(scaleImage(imageIcon,
+		createTaskButton = new JButton(scaleImage(imageIcon,
 				TOOLBAR_BUTTON_WIDTH, TOOLBAR_BUTTON_HEIGHT));
 		createTaskButton.setToolTipText(resLocale.getString("MenuBar_Add_Task_Option"));
 		createTaskButton.setMaximumSize(new Dimension(TOOLBAR_BUTTON_MAX_WIDTH,
@@ -73,7 +81,7 @@ public class ToDoManagerToolBar extends JToolBar {
 		createTaskButton.setBorderPainted(false);
 
 		imageIcon = new ImageIcon(TOOLBAR_ICON_EDIT_TASK);
-		JButton editTaskButton = new JButton(scaleImage(imageIcon,
+		editTaskButton = new JButton(scaleImage(imageIcon,
 				TOOLBAR_BUTTON_WIDTH, TOOLBAR_BUTTON_HEIGHT));
 		editTaskButton.setToolTipText(resLocale.getString("MenuBar_Edit_Task_Option"));
 		editTaskButton.setMaximumSize(new Dimension(TOOLBAR_BUTTON_MAX_WIDTH,
@@ -81,7 +89,7 @@ public class ToDoManagerToolBar extends JToolBar {
 		editTaskButton.setBorderPainted(false);
 
 		imageIcon = new ImageIcon(TOOLBAR_ICON_DELETE_TASK);
-		JButton delTaskButton = new JButton(scaleImage(imageIcon,
+		delTaskButton = new JButton(scaleImage(imageIcon,
 				TOOLBAR_BUTTON_WIDTH, TOOLBAR_BUTTON_HEIGHT));
 		delTaskButton.setToolTipText(resLocale.getString("MenuBar_Delete_Task_Option"));
 		delTaskButton.setMaximumSize(new Dimension(TOOLBAR_BUTTON_MAX_WIDTH,
@@ -133,6 +141,21 @@ public class ToDoManagerToolBar extends JToolBar {
 		return toolBar;
 	}
 
+	public void setToolBarText(){
+		resLocale = LanguageManager.getDefaultResourceBundle();
+		delTaskButton.setToolTipText(resLocale.getString("MenuBar_Delete_Task_Option"));
+		createTaskButton.setToolTipText(resLocale.getString("MenuBar_Add_Task_Option"));
+		editTaskButton.setToolTipText(resLocale.getString("MenuBar_Edit_Task_Option"));
+	}
+	
+	
+	/**
+	 * scale the icon of toolbar so as to fit the size
+	 * @param icon
+	 * @param width
+	 * @param height
+	 * @return
+	 */
 	private static ImageIcon scaleImage(ImageIcon icon, int width, int height) {
 		Image image = icon.getImage();
 		Image smallImage = image.getScaledInstance(width, height,
