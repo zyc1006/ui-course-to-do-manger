@@ -26,6 +26,6 @@ public class HelpDialog extends JDialog{
 		sb.append("Sara Frisk.           Email:sara.frisk.2154@student.uu.se\n");
 		sb.append("shiyu zhou.           Email:shiyu.zhou.4704@student.uu.se\n");
 		sb.append("Yucheng Zhou.         Email:yucheng.zhou.3489@student.uu.se\n");
-		JOptionPane.showMessageDialog(null, sb.toString(), "消息提示", 1);
+		JOptionPane.showMessageDialog(null, sb.toString(), "Help", 1);
 	}
 }
