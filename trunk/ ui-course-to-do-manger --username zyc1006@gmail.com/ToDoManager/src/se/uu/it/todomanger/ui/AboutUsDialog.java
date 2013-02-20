@@ -32,6 +32,6 @@ public class AboutUsDialog extends JDialog
 			sb.append("  ");
 		}
 		sb.append("Group 12 \n\n");
-		JOptionPane.showMessageDialog(null, sb.toString(), "消息提示", 1);
+		JOptionPane.showMessageDialog(null, sb.toString(), "about us", 1);
 	}
 }
