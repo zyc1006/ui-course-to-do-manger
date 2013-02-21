@@ -1,7 +1,5 @@
 package se.uu.it.todomanger.ui;
 
-import java.util.ResourceBundle;
-
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 

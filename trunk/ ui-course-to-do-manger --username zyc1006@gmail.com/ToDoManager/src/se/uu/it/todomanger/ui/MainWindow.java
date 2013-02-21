@@ -111,10 +111,8 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.Properties;
-import java.util.ResourceBundle;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -134,9 +132,6 @@ public class MainWindow extends JFrame {
 	// Window data
 	public static final int MAINWINDOW_WIDTH = 800;
 	public static final int MAINWINDOW_HEIGHT = 600;
-
-	// Language data
-	private LanguageManager resLocale;
 
 	public MainWindow(/* ClientController controller */) {
 		// this.controller = controller;
