@@ -155,18 +155,14 @@ public class MainWindow extends JFrame {
 
 		// Load the international words/phrases from the LanguageManager.
 		try {
-			// Get the language manager for this window.
-			resLocale = new LanguageManager();
-			
 			// Set the default language -- this is supposed to be remembered by the program between exits TBD!
-			//LanguageManager.setLocale(LanguageManager.ENGLISH);
-			
+			LanguageManager.setLocale(LanguageManager.ENGLISH);
 		} catch (MissingResourceException mre) {
 			System.err.println("res/locale/ToDoManager.properties not found");
 			System.exit(1);
 		}
 		
-		this.setTitle(resLocale.getString("MainWindow_Title"));		
+		this.setTitle(LanguageManager.getString("MainWindow_Title"));		
 		Savestate save = new Savestate();
 		//load saved size and location
 		Properties prop = save.loadLocation(System.getProperty("user.home")+ 
@@ -197,9 +193,9 @@ public class MainWindow extends JFrame {
 				{
 					int val = JOptionPane.showConfirmDialog(
 							null,
-							resLocale
+							LanguageManager
 									.getString("MainWindow_ConfirmExit_Message"),
-							resLocale.getString("MainWindow_ConfirmExit_Title"),
+							LanguageManager.getString("MainWindow_ConfirmExit_Title"),
 							0);
 					if (val == JOptionPane.OK_OPTION) {
 						
@@ -249,7 +245,7 @@ public class MainWindow extends JFrame {
 	
 	private void setMainWindowText(){
 		//this.resLocale = LanguageManager.getDefaultResourceBundle();
-		this.setTitle(resLocale.getString("MainWindow_Title"));	
+		this.setTitle(LanguageManager.getString("MainWindow_Title"));	
 	}
 	
 

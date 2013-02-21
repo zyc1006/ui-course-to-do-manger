@@ -49,10 +49,10 @@ public class TaskTableModel extends DefaultTableModel {
 			resLocale = new LanguageManager();
 			// Create the list of column header names
 			String[] localColumnTitles = { "id",
-					resLocale.getString("TaskTable_Column_Title_Label"),
-					resLocale.getString("TaskTable_Column_Category_Label"),
-					resLocale.getString("TaskTable_Column_Priority_Label"),
-					resLocale.getString("TaskTable_Column_DueDate_Label") };
+					LanguageManager.getString("TaskTable_Column_Title_Label"),
+					LanguageManager.getString("TaskTable_Column_Category_Label"),
+					LanguageManager.getString("TaskTable_Column_Priority_Label"),
+					LanguageManager.getString("TaskTable_Column_DueDate_Label") };
 
 			// Set the column header names
 			this.setColumnIdentifiers(localColumnTitles);
@@ -68,10 +68,10 @@ public class TaskTableModel extends DefaultTableModel {
 		LanguageManager resLocale = new LanguageManager();
 		// Create the list of column header names
 		String[] localColumnTitles = { "id",
-				resLocale.getString("TaskTable_Column_Title_Label"),
-				resLocale.getString("TaskTable_Column_Category_Label"),
-				resLocale.getString("TaskTable_Column_Priority_Label"),
-				resLocale.getString("TaskTable_Column_DueDate_Label") };
+				LanguageManager.getString("TaskTable_Column_Title_Label"),
+				LanguageManager.getString("TaskTable_Column_Category_Label"),
+				LanguageManager.getString("TaskTable_Column_Priority_Label"),
+				LanguageManager.getString("TaskTable_Column_DueDate_Label") };
 
 		// Set the column header names
 		this.setColumnIdentifiers(localColumnTitles);
