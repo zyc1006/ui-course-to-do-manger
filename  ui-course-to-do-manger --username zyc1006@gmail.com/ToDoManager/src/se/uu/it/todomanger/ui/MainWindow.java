@@ -182,30 +182,33 @@ public class MainWindow extends JFrame {
 			this.setSize(size);
 			
 			String la = prop.getProperty("lang");
+			if(la == null)
+			{
+					LanguageManager.setLocale(LanguageManager.ENGLISH);
+					lang = "en";
+			}
+			else
+			{
 			if(la.equals("de"))
 			{
 				LanguageManager.setLocale(LanguageManager.GERMAN);
 				lang = "de";
 			}
-			if(la.equals("en"))
+			else if(la.equals("en"))
 			{
 				LanguageManager.setLocale(LanguageManager.ENGLISH);
 				lang = "en";
 			}
-			if(la.equals("sv"))
+			else if(la.equals("sv"))
 			{
 				LanguageManager.setLocale(LanguageManager.SWEDISH);
 				lang = "sv";
 			}
-			if(la.equals("zh"))
+			else if(la.equals("zh"))
 			{
 				LanguageManager.setLocale(LanguageManager.CHINESE);
 				lang = "zh";
 			}
-			if(la.equals(null))
-			{
-				LanguageManager.setLocale(LanguageManager.ENGLISH);
-				lang = "en";
 			}
 			this.setTitle(LanguageManager.getString("MainWindow_Title"));
 		}
