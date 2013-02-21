@@ -32,6 +32,7 @@ public class ToDoManagerMenuBar extends JMenuBar {
 	// Window  data
 	public static final int MENUBAR_PANEL_WIDTH = 80;
 	public static final int MENUBAR_PANEL_HEIGHT = 80;
+	//private static String lang ;
 	
 	private static ToDoManagerMenuBar MenuBar = null;
 	
@@ -141,7 +142,7 @@ public class ToDoManagerMenuBar extends JMenuBar {
 					Point location = main.getLocationOnScreen();
 					Savestate save = new Savestate();
 					
-					save.saveLocation(size, location);
+					save.saveLocation(size, location , MainWindow.lang);
 					System.exit(0);
 				}
 			}
@@ -179,6 +180,7 @@ public class ToDoManagerMenuBar extends JMenuBar {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				LanguageManager.setLocale(LanguageManager.GERMAN);
+				MainWindow.lang = "de";
 				MainWindow mainWindow = (MainWindow)MenuBar.getTopLevelAncestor();
 				mainWindow.resetAllLanguage();
 
@@ -192,6 +194,7 @@ public class ToDoManagerMenuBar extends JMenuBar {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				LanguageManager.setLocale(LanguageManager.ENGLISH);
+				MainWindow.lang = "en";
 				MainWindow mainWindow = (MainWindow)MenuBar.getTopLevelAncestor();
 				mainWindow.resetAllLanguage();
 			}
@@ -203,6 +206,7 @@ public class ToDoManagerMenuBar extends JMenuBar {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				LanguageManager.setLocale(LanguageManager.SWEDISH);
+				MainWindow.lang = "sv";
 				MainWindow mainWindow = (MainWindow) MenuBar
 						.getTopLevelAncestor();
 				mainWindow.resetAllLanguage();
@@ -215,6 +219,7 @@ public class ToDoManagerMenuBar extends JMenuBar {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				LanguageManager.setLocale(LanguageManager.CHINESE);
+				MainWindow.lang = "zh";
 				MainWindow mainWindow = (MainWindow) MenuBar
 						.getTopLevelAncestor();
 				mainWindow.resetAllLanguage();

@@ -111,8 +111,10 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.Properties;
+import java.util.ResourceBundle;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -132,6 +134,7 @@ public class MainWindow extends JFrame {
 	// Window data
 	public static final int MAINWINDOW_WIDTH = 800;
 	public static final int MAINWINDOW_HEIGHT = 600;
+	public static String lang ;
 
 	public MainWindow(/* ClientController controller */) {
 		// this.controller = controller;
@@ -149,16 +152,20 @@ public class MainWindow extends JFrame {
 	public void init() {
 
 		// Load the international words/phrases from the LanguageManager.
-		try {
+		/*try {
 			// Set the default language -- this is supposed to be remembered by
 			// the program between exits TBD!
+			//String a = "ENGLISH";
+			//LanguageManager.setLocale(new Locale("de","DE"));
+			//sv,SE; en,SU; zh,CN;de,DE
 			LanguageManager.setLocale(LanguageManager.ENGLISH);
+			lang = "de";
 		} catch (MissingResourceException mre) {
 			System.err.println("res/locale/ToDoManager.properties not found");
 			System.exit(1);
-		}
+		}*/
 
-		this.setTitle(LanguageManager.getString("MainWindow_Title"));
+		//this.setTitle(LanguageManager.getString("MainWindow_Title"));
 		Savestate save = new Savestate();
 		// load saved size and location
 		Properties prop = save.loadLocation(System.getProperty("user.home")
@@ -173,7 +180,29 @@ public class MainWindow extends JFrame {
 			size.width = Integer.parseInt(prop.getProperty("width"));
 			size.height = Integer.parseInt(prop.getProperty("height"));
 			this.setSize(size);
-
+			
+			String la = prop.getProperty("lang");
+			if(la.equals("de"))
+			{
+				LanguageManager.setLocale(new Locale("de","DE"));
+				lang = "de";
+			}
+			if(la.equals("en"))
+			{
+				LanguageManager.setLocale(new Locale("en","US"));
+				lang = "en";
+			}
+			if(la.equals("sv"))
+			{
+				LanguageManager.setLocale(new Locale("sv","SE"));
+				lang = "sv";
+			}
+			if(la.equals("zh"))
+			{
+				LanguageManager.setLocale(new Locale("zh","CN"));
+				lang = "zh";
+			}
+			this.setTitle(LanguageManager.getString("MainWindow_Title"));
 		}
 		// load default size and location
 		else {
@@ -202,7 +231,7 @@ public class MainWindow extends JFrame {
 						Point location = main.getLocationOnScreen();
 						Savestate save = new Savestate();
 
-						save.saveLocation(size, location);
+						save.saveLocation(size, location , lang);
 						System.exit(0);
 					}
 				}

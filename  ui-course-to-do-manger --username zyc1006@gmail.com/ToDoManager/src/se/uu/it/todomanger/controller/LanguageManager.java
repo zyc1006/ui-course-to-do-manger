@@ -20,7 +20,7 @@ public class LanguageManager {
 	// Public references to locales that the program accepts.
 	public static final Locale ENGLISH = Locale.ENGLISH;
 	public static final Locale GERMAN = Locale.GERMAN;
-	public static final Locale SWEDISH = new Locale("swe");
+	public static final Locale SWEDISH = new Locale("sv","SE");
 	//public static final Locale SWEDISH = Locale.SWEDISH;
 	public static final Locale CHINESE = Locale.CHINESE;
 

@@ -266,7 +266,7 @@ public class Savestate
      * @param size
      * @param location
      */
-    public void saveLocation(Dimension size, Point location){
+    public void saveLocation(Dimension size, Point location ,String lang){
     	String userHome = System.getProperty("user.home");
     	try {
 			OutputStream os = new FileOutputStream(userHome + "/TODOgroup12.properties");
@@ -275,6 +275,7 @@ public class Savestate
 			prop.put("y", Integer.toString(location.y));
 			prop.put("width", Integer.toString(size.width));
 			prop.put("height", Integer.toString(size.height));
+			prop.put("lang", lang.toString());
 			prop.store(os, "Window size and location");
 			os.close();
 		} catch (FileNotFoundException e) {
