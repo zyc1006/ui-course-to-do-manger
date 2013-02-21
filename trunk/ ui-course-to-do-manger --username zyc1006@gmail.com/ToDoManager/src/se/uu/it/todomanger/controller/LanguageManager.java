@@ -21,6 +21,7 @@ public class LanguageManager {
 	public static final Locale ENGLISH = Locale.ENGLISH;
 	public static final Locale GERMAN = Locale.GERMAN;
 	public static final Locale SWEDISH = new Locale("swe");
+	//public static final Locale SWEDISH = Locale.SWEDISH;
 	public static final Locale CHINESE = Locale.CHINESE;
 
 	// The ResourceBundle we use for loading words/phrases.
