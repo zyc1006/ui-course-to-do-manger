@@ -184,23 +184,28 @@ public class MainWindow extends JFrame {
 			String la = prop.getProperty("lang");
 			if(la.equals("de"))
 			{
-				LanguageManager.setLocale(new Locale("de","DE"));
+				LanguageManager.setLocale(LanguageManager.GERMAN);
 				lang = "de";
 			}
 			if(la.equals("en"))
 			{
-				LanguageManager.setLocale(new Locale("en","US"));
+				LanguageManager.setLocale(LanguageManager.ENGLISH);
 				lang = "en";
 			}
 			if(la.equals("sv"))
 			{
-				LanguageManager.setLocale(new Locale("sv","SE"));
+				LanguageManager.setLocale(LanguageManager.SWEDISH);
 				lang = "sv";
 			}
 			if(la.equals("zh"))
 			{
-				LanguageManager.setLocale(new Locale("zh","CN"));
+				LanguageManager.setLocale(LanguageManager.CHINESE);
 				lang = "zh";
+			}
+			if(la.equals(null))
+			{
+				LanguageManager.setLocale(LanguageManager.ENGLISH);
+				lang = "en";
 			}
 			this.setTitle(LanguageManager.getString("MainWindow_Title"));
 		}
@@ -208,6 +213,17 @@ public class MainWindow extends JFrame {
 		else {
 			this.setSize(MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
 			this.setLocationRelativeTo(null);
+			// Load the international words/phrases from the LanguageManager.
+			try {
+				// Set the default language -- this is supposed to be remembered by
+				// the program between exits TBD!
+				//sv,SE; en,SU; zh,CN;de,DE
+				LanguageManager.setLocale(LanguageManager.ENGLISH);
+				lang = "en";
+			} catch (MissingResourceException mre) {
+				System.err.println("res/locale/ToDoManager.properties not found");
+				System.exit(1);
+			}
 		}
 		this.setContentPane(createPanel());
 		this.setVisible(true);
