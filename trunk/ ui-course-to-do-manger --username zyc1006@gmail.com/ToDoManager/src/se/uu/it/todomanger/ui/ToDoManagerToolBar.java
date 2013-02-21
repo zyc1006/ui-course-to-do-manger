@@ -44,7 +44,7 @@ public class ToDoManagerToolBar extends JToolBar {
 	private static JButton delTaskButton;
 	
 	// A ResourceBundle for handling internationalization
-	private static ResourceBundle resLocale;
+	private static LanguageManager resLocale;
 
 	private ToDoManagerToolBar() {
 		super();
@@ -66,7 +66,7 @@ public class ToDoManagerToolBar extends JToolBar {
 		try {
 //			resLocale = ResourceBundle.getBundle("locale.ToDoManager",
 //					Locale.getDefault());
-			resLocale = LanguageManager.getDefaultResourceBundle();
+			resLocale = new LanguageManager();
 		} catch (MissingResourceException mre) {
 			System.err.println("res/locale/ToDoManager.properties not found");
 			System.exit(1);
@@ -142,7 +142,7 @@ public class ToDoManagerToolBar extends JToolBar {
 	}
 
 	public void setToolBarText(){
-		resLocale = LanguageManager.getDefaultResourceBundle();
+		//resLocale = LanguageManager.getDefaultResourceBundle();
 		delTaskButton.setToolTipText(resLocale.getString("MenuBar_Delete_Task_Option"));
 		createTaskButton.setToolTipText(resLocale.getString("MenuBar_Add_Task_Option"));
 		editTaskButton.setToolTipText(resLocale.getString("MenuBar_Edit_Task_Option"));

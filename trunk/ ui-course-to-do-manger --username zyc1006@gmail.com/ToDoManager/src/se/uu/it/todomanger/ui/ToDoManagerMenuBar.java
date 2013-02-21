@@ -38,7 +38,7 @@ public class ToDoManagerMenuBar extends JMenuBar {
 	
 	private static ToDoManagerMenuBar MenuBar = null;
 	// A ResourceBundle for loading international words/phrases.
-	private static ResourceBundle resLocale;
+	private static LanguageManager resLocale;
 	
 	// MenuItem in menu bar
 	private static JMenu FileMenu;
@@ -75,7 +75,7 @@ public class ToDoManagerMenuBar extends JMenuBar {
 		try {
 //			resLocale = ResourceBundle.getBundle("locale.ToDoManager", 
 //		                                         Locale.getDefault());
-			resLocale = LanguageManager.getDefaultResourceBundle();
+			resLocale = new LanguageManager();
 		} catch (MissingResourceException mre) {
 		    System.err.println("res/locale/ToDoManager.properties not found");
 		    System.exit(1);
@@ -106,7 +106,7 @@ public class ToDoManagerMenuBar extends JMenuBar {
 		// FileMenu.setFont(new Font("»ªÎÄ²ÊÔÆ",0,30));
 		TaskMenu = new JMenu(resLocale.getString("MenuBar_Task_Menu"));
 		HelpMenu = new JMenu(resLocale.getString("MenuBar_Help_Menu"));
-		LanguageMenu = new JMenu("Language");//(resLocale.getString("MenuBar_Language_Menu"));
+		LanguageMenu = new JMenu(resLocale.getString("MenuBar_Language_Menu"));
 		// HelpMenu.setSize(100, 100);
 		// FileMenu.setSize(50, 50);
 		MenuBar.add(FileMenu);
@@ -137,9 +137,9 @@ public class ToDoManagerMenuBar extends JMenuBar {
 		HelpMenu.addSeparator();
 		HelpMenu.add(AboutUsItem);
 		
-		GermanItem = new JMenuItem("German" , KeyEvent.VK_G);//(resLocale.getString("MenuBar_German_Option"), KeyEvent.VK_G);
-		EnglishItem = new JMenuItem("English", KeyEvent.VK_E);//(resLocale.getString("MenuBar_English_Option"), KeyEvent.VK_E);
-		SwedishItem = new JMenuItem("Swedish", KeyEvent.VK_W);
+		GermanItem = new JMenuItem(resLocale.getString("MenuBar_German_Option") , KeyEvent.VK_G);
+		EnglishItem = new JMenuItem(resLocale.getString("MenuBar_English_Option"), KeyEvent.VK_E);
+		SwedishItem = new JMenuItem(resLocale.getString("MenuBar_Swedish_Option"), KeyEvent.VK_W);
 		
 		LanguageMenu.add(EnglishItem);		
 		LanguageMenu.addSeparator();
@@ -215,7 +215,7 @@ public class ToDoManagerMenuBar extends JMenuBar {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				LanguageManager.resetResourceBundle(LanguageManager.GERMAN);
+				LanguageManager.setLocale(LanguageManager.GERMAN);
 				MainWindow mainWindow = (MainWindow)MenuBar.getTopLevelAncestor();
 				mainWindow.resetAllLanguage();
 
@@ -228,7 +228,7 @@ public class ToDoManagerMenuBar extends JMenuBar {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				LanguageManager.resetResourceBundle(LanguageManager.ENGLISH);
+				LanguageManager.setLocale(LanguageManager.ENGLISH);
 				MainWindow mainWindow = (MainWindow)MenuBar.getTopLevelAncestor();
 				mainWindow.resetAllLanguage();
 			}
@@ -239,7 +239,7 @@ public class ToDoManagerMenuBar extends JMenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				LanguageManager.resetResourceBundle(LanguageManager.SWEDISH);
+				LanguageManager.setLocale(LanguageManager.SWEDISH);
 				MainWindow mainWindow = (MainWindow) MenuBar
 						.getTopLevelAncestor();
 				mainWindow.resetAllLanguage();
@@ -265,7 +265,7 @@ public class ToDoManagerMenuBar extends JMenuBar {
 	}
 
 	public void setMenuBarText(){
-		resLocale = LanguageManager.getDefaultResourceBundle();
+		//resLocale = LanguageManager.getDefaultResourceBundle();
 		FileMenu.setText(resLocale.getString("MenuBar_File_Menu"));
 		TaskMenu.setText(resLocale.getString("MenuBar_Task_Menu"));
 		HelpMenu.setText(resLocale.getString("MenuBar_Help_Menu"));
@@ -277,9 +277,10 @@ public class ToDoManagerMenuBar extends JMenuBar {
 		AddItem.setText(resLocale.getString("MenuBar_Add_Task_Option"));
 		AboutUsItem.setText(resLocale.getString("MenuBar_About_Option"));
 		HelpItem.setText(resLocale.getString("MenuBar_Help_Option"));
-		GermanItem.setText("German");//(resLocale.getString("MenuBar_German_Option"), KeyEvent.VK_G);
-		EnglishItem.setText("English");//(resLocale.getString("MenuBar_English_Option"), KeyEvent.VK_E);
-		SwedishItem.setText("Swedish");
+		LanguageMenu.setText(resLocale.getString("MenuBar_Language_Menu"));
+		GermanItem.setText(resLocale.getString("MenuBar_German_Option"));//(resLocale.getString("MenuBar_German_Option"), KeyEvent.VK_G);
+		EnglishItem.setText(resLocale.getString("MenuBar_English_Option"));//(resLocale.getString("MenuBar_English_Option"), KeyEvent.VK_E);
+		SwedishItem.setText(resLocale.getString("MenuBar_Swedish_Option"));
 	}
 	
 	static public ToDoManagerMenuBar getInstance() {

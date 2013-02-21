@@ -42,11 +42,11 @@ public class TaskTableModel extends DefaultTableModel {
 		super(columnName, 0);
 
 		// Load the resource bundle for the current locale.
-		ResourceBundle resLocale;
+		LanguageManager resLocale;
 		try {
 //			resLocale = ResourceBundle.getBundle("locale.ToDoManager",
 //					Locale.getDefault());
-			resLocale = LanguageManager.getDefaultResourceBundle();
+			resLocale = new LanguageManager();
 			// Create the list of column header names
 			String[] localColumnTitles = { "id",
 					resLocale.getString("TaskTable_Column_Title_Label"),
@@ -65,7 +65,7 @@ public class TaskTableModel extends DefaultTableModel {
 	}
 	
 	public void setTaskTableText(){
-		ResourceBundle resLocale = LanguageManager.getDefaultResourceBundle();
+		LanguageManager resLocale = new LanguageManager();
 		// Create the list of column header names
 		String[] localColumnTitles = { "id",
 				resLocale.getString("TaskTable_Column_Title_Label"),
