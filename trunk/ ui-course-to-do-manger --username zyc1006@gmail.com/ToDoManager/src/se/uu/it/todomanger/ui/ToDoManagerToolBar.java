@@ -33,36 +33,30 @@ public class ToDoManagerToolBar extends JToolBar {
 	public static final String TOOLBAR_ICON_DELETE_TASK = "res/image/Delete.gif";
 
 	private static ToDoManagerToolBar toolBar = null;
-	
-	
-	//tool bar buttons
+
+	// tool bar buttons
 	private static JButton createTaskButton;
 	private static JButton editTaskButton;
 	private static JButton delTaskButton;
-	
-	// A ResourceBundle for handling internationalization
-	private static LanguageManager resLocale;
 
 	private ToDoManagerToolBar() {
 		super();
 	}
 
 	/**
-	 * initToolBar
+	 * Sets up the tool bar with icons and internationalized words/phrases.
 	 * 
 	 * @author Shiyu
 	 * @author Yucheng
 	 * @author Bjorn
-	 * 
-	 * @description Sets up the tool bar with icons and internationalized
-	 *              words/phrases.
 	 */
 	private static void initToolBar() {
 
 		ImageIcon imageIcon = new ImageIcon(TOOLBAR_ICON_ADD_TASK);
 		createTaskButton = new JButton(scaleImage(imageIcon,
 				TOOLBAR_BUTTON_WIDTH, TOOLBAR_BUTTON_HEIGHT));
-		createTaskButton.setToolTipText(LanguageManager.getString("MenuBar_Add_Task_Option"));
+		createTaskButton.setToolTipText(LanguageManager
+				.getString("MenuBar_Add_Task_Option"));
 		createTaskButton.setMaximumSize(new Dimension(TOOLBAR_BUTTON_MAX_WIDTH,
 				TOOLBAR_BUTTON_MAX_HEIGHT));
 		createTaskButton.setBorderPainted(false);
@@ -70,15 +64,17 @@ public class ToDoManagerToolBar extends JToolBar {
 		imageIcon = new ImageIcon(TOOLBAR_ICON_EDIT_TASK);
 		editTaskButton = new JButton(scaleImage(imageIcon,
 				TOOLBAR_BUTTON_WIDTH, TOOLBAR_BUTTON_HEIGHT));
-		editTaskButton.setToolTipText(LanguageManager.getString("MenuBar_Edit_Task_Option"));
+		editTaskButton.setToolTipText(LanguageManager
+				.getString("MenuBar_Edit_Task_Option"));
 		editTaskButton.setMaximumSize(new Dimension(TOOLBAR_BUTTON_MAX_WIDTH,
 				TOOLBAR_BUTTON_MAX_HEIGHT));
 		editTaskButton.setBorderPainted(false);
 
 		imageIcon = new ImageIcon(TOOLBAR_ICON_DELETE_TASK);
-		delTaskButton = new JButton(scaleImage(imageIcon,
-				TOOLBAR_BUTTON_WIDTH, TOOLBAR_BUTTON_HEIGHT));
-		delTaskButton.setToolTipText(LanguageManager.getString("MenuBar_Delete_Task_Option"));
+		delTaskButton = new JButton(scaleImage(imageIcon, TOOLBAR_BUTTON_WIDTH,
+				TOOLBAR_BUTTON_HEIGHT));
+		delTaskButton.setToolTipText(LanguageManager
+				.getString("MenuBar_Delete_Task_Option"));
 		delTaskButton.setMaximumSize(new Dimension(TOOLBAR_BUTTON_MAX_WIDTH,
 				TOOLBAR_BUTTON_MAX_HEIGHT));
 		delTaskButton.setBorderPainted(false);
@@ -128,16 +124,19 @@ public class ToDoManagerToolBar extends JToolBar {
 		return toolBar;
 	}
 
-	public void setToolBarText(){
-		//resLocale = LanguageManager.getDefaultResourceBundle();
-		delTaskButton.setToolTipText(LanguageManager.getString("MenuBar_Delete_Task_Option"));
-		createTaskButton.setToolTipText(LanguageManager.getString("MenuBar_Add_Task_Option"));
-		editTaskButton.setToolTipText(LanguageManager.getString("MenuBar_Edit_Task_Option"));
+	public void setToolBarText() {
+		// resLocale = LanguageManager.getDefaultResourceBundle();
+		delTaskButton.setToolTipText(LanguageManager
+				.getString("MenuBar_Delete_Task_Option"));
+		createTaskButton.setToolTipText(LanguageManager
+				.getString("MenuBar_Add_Task_Option"));
+		editTaskButton.setToolTipText(LanguageManager
+				.getString("MenuBar_Edit_Task_Option"));
 	}
-	
-	
+
 	/**
 	 * scale the icon of toolbar so as to fit the size
+	 * 
 	 * @param icon
 	 * @param width
 	 * @param height

@@ -6,15 +6,18 @@ import javax.swing.JOptionPane;
 import se.uu.it.todomanger.controller.LanguageManager;
 
 /**
- * AboutUsDialog
+ * Shows a dialog describing the program.
  * @author ???
  * @author bjorn
- * @description Shows a dialog describing the program.
- *
  */
 public class AboutUsDialog extends JDialog
 {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public AboutUsDialog()
 	{
 		

@@ -37,11 +37,10 @@ import se.uu.it.todomanger.model.Category;
 import se.uu.it.todomanger.model.Task;
 
 /**
- * AddEditDialog
+ * A class that can display a dialog for adding and editing tasks.
  * 
  * @author bjorn
  * @author sara
- * @description A class that shows a
  */
 public class AddEditDialog extends JDialog {
 
@@ -130,7 +129,7 @@ public class AddEditDialog extends JDialog {
 	public static final int ADDEDITDIALOG_LAYOUT_PRIORITY_SLIDER_COLUMN_SPAN = 4;
 	public static final int ADDEDITDIALOG_LAYOUT_PRIORITY_TEXT_COLUMN = 5;
 	public static final int ADDEDITDIALOG_LAYOUT_PRIORITY_TEXT_COLUMN_SPAN = 1;
-	
+
 	// Data for buttons
 	public static final int ADDEDITDIALOG_LAYOUT_BUTTONS_ANCHOR = GridBagConstraints.EAST;
 	public static final int ADDEDITDIALOG_LAYOUT_BUTTONS_COLUMN_SPAN = 6;
@@ -153,7 +152,7 @@ public class AddEditDialog extends JDialog {
 
 	// Window data
 	public static final Boolean ADDEDITDIALOG_WINDOW_RESIZABLE = true;
-	
+
 	// END OF CONSTANTS
 
 	// For keeping track of which mode the AddEditDialog is in.
@@ -190,23 +189,26 @@ public class AddEditDialog extends JDialog {
 	private Container gridBagContainer;
 
 	/**
-	 * AddEditDialog
+	 * The constructor for the AddEditDialog, which defines the GUI.
 	 * 
 	 * @author bjoern
 	 * @author sara
-	 * @description The constructor for the AddEditDialog, which defines the
-	 *              GUI.
 	 */
 	public AddEditDialog() {
-		
+
 		// Step 1: Create and set properties of components
 
 		// Information labels
-		JLabel lblTitle = new JLabel(LanguageManager.getString("AddEditDialog_Title_Label"));
-		JLabel lblDueDate = new JLabel(LanguageManager.getString("AddEditDialog_DueDate_Label"));
-		JLabel lblCategory = new JLabel(LanguageManager.getString("AddEditDialog_Category_Label"));
-		JLabel lblPriority = new JLabel(LanguageManager.getString("AddEditDialog_Priority_Label"));
-		JLabel lblDescription = new JLabel(LanguageManager.getString("AddEditDialog_Description_Label"));
+		JLabel lblTitle = new JLabel(
+				LanguageManager.getString("AddEditDialog_Title_Label"));
+		JLabel lblDueDate = new JLabel(
+				LanguageManager.getString("AddEditDialog_DueDate_Label"));
+		JLabel lblCategory = new JLabel(
+				LanguageManager.getString("AddEditDialog_Category_Label"));
+		JLabel lblPriority = new JLabel(
+				LanguageManager.getString("AddEditDialog_Priority_Label"));
+		JLabel lblDescription = new JLabel(
+				LanguageManager.getString("AddEditDialog_Description_Label"));
 
 		// Text field for title
 		txtTitle = new JTextField();
@@ -236,8 +238,10 @@ public class AddEditDialog extends JDialog {
 		Dictionary<Integer, JLabel> priorityLabels = new Hashtable<Integer, JLabel>();
 		priorityLabels.put(ADDEDITDIALOG_PRIORITY_MIN, new JLabel(
 				LanguageManager.getString("AddEditDialog_Priority_Low_Label")));
-		priorityLabels.put(ADDEDITDIALOG_PRIORITY_MAX, new JLabel(
-				LanguageManager.getString("AddEditDialog_Priority_High_Label")));
+		priorityLabels
+				.put(ADDEDITDIALOG_PRIORITY_MAX,
+						new JLabel(LanguageManager
+								.getString("AddEditDialog_Priority_High_Label")));
 
 		sliPriority.setLabelTable(priorityLabels);
 		sliPriority.setPaintLabels(ADDEDITDIALOG_PRIORITY_SHOW_LABELS);
@@ -247,9 +251,9 @@ public class AddEditDialog extends JDialog {
 			public void stateChanged(ChangeEvent arg0) {
 				UpdatePriorityTextBox();
 			}
-			
+
 		});
-		
+
 		// JTextField for Priority
 		txtPriority = new JTextField();
 		txtPriority.setEditable(false);
@@ -259,9 +263,11 @@ public class AddEditDialog extends JDialog {
 		txtDescription.setPreferredSize(longTextDimension);
 
 		// JButtons for OK and Cancel
-		JButton btnOK = new JButton(LanguageManager.getString("AddEditDialog_OK_Label"));
+		JButton btnOK = new JButton(
+				LanguageManager.getString("AddEditDialog_OK_Label"));
 		btnOK.setSize(buttonDimension);
-		JButton btnCancel = new JButton(LanguageManager.getString("AddEditDialog_Cancel_Label"));
+		JButton btnCancel = new JButton(
+				LanguageManager.getString("AddEditDialog_Cancel_Label"));
 		btnCancel.setSize(buttonDimension);
 
 		// Action handlers for buttons
@@ -289,7 +295,9 @@ public class AddEditDialog extends JDialog {
 		GridBagConstraints fieldsConstraint = new GridBagConstraints();
 		GridBagConstraints dateConstraint = new GridBagConstraints();
 		GridBagConstraints buttonConstraint = new GridBagConstraints();
-		GridBagConstraints priorityConstraint; // Will be copied from fieldsConstraint with minor changes.
+		GridBagConstraints priorityConstraint; // Will be copied from
+												// fieldsConstraint with minor
+												// changes.
 
 		// Common information for the labels
 		labelConstraint.insets = new Insets(
@@ -313,10 +321,10 @@ public class AddEditDialog extends JDialog {
 		fieldsConstraint.gridwidth = ADDEDITDIALOG_LAYOUT_FIELDS_COLUMN_SPAN;
 		fieldsConstraint.anchor = ADDEDITDIALOG_LAYOUT_FIELDS_ANCHOR;
 		fieldsConstraint.weightx = ADDEDITDIALOG_LAYOUT_FIELDS_COLUMN_WEIGHT;
-		
+
 		// Priority information
 		priorityConstraint = (GridBagConstraints) fieldsConstraint.clone();
-		
+
 		// Common information for the date fields
 		dateConstraint.insets = new Insets(
 				ADDEDITDIALOG_LAYOUT_COMMON_PADDING_TOP,
@@ -420,11 +428,9 @@ public class AddEditDialog extends JDialog {
 	}
 
 	/**
-	 * OKButtonHandler
+	 * Creates/Edits the AddEditDialogs Task with the data the user has entered.
 	 * 
 	 * @author bjorn
-	 * @description Creates/Edits the AddEditDialogs Task with the data the user
-	 *              has entered.
 	 */
 	private void OKButtonHandler() {
 
@@ -450,27 +456,29 @@ public class AddEditDialog extends JDialog {
 
 		// There has to be a title
 		if (txtTitle.getText().length() == 0) {
-			errorMessage += LanguageManager.getString("AddEditDialog_Error_NoTitle") + "\n";
+			errorMessage += LanguageManager
+					.getString("AddEditDialog_Error_NoTitle") + "\n";
 			incorrectDataFormat = true;
 		}
 		// Date has to be set
 		if (txtDueDate.getText().toString().isEmpty()) {
-			errorMessage += LanguageManager.getString("AddEditDialog_Error_NoDate") + "\n";
+			errorMessage += LanguageManager
+					.getString("AddEditDialog_Error_NoDate") + "\n";
 			incorrectDataFormat = true;
 		}
 		// Create the date object from the user information.
 		try {
 			taskDueDate = dateFormat.parse(taskDueDateString);
 		} catch (ParseException e) {
-			errorMessage += LanguageManager.getString("AddEditDialog_Error_DateInvalid") + "\n";
+			errorMessage += LanguageManager
+					.getString("AddEditDialog_Error_DateInvalid") + "\n";
 			incorrectDataFormat = true;
 		}
 		// If an error occurred, display the error message.
 		if (incorrectDataFormat) {
-			JOptionPane
-					.showMessageDialog(this, errorMessage,
-							LanguageManager.getString("AddEditDialog_Error_Dialog_Title"),
-							JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, errorMessage, LanguageManager
+					.getString("AddEditDialog_Error_Dialog_Title"),
+					JOptionPane.ERROR_MESSAGE);
 		} else {
 
 			// If no errors occurred, we start the Task creation/changing.
@@ -484,9 +492,9 @@ public class AddEditDialog extends JDialog {
 			// If the task is a new task, create it. Otherwise edit the
 			// provided task.
 			if (dialogMode == DialogMode.ADD_DIALOG) {
-				//temp task id
-				task = new Task(Task.nexttaskid++, taskTitle, taskDueDate, taskCategory,
-						taskDescription, taskPriority, false);
+				// temp task id
+				task = new Task(Task.nexttaskid++, taskTitle, taskDueDate,
+						taskCategory, taskDescription, taskPriority, false);
 			} else {
 				task.setTitle(taskTitle);
 				task.setDueDate(taskDueDate);
@@ -502,63 +510,59 @@ public class AddEditDialog extends JDialog {
 	}
 
 	/**
-	 * CancelButtonHandler
+	 * Closes the dialog when the user presses cancel.
 	 * 
 	 * @author bjorn
-	 * @description Closes the dialog when the user presses cancel.
 	 */
 	private void CancelButtonHandler() {
 		HideAddEditDialog();
 	}
 
 	/**
-	 * UpdatePriorityTextBox
+	 * Sets the text of the priority text box to the value of the slider.
 	 * 
 	 * @author bjorn
-	 * @description Sets the text of the priority text box to the value of the slider.
 	 */
 	private void UpdatePriorityTextBox() {
 		txtPriority.setText(Integer.toString(sliPriority.getValue()));
 	}
-	
+
 	/**
-	 * HideAddEditDialog
+	 * Closes the dialog.
 	 * 
 	 * @author bjorn
-	 * @description Closes the dialog.
 	 */
 	public void HideAddEditDialog() {
 		this.setVisible(false);
 	}
 
 	/**
-	 * PopulateCategoryComboBox()
+	 * Adds all the categories to the combobox.
 	 * 
-	 * @description Adds all the categories to the combobox.
+	 * @author bjorn
 	 */
 	private void PopulateCategoryComboBox() {
 		cmbCategory.removeAllItems();
-//		cmbCategory.addItem("HARDCODED_TEST_1");
-//		cmbCategory.addItem("HARDCODED_TEST_2");
-//		cmbCategory.addItem("HARDCODED_TEST_3");
-		for(String str : Category.category){
+		// cmbCategory.addItem("HARDCODED_TEST_1");
+		// cmbCategory.addItem("HARDCODED_TEST_2");
+		// cmbCategory.addItem("HARDCODED_TEST_3");
+		for (String str : Category.category) {
 			cmbCategory.addItem(str);
 		}
-		
-		
+
 		CategoryManager cm = CategoryManager.getInstance();
-		
+
 		HashMap<Integer, Category> cat = cm.getCategories();
-		for(int i = 0; i < cat.size(); i++){
+		for (int i = 0; i < cat.size(); i++) {
 			cmbCategory.addItem(cat.get(i).getCategoryTitle());
 		}
 		cmbCategory.updateUI();
 	}
 
 	/**
-	 * PopulateHourComboBox
+	 * Adds the hours of the clock to the hour combo box.
 	 * 
-	 * @description Adds the hours of the clock to the hour combo box.
+	 * @author bjorn
 	 */
 	private void PopulateHourComboBox() {
 		cmbDueDateHour.removeAll();
@@ -569,9 +573,9 @@ public class AddEditDialog extends JDialog {
 	}
 
 	/**
-	 * PopulateMinuteComboBox
+	 * Adds the quarters of the clock to the minute combo box.
 	 * 
-	 * @description Adds the quarters of the clock to the minute combo box.
+	 * @author bjorn
 	 */
 	private void PopulateMinuteComboBox() {
 		cmbDueDateMinute.removeAll();
@@ -582,11 +586,9 @@ public class AddEditDialog extends JDialog {
 	}
 
 	/**
-	 * ShowAddDialog
+	 * Displays the AddEditDialog with empty fields for creating a new task.
 	 * 
 	 * @author bjorn
-	 * @description Displays the AddEditDialog with empty fields for creating a
-	 *              new task.
 	 */
 	public void ShowAddDialog() {
 		Date currentDate = new Date();
@@ -600,18 +602,18 @@ public class AddEditDialog extends JDialog {
 		cmbDueDateHour.setSelectedIndex(currentDate.getHours());
 		UpdatePriorityTextBox();
 		PopulateCategoryComboBox();
-		this.setTitle(LanguageManager.getString("AddEditDialog_Add_Dialog_Title"));
+		this.setTitle(LanguageManager
+				.getString("AddEditDialog_Add_Dialog_Title"));
 		this.setVisible(true);
 	}
 
 	/**
-	 * ShowEditDialog
+	 * Displays the AddEditDialog with the fields filled with the data from
+	 * editTask.
 	 * 
 	 * @author bjorn
 	 * @param editTask
 	 *            - The task that contains the data to be edited.
-	 * @description Displays the AddEditDialog with the fields filled with the
-	 *              data from editTask.
 	 */
 	public void ShowEditDialog(Task editTask) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(
@@ -627,52 +629,30 @@ public class AddEditDialog extends JDialog {
 		sliPriority.setValue(editTask.getPriority());
 		PopulateCategoryComboBox();
 		UpdatePriorityTextBox();
-		this.setTitle(LanguageManager.getString("AddEditDialog_Edit_Dialog_Title"));
+		this.setTitle(LanguageManager
+				.getString("AddEditDialog_Edit_Dialog_Title"));
 		this.setVisible(true);
 
 	}
 
 	/**
-	 * clickedOK
-	 * 
-	 * @author bjorn
-	 * @description Returns true if the user closed the AddEditDialog by
+	 * Returns true if the user closed the AddEditDialog by
 	 *              clicking OK, false otherwise.
+	 * @author bjorn
+	 * @return True if the dialog was closed by clicking OK, false otherwise. 
 	 */
 	public Boolean clickedOK() {
 		return clickedOK;
 	}
 
 	/**
-	 * getTask
-	 * 
-	 * @author bjorn
-	 * @description Returns a Task with the information the user has entered.
+	 * Returns a Task with the information the user has entered.
 	 *              Should only be called if clickedOK is true.
+	 * @author bjorn
+	 * @return The task created or edited in the AddEditDialog.  
 	 */
 	public Task getTask() {
 		return task;
 	}
-
-	// OUTSIDE
-	// Just for testing purposes
-//	public static void main(String[] args) {
-//
-//		Task theTask = new Task(1, "first", new Date(2012 - 1900, 12 - 1, 1,
-//				22, 52), 1, "hello", 5, true);
-//
-//		AddEditDialog addEdit = new AddEditDialog();
-//		addEdit.ShowAddDialog();
-//		if (addEdit.clickedOK()) {
-//			theTask = addEdit.getTask();
-//		}
-//
-//		for (int i = 0; i < 2; i++) {
-//			addEdit.ShowEditDialog(theTask);
-//			if (addEdit.clickedOK()) {
-//				theTask = addEdit.getTask();
-//			}
-//		}
-//	}
 
 }

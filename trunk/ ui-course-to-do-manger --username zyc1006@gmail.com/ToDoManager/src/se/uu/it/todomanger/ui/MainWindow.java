@@ -139,50 +139,51 @@ public class MainWindow extends JFrame {
 	}
 
 	/**
-	 * init
+	 * Set up the main window.
+	 * 
 	 * @author Shiyu
 	 * @author Edward
 	 * @author Bjorn
 	 * 
-	 * @description Set up the main window.
 	 */
 	public void init() {
 
 		// Load the international words/phrases from the LanguageManager.
 		try {
-			// Set the default language -- this is supposed to be remembered by the program between exits TBD!
+			// Set the default language -- this is supposed to be remembered by
+			// the program between exits TBD!
 			LanguageManager.setLocale(LanguageManager.ENGLISH);
 		} catch (MissingResourceException mre) {
 			System.err.println("res/locale/ToDoManager.properties not found");
 			System.exit(1);
 		}
-		
-		this.setTitle(LanguageManager.getString("MainWindow_Title"));		
+
+		this.setTitle(LanguageManager.getString("MainWindow_Title"));
 		Savestate save = new Savestate();
-		//load saved size and location
-		Properties prop = save.loadLocation(System.getProperty("user.home")+ 
-				"/TODOgroup12.properties");
-		if( null != prop){
+		// load saved size and location
+		Properties prop = save.loadLocation(System.getProperty("user.home")
+				+ "/TODOgroup12.properties");
+		if (null != prop) {
 			Point point = new Point();
 			point.x = Integer.parseInt(prop.getProperty("x"));
 			point.y = Integer.parseInt(prop.getProperty("y"));
 			this.setLocation(point);
-			
+
 			Dimension size = new Dimension();
 			size.width = Integer.parseInt(prop.getProperty("width"));
 			size.height = Integer.parseInt(prop.getProperty("height"));
 			this.setSize(size);
-			
+
 		}
-		//load default size and location
-		else{
+		// load default size and location
+		else {
 			this.setSize(MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
 			this.setLocationRelativeTo(null);
 		}
 		this.setContentPane(createPanel());
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		
+
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				{
@@ -190,16 +191,17 @@ public class MainWindow extends JFrame {
 							null,
 							LanguageManager
 									.getString("MainWindow_ConfirmExit_Message"),
-							LanguageManager.getString("MainWindow_ConfirmExit_Title"),
+							LanguageManager
+									.getString("MainWindow_ConfirmExit_Title"),
 							0);
 					if (val == JOptionPane.OK_OPTION) {
-						
-						//save status
+
+						// save status
 						JFrame main = (JFrame) e.getSource();
 						Dimension size = main.getSize();
 						Point location = main.getLocationOnScreen();
 						Savestate save = new Savestate();
-						
+
 						save.saveLocation(size, location);
 						System.exit(0);
 					}
@@ -223,26 +225,24 @@ public class MainWindow extends JFrame {
 		panel.add(msp.initMainShow());
 		return panel;
 	}
-	
+
 	/**
 	 * reset application language
+	 * 
 	 * @param language
 	 */
-	public void resetAllLanguage(){
+	public void resetAllLanguage() {
 		this.setMainWindowText();
 		ToDoManagerMenuBar.getInstance().setMenuBarText();
 		ToDoManagerToolBar.getInstance().setToolBarText();
 		ToDoManagerTaskTable.getInstance().setTaskTableText();
-		
+
 	}
-	
-	
-	
-	private void setMainWindowText(){
-		//this.resLocale = LanguageManager.getDefaultResourceBundle();
-		this.setTitle(LanguageManager.getString("MainWindow_Title"));	
+
+	private void setMainWindowText() {
+		// this.resLocale = LanguageManager.getDefaultResourceBundle();
+		this.setTitle(LanguageManager.getString("MainWindow_Title"));
 	}
-	
 
 	public static void main(String[] args) {
 		MainWindow window = new MainWindow();
