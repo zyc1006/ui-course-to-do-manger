@@ -34,8 +34,6 @@ public class ToDoManagerMenuBar extends JMenuBar {
 	public static final int MENUBAR_PANEL_HEIGHT = 80;
 	
 	private static ToDoManagerMenuBar MenuBar = null;
-	// A ResourceBundle for loading international words/phrases.
-	private static LanguageManager resLocale;
 	
 	// MenuItem in menu bar
 	private static JMenu FileMenu;
@@ -60,12 +58,10 @@ public class ToDoManagerMenuBar extends JMenuBar {
 	}
 
 	/**
-	 * initMenuBar
+	 * Sets up the menu bar with the words/phrases from the local resource bundle.
 	 * @author Shiyu
 	 * @author Yucheng
 	 * @author Bjorn
-	 * 
-	 * @description Sets up the menu bar with the words/phrases from the local resource bundle.
 	 */
 	private static void initMenuBar() {
 

@@ -4,8 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.MissingResourceException;
-
 import javax.swing.table.DefaultTableModel;
 
 import se.uu.it.todomanger.controller.LanguageManager;
@@ -29,12 +27,9 @@ public class TaskTableModel extends DefaultTableModel {
 	private static String[] columnName = { "0", "1", "2", "3", "4" };
 
 	/**
-	 * TaskTableModel
+	 * Create the table model and set headers to internationalized names.
 	 * 
 	 * @author Bjorn
-	 * 
-	 * @description Create the table model and set headers to internationalized
-	 *              names.
 	 */
 	public TaskTableModel() {
 

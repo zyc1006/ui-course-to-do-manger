@@ -4,9 +4,9 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * LanguageManager
+ * Handles the language of the program.
  * 
- * @author bjorn Handles the language of the program.
+ * @author bjorn
  */
 public class LanguageManager {
 
@@ -27,22 +27,25 @@ public class LanguageManager {
 	private static ResourceBundle rb;
 
 	/**
-	 * LanguageManager()
+	 * Creates a new LanguageManager. If this is the first LanguageManager, the
+	 * default locale of the system is used, otherwise, the previous set locale
+	 * is used.
 	 * 
-	 * @description Creates a new LanguageManager. If this is the first
-	 *              LanguageManager, the default locale of the system is used,
-	 *              otherwise, the previous set locale is used.
+	 * @author bjorn
 	 */
 	public LanguageManager() {
 		if (!localeSet) {
 			rb = ResourceBundle.getBundle(baseName, Locale.getDefault());
+			localeSet = true;
 		}
 	}
 
 	/**
-	 * setLocale
-	 * @param loc - The locale to be used for the LanguageManager.
-	 * @description Sets the locale to be used for the LanguageManager.
+	 * Sets the locale to be used for the LanguageManager.
+	 * 
+	 * @param loc
+	 *            - The locale to be used for the LanguageManager.
+	 * @author bjorn
 	 */
 	public static void setLocale(Locale loc) {
 		rb = ResourceBundle.getBundle(baseName, loc);
@@ -50,11 +53,21 @@ public class LanguageManager {
 	}
 
 	/**
-	 * getString()
-	 * @param str - the string to load.
-	 * @return Loads the language string mapped to str.
+	 * Get the string mapped to str in the current locale.
+	 * 
+	 * @param str
+	 *            - the string to load.
+	 * @return Returns the language string mapped to str.
+	 * @author bjorn
+	 * @Precondition The locale of the LanguageManager has been set using the
+	 *               setLocale(loc) method.
 	 */
 	public static String getString(String str) {
-		return rb.getString(str);
+		if (localeSet) {
+			return rb.getString(str);
+		} else {
+			throw (new IllegalStateException(
+					"The LanguageManager Locale has not been set using the setLocale(loc) method."));
+		}
 	}
 }
