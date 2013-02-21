@@ -72,76 +72,42 @@ public class ToDoManagerMenuBar extends JMenuBar {
 	 */
 	private static void initMenuBar() {
 
-		// Load the international words/phrases from the resourcebundle.
-		try {
-//			resLocale = ResourceBundle.getBundle("locale.ToDoManager", 
-//		                                         Locale.getDefault());
-			resLocale = new LanguageManager();
-		} catch (MissingResourceException mre) {
-		    System.err.println("res/locale/ToDoManager.properties not found");
-		    System.exit(1);
-		}
-		/*
-		 * JMenu fileMenu = new JMenu("File"); JMenu taskMenu = new
-		 * JMenu("Task"); JMenu helpMenu = new JMenu("Help");
-		 * 
-		 * JMenuItem loadMenuItem = new JMenuItem("Load",KeyEvent.VK_L);
-		 * JMenuItem saveMenuItem = new JMenuItem("Save",KeyEvent.VK_S);
-		 * JMenuItem exitMenuItem = new JMenuItem("Exit",KeyEvent.VK_X);
-		 * JMenuItem createMenuItem = new JMenuItem("Create",KeyEvent.VK_C);
-		 * JMenuItem editMenuItem = new JMenuItem("Edit",KeyEvent.VK_E);
-		 * JMenuItem deleteMenuItem = new JMenuItem("Delete",KeyEvent.VK_D);
-		 * 
-		 * fileMenu.add(loadMenuItem); fileMenu.add(saveMenuItem);
-		 * fileMenu.add(exitMenuItem); taskMenu.add(createMenuItem);
-		 * taskMenu.add(editMenuItem); taskMenu.add(deleteMenuItem);
-		 * 
-		 * menuBar.add(fileMenu); menuBar.add(taskMenu); menuBar.add(helpMenu);
-		 */
-		// to create MenuPanel
-		//JPanel panel = new JPanel(new GridLayout(1, 4));
-		//panel.setSize(MENUBAR_PANEL_WIDTH, MENUBAR_PANEL_HEIGHT);
-		// JMenuBar MenuBar = new JMenuBar();
-		//panel.add(MenuBar);
-		FileMenu = new JMenu(resLocale.getString("MenuBar_File_Menu"));
-		// FileMenu.setFont(new Font("»ªÎÄ²ÊÔÆ",0,30));
-		TaskMenu = new JMenu(resLocale.getString("MenuBar_Task_Menu"));
-		HelpMenu = new JMenu(resLocale.getString("MenuBar_Help_Menu"));
-		LanguageMenu = new JMenu(resLocale.getString("MenuBar_Language_Menu"));
-		// HelpMenu.setSize(100, 100);
-		// FileMenu.setSize(50, 50);
+		FileMenu = new JMenu(LanguageManager.getString("MenuBar_File_Menu"));
+		TaskMenu = new JMenu(LanguageManager.getString("MenuBar_Task_Menu"));
+		HelpMenu = new JMenu(LanguageManager.getString("MenuBar_Help_Menu"));
+		LanguageMenu = new JMenu(LanguageManager.getString("MenuBar_Language_Menu"));
 		MenuBar.add(FileMenu);
 		MenuBar.add(TaskMenu);
 		MenuBar.add(LanguageMenu);
 		MenuBar.add(HelpMenu);
-		OpenItem = new JMenuItem(resLocale.getString("MenuBar_Open_File_Option"), KeyEvent.VK_O);
-		SaveItem = new JMenuItem(resLocale.getString("MenuBar_Save_File_Option"), KeyEvent.VK_S);
-		QuitItem = new JMenuItem(resLocale.getString("MenuBar_Quit_Option"), KeyEvent.VK_Q);
+		OpenItem = new JMenuItem(LanguageManager.getString("MenuBar_Open_File_Option"), KeyEvent.VK_O);
+		SaveItem = new JMenuItem(LanguageManager.getString("MenuBar_Save_File_Option"), KeyEvent.VK_S);
+		QuitItem = new JMenuItem(LanguageManager.getString("MenuBar_Quit_Option"), KeyEvent.VK_Q);
 		FileMenu.add(OpenItem);
 		FileMenu.addSeparator();
 		FileMenu.add(SaveItem);
 		FileMenu.addSeparator();
 		FileMenu.add(QuitItem);
 
-		EditItem = new JMenuItem(resLocale.getString("MenuBar_Edit_Task_Option"), KeyEvent.VK_E);
-		DeleteItem = new JMenuItem(resLocale.getString("MenuBar_Delete_Task_Option"), KeyEvent.VK_T);
-		AddItem = new JMenuItem(resLocale.getString("MenuBar_Add_Task_Option"), KeyEvent.VK_A);
+		EditItem = new JMenuItem(LanguageManager.getString("MenuBar_Edit_Task_Option"), KeyEvent.VK_E);
+		DeleteItem = new JMenuItem(LanguageManager.getString("MenuBar_Delete_Task_Option"), KeyEvent.VK_T);
+		AddItem = new JMenuItem(LanguageManager.getString("MenuBar_Add_Task_Option"), KeyEvent.VK_A);
 		TaskMenu.add(AddItem);
 		TaskMenu.addSeparator();
 		TaskMenu.add(EditItem);
 		TaskMenu.addSeparator();
 		TaskMenu.add(DeleteItem);
 
-		AboutUsItem = new JMenuItem(resLocale.getString("MenuBar_About_Option"), KeyEvent.VK_A);
-		HelpItem = new JMenuItem(resLocale.getString("MenuBar_Help_Option"), KeyEvent.VK_H);
+		AboutUsItem = new JMenuItem(LanguageManager.getString("MenuBar_About_Option"), KeyEvent.VK_A);
+		HelpItem = new JMenuItem(LanguageManager.getString("MenuBar_Help_Option"), KeyEvent.VK_H);
 		HelpMenu.add(HelpItem);
 		HelpMenu.addSeparator();
 		HelpMenu.add(AboutUsItem);
 		
-		GermanItem = new JMenuItem(resLocale.getString("MenuBar_German_Option") , KeyEvent.VK_G);
-		EnglishItem = new JMenuItem(resLocale.getString("MenuBar_English_Option"), KeyEvent.VK_E);
-		SwedishItem = new JMenuItem(resLocale.getString("MenuBar_Swedish_Option"), KeyEvent.VK_W);
-		ChineseItem = new JMenuItem(resLocale.getString("MenuBar_Chinese_Option"), KeyEvent.VK_C);
+		GermanItem = new JMenuItem(LanguageManager.getString("MenuBar_German_Option") , KeyEvent.VK_G);
+		EnglishItem = new JMenuItem(LanguageManager.getString("MenuBar_English_Option"), KeyEvent.VK_E);
+		SwedishItem = new JMenuItem(LanguageManager.getString("MenuBar_Swedish_Option"), KeyEvent.VK_W);
+		ChineseItem = new JMenuItem(LanguageManager.getString("MenuBar_Chinese_Option"), KeyEvent.VK_C);
 		
 		LanguageMenu.add(EnglishItem);		
 		LanguageMenu.addSeparator();
@@ -169,9 +135,9 @@ public class ToDoManagerMenuBar extends JMenuBar {
 			public void actionPerformed(ActionEvent e) {
 				int val = JOptionPane.showConfirmDialog(
 						null,
-						resLocale
+						LanguageManager
 								.getString("MainWindow_ConfirmExit_Message"),
-						resLocale.getString("MainWindow_ConfirmExit_Title"),
+						LanguageManager.getString("MainWindow_ConfirmExit_Title"),
 						0);
 				if (val == JOptionPane.OK_OPTION) {
 					
@@ -282,22 +248,22 @@ public class ToDoManagerMenuBar extends JMenuBar {
 
 	public void setMenuBarText(){
 		//resLocale = LanguageManager.getDefaultResourceBundle();
-		FileMenu.setText(resLocale.getString("MenuBar_File_Menu"));
-		TaskMenu.setText(resLocale.getString("MenuBar_Task_Menu"));
-		HelpMenu.setText(resLocale.getString("MenuBar_Help_Menu"));
-		OpenItem.setText(resLocale.getString("MenuBar_Open_File_Option"));
-		SaveItem.setText(resLocale.getString("MenuBar_Save_File_Option"));
-		QuitItem.setText(resLocale.getString("MenuBar_Quit_Option"));
-		EditItem.setText(resLocale.getString("MenuBar_Edit_Task_Option"));
-		DeleteItem.setText(resLocale.getString("MenuBar_Delete_Task_Option"));
-		AddItem.setText(resLocale.getString("MenuBar_Add_Task_Option"));
-		AboutUsItem.setText(resLocale.getString("MenuBar_About_Option"));
-		HelpItem.setText(resLocale.getString("MenuBar_Help_Option"));
-		LanguageMenu.setText(resLocale.getString("MenuBar_Language_Menu"));
-		GermanItem.setText(resLocale.getString("MenuBar_German_Option"));
-		EnglishItem.setText(resLocale.getString("MenuBar_English_Option"));
-		SwedishItem.setText(resLocale.getString("MenuBar_Swedish_Option"));
-		ChineseItem.setText(resLocale.getString("MenuBar_Chinese_Option"));
+		FileMenu.setText(LanguageManager.getString("MenuBar_File_Menu"));
+		TaskMenu.setText(LanguageManager.getString("MenuBar_Task_Menu"));
+		HelpMenu.setText(LanguageManager.getString("MenuBar_Help_Menu"));
+		OpenItem.setText(LanguageManager.getString("MenuBar_Open_File_Option"));
+		SaveItem.setText(LanguageManager.getString("MenuBar_Save_File_Option"));
+		QuitItem.setText(LanguageManager.getString("MenuBar_Quit_Option"));
+		EditItem.setText(LanguageManager.getString("MenuBar_Edit_Task_Option"));
+		DeleteItem.setText(LanguageManager.getString("MenuBar_Delete_Task_Option"));
+		AddItem.setText(LanguageManager.getString("MenuBar_Add_Task_Option"));
+		AboutUsItem.setText(LanguageManager.getString("MenuBar_About_Option"));
+		HelpItem.setText(LanguageManager.getString("MenuBar_Help_Option"));
+		LanguageMenu.setText(LanguageManager.getString("MenuBar_Language_Menu"));
+		GermanItem.setText(LanguageManager.getString("MenuBar_German_Option"));
+		EnglishItem.setText(LanguageManager.getString("MenuBar_English_Option"));
+		SwedishItem.setText(LanguageManager.getString("MenuBar_Swedish_Option"));
+		ChineseItem.setText(LanguageManager.getString("MenuBar_Chinese_Option"));
 	}
 	
 	static public ToDoManagerMenuBar getInstance() {

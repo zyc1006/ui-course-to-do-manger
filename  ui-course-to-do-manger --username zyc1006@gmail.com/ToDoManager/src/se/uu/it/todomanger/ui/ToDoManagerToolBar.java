@@ -62,20 +62,10 @@ public class ToDoManagerToolBar extends JToolBar {
 	 */
 	private static void initToolBar() {
 
-		// Load the international words/phrases from the resourcebundle.
-		try {
-//			resLocale = ResourceBundle.getBundle("locale.ToDoManager",
-//					Locale.getDefault());
-			resLocale = new LanguageManager();
-		} catch (MissingResourceException mre) {
-			System.err.println("res/locale/ToDoManager.properties not found");
-			System.exit(1);
-		}
-
 		ImageIcon imageIcon = new ImageIcon(TOOLBAR_ICON_ADD_TASK);
 		createTaskButton = new JButton(scaleImage(imageIcon,
 				TOOLBAR_BUTTON_WIDTH, TOOLBAR_BUTTON_HEIGHT));
-		createTaskButton.setToolTipText(resLocale.getString("MenuBar_Add_Task_Option"));
+		createTaskButton.setToolTipText(LanguageManager.getString("MenuBar_Add_Task_Option"));
 		createTaskButton.setMaximumSize(new Dimension(TOOLBAR_BUTTON_MAX_WIDTH,
 				TOOLBAR_BUTTON_MAX_HEIGHT));
 		createTaskButton.setBorderPainted(false);
@@ -83,7 +73,7 @@ public class ToDoManagerToolBar extends JToolBar {
 		imageIcon = new ImageIcon(TOOLBAR_ICON_EDIT_TASK);
 		editTaskButton = new JButton(scaleImage(imageIcon,
 				TOOLBAR_BUTTON_WIDTH, TOOLBAR_BUTTON_HEIGHT));
-		editTaskButton.setToolTipText(resLocale.getString("MenuBar_Edit_Task_Option"));
+		editTaskButton.setToolTipText(LanguageManager.getString("MenuBar_Edit_Task_Option"));
 		editTaskButton.setMaximumSize(new Dimension(TOOLBAR_BUTTON_MAX_WIDTH,
 				TOOLBAR_BUTTON_MAX_HEIGHT));
 		editTaskButton.setBorderPainted(false);
@@ -91,7 +81,7 @@ public class ToDoManagerToolBar extends JToolBar {
 		imageIcon = new ImageIcon(TOOLBAR_ICON_DELETE_TASK);
 		delTaskButton = new JButton(scaleImage(imageIcon,
 				TOOLBAR_BUTTON_WIDTH, TOOLBAR_BUTTON_HEIGHT));
-		delTaskButton.setToolTipText(resLocale.getString("MenuBar_Delete_Task_Option"));
+		delTaskButton.setToolTipText(LanguageManager.getString("MenuBar_Delete_Task_Option"));
 		delTaskButton.setMaximumSize(new Dimension(TOOLBAR_BUTTON_MAX_WIDTH,
 				TOOLBAR_BUTTON_MAX_HEIGHT));
 		delTaskButton.setBorderPainted(false);
@@ -143,9 +133,9 @@ public class ToDoManagerToolBar extends JToolBar {
 
 	public void setToolBarText(){
 		//resLocale = LanguageManager.getDefaultResourceBundle();
-		delTaskButton.setToolTipText(resLocale.getString("MenuBar_Delete_Task_Option"));
-		createTaskButton.setToolTipText(resLocale.getString("MenuBar_Add_Task_Option"));
-		editTaskButton.setToolTipText(resLocale.getString("MenuBar_Edit_Task_Option"));
+		delTaskButton.setToolTipText(LanguageManager.getString("MenuBar_Delete_Task_Option"));
+		createTaskButton.setToolTipText(LanguageManager.getString("MenuBar_Add_Task_Option"));
+		editTaskButton.setToolTipText(LanguageManager.getString("MenuBar_Edit_Task_Option"));
 	}
 	
 	

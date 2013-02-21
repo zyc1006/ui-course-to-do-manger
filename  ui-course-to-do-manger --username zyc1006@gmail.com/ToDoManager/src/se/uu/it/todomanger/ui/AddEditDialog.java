@@ -10,17 +10,12 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.Locale;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
 
 // Swing imports
 import javax.swing.JButton;
@@ -181,9 +176,6 @@ public class AddEditDialog extends JDialog {
 			ADDEDITDIALOG_LONGTEXT_WIDTH, ADDEDITDIALOG_LONGTEXT_HEIGHT);
 	private Dimension buttonDimension = new Dimension(
 			ADDEDITDIALOG_BUTTON_WIDTH, ADDEDITDIALOG_BUTTON_HEIGHT);
-	
-	// A resource bundle for keeping track of language information.
-	private LanguageManager resLocale;
 
 	// The content pane of the dialog
 	private Container gridBagContainer;
@@ -198,26 +190,14 @@ public class AddEditDialog extends JDialog {
 	 */
 	public AddEditDialog() {
 		
-		// Step 0: Load the locale resource.
-		
-		// Load the resource bundle for the current locale.
-		try {
-//			resLocale = ResourceBundle.getBundle("locale.ToDoManager", 
-//		                                         Locale.getDefault());
-			resLocale = new LanguageManager();
-		} catch (MissingResourceException mre) {
-		    System.err.println("res/locale/ToDoManager.properties not found");
-		    System.exit(1);
-		}
-
 		// Step 1: Create and set properties of components
 
 		// Information labels
-		JLabel lblTitle = new JLabel(resLocale.getString("AddEditDialog_Title_Label"));
-		JLabel lblDueDate = new JLabel(resLocale.getString("AddEditDialog_DueDate_Label"));
-		JLabel lblCategory = new JLabel(resLocale.getString("AddEditDialog_Category_Label"));
-		JLabel lblPriority = new JLabel(resLocale.getString("AddEditDialog_Priority_Label"));
-		JLabel lblDescription = new JLabel(resLocale.getString("AddEditDialog_Description_Label"));
+		JLabel lblTitle = new JLabel(LanguageManager.getString("AddEditDialog_Title_Label"));
+		JLabel lblDueDate = new JLabel(LanguageManager.getString("AddEditDialog_DueDate_Label"));
+		JLabel lblCategory = new JLabel(LanguageManager.getString("AddEditDialog_Category_Label"));
+		JLabel lblPriority = new JLabel(LanguageManager.getString("AddEditDialog_Priority_Label"));
+		JLabel lblDescription = new JLabel(LanguageManager.getString("AddEditDialog_Description_Label"));
 
 		// Text field for title
 		txtTitle = new JTextField();
@@ -246,9 +226,9 @@ public class AddEditDialog extends JDialog {
 
 		Dictionary<Integer, JLabel> priorityLabels = new Hashtable<Integer, JLabel>();
 		priorityLabels.put(ADDEDITDIALOG_PRIORITY_MIN, new JLabel(
-				resLocale.getString("AddEditDialog_Priority_Low_Label")));
+				LanguageManager.getString("AddEditDialog_Priority_Low_Label")));
 		priorityLabels.put(ADDEDITDIALOG_PRIORITY_MAX, new JLabel(
-				resLocale.getString("AddEditDialog_Priority_High_Label")));
+				LanguageManager.getString("AddEditDialog_Priority_High_Label")));
 
 		sliPriority.setLabelTable(priorityLabels);
 		sliPriority.setPaintLabels(ADDEDITDIALOG_PRIORITY_SHOW_LABELS);
@@ -259,9 +239,9 @@ public class AddEditDialog extends JDialog {
 		txtDescription.setPreferredSize(longTextDimension);
 
 		// JButtons for OK and Cancel
-		JButton btnOK = new JButton(resLocale.getString("AddEditDialog_OK_Label"));
+		JButton btnOK = new JButton(LanguageManager.getString("AddEditDialog_OK_Label"));
 		btnOK.setSize(buttonDimension);
-		JButton btnCancel = new JButton(resLocale.getString("AddEditDialog_Cancel_Label"));
+		JButton btnCancel = new JButton(LanguageManager.getString("AddEditDialog_Cancel_Label"));
 		btnCancel.setSize(buttonDimension);
 
 		// Action handlers for buttons
@@ -441,26 +421,26 @@ public class AddEditDialog extends JDialog {
 
 		// There has to be a title
 		if (txtTitle.getText().length() == 0) {
-			errorMessage += resLocale.getString("AddEditDialog_Error_NoTitle") + "\n";
+			errorMessage += LanguageManager.getString("AddEditDialog_Error_NoTitle") + "\n";
 			incorrectDataFormat = true;
 		}
 		// Date has to be set
 		if (txtDueDate.getText().toString().isEmpty()) {
-			errorMessage += resLocale.getString("AddEditDialog_Error_NoDate") + "\n";
+			errorMessage += LanguageManager.getString("AddEditDialog_Error_NoDate") + "\n";
 			incorrectDataFormat = true;
 		}
 		// Create the date object from the user information.
 		try {
 			taskDueDate = dateFormat.parse(taskDueDateString);
 		} catch (ParseException e) {
-			errorMessage += resLocale.getString("AddEditDialog_Error_DateInvalid") + "\n";
+			errorMessage += LanguageManager.getString("AddEditDialog_Error_DateInvalid") + "\n";
 			incorrectDataFormat = true;
 		}
 		// If an error occurred, display the error message.
 		if (incorrectDataFormat) {
 			JOptionPane
 					.showMessageDialog(this, errorMessage,
-							resLocale.getString("AddEditDialog_Error_Dialog_Title"),
+							LanguageManager.getString("AddEditDialog_Error_Dialog_Title"),
 							JOptionPane.ERROR_MESSAGE);
 		} else {
 
@@ -573,8 +553,6 @@ public class AddEditDialog extends JDialog {
 		Date currentDate = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat(
 				CalendarPanel.dateFormat);
-		SimpleDateFormat hourFormat = new SimpleDateFormat("HH");
-		SimpleDateFormat minuteFormat = new SimpleDateFormat("mm");
 		dialogMode = DialogMode.ADD_DIALOG;
 		clickedOK = false;
 		txtDueDate.setText(dateFormat.format(currentDate));
@@ -582,7 +560,7 @@ public class AddEditDialog extends JDialog {
 		cmbDueDateMinute.setSelectedIndex(currentDate.getMinutes());
 		cmbDueDateHour.setSelectedIndex(currentDate.getHours());
 		PopulateCategoryComboBox();
-		this.setTitle(resLocale.getString("AddEditDialog_Add_Dialog_Title"));
+		this.setTitle(LanguageManager.getString("AddEditDialog_Add_Dialog_Title"));
 		this.setVisible(true);
 	}
 
@@ -598,8 +576,6 @@ public class AddEditDialog extends JDialog {
 	public void ShowEditDialog(Task editTask) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(
 				CalendarPanel.dateFormat);
-		SimpleDateFormat hourFormat = new SimpleDateFormat("HH");
-		SimpleDateFormat minuteFormat = new SimpleDateFormat("mm");
 		dialogMode = DialogMode.EDIT_DIALOG;
 		task = editTask;
 		clickedOK = false;
@@ -610,7 +586,7 @@ public class AddEditDialog extends JDialog {
 		cmbDueDateHour.setSelectedIndex(editTask.getDueDate().getHours());
 		sliPriority.setValue(editTask.getPriority());
 		PopulateCategoryComboBox();
-		this.setTitle(resLocale.getString("AddEditDialog_Edit_Dialog_Title"));
+		this.setTitle(LanguageManager.getString("AddEditDialog_Edit_Dialog_Title"));
 		this.setVisible(true);
 
 	}
