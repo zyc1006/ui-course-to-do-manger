@@ -27,6 +27,8 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import se.uu.it.todomanger.controller.CategoryManager;
 import se.uu.it.todomanger.controller.LanguageManager;
@@ -123,6 +125,12 @@ public class AddEditDialog extends JDialog {
 	public static final int ADDEDITDIALOG_LAYOUT_DATEFIELD_MINUTE_COLUMN_SPAN = 1;
 	public static final double ADDEDITDIALOG_LAYOUT_DATEFIELD_MINUTE_COLUMN_WEIGHT = 0.2;
 
+	// Data for priority
+	public static final int ADDEDITDIALOG_LAYOUT_PRIORITY_SLIDER_COLUMN = 1;
+	public static final int ADDEDITDIALOG_LAYOUT_PRIORITY_SLIDER_COLUMN_SPAN = 4;
+	public static final int ADDEDITDIALOG_LAYOUT_PRIORITY_TEXT_COLUMN = 5;
+	public static final int ADDEDITDIALOG_LAYOUT_PRIORITY_TEXT_COLUMN_SPAN = 1;
+	
 	// Data for buttons
 	public static final int ADDEDITDIALOG_LAYOUT_BUTTONS_ANCHOR = GridBagConstraints.EAST;
 	public static final int ADDEDITDIALOG_LAYOUT_BUTTONS_COLUMN_SPAN = 6;
@@ -160,6 +168,7 @@ public class AddEditDialog extends JDialog {
 
 	private JTextField txtTitle;
 	private JTextField txtDueDate;
+	private JTextField txtPriority;
 	private JComboBox cmbDueDateHour;
 	private JComboBox cmbDueDateMinute;
 	private JTextArea txtDescription;
@@ -233,6 +242,17 @@ public class AddEditDialog extends JDialog {
 		sliPriority.setLabelTable(priorityLabels);
 		sliPriority.setPaintLabels(ADDEDITDIALOG_PRIORITY_SHOW_LABELS);
 		sliPriority.setPaintTicks(ADDEDITDIALOG_PRIORITY_SHOW_TICKS);
+		sliPriority.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent arg0) {
+				UpdatePriorityTextBox();
+			}
+			
+		});
+		
+		// JTextField for Priority
+		txtPriority = new JTextField();
+		txtPriority.setEditable(false);
 
 		// JTextFields for Description
 		txtDescription = new JTextArea();
@@ -269,6 +289,7 @@ public class AddEditDialog extends JDialog {
 		GridBagConstraints fieldsConstraint = new GridBagConstraints();
 		GridBagConstraints dateConstraint = new GridBagConstraints();
 		GridBagConstraints buttonConstraint = new GridBagConstraints();
+		GridBagConstraints priorityConstraint; // Will be copied from fieldsConstraint with minor changes.
 
 		// Common information for the labels
 		labelConstraint.insets = new Insets(
@@ -292,7 +313,10 @@ public class AddEditDialog extends JDialog {
 		fieldsConstraint.gridwidth = ADDEDITDIALOG_LAYOUT_FIELDS_COLUMN_SPAN;
 		fieldsConstraint.anchor = ADDEDITDIALOG_LAYOUT_FIELDS_ANCHOR;
 		fieldsConstraint.weightx = ADDEDITDIALOG_LAYOUT_FIELDS_COLUMN_WEIGHT;
-
+		
+		// Priority information
+		priorityConstraint = (GridBagConstraints) fieldsConstraint.clone();
+		
 		// Common information for the date fields
 		dateConstraint.insets = new Insets(
 				ADDEDITDIALOG_LAYOUT_COMMON_PADDING_TOP,
@@ -352,10 +376,15 @@ public class AddEditDialog extends JDialog {
 		// Add priority components
 		labelConstraint.gridy = ADDEDITDIALOG_LAYOUT_PRIORITY_ROW;
 		gridBagContainer.add(lblPriority, labelConstraint);
-		fieldsConstraint.weighty = ADDEDITDIALOG_LAYOUT_PRIORITY_ROW_WEIGHT;
-		fieldsConstraint.gridy = ADDEDITDIALOG_LAYOUT_PRIORITY_ROW;
-		fieldsConstraint.fill = ADDEDITDIALOG_LAYOUT_SLIDER_FILL;
-		gridBagContainer.add(sliPriority, fieldsConstraint);
+		priorityConstraint.weighty = ADDEDITDIALOG_LAYOUT_PRIORITY_ROW_WEIGHT;
+		priorityConstraint.gridx = ADDEDITDIALOG_LAYOUT_PRIORITY_SLIDER_COLUMN;
+		priorityConstraint.gridwidth = ADDEDITDIALOG_LAYOUT_PRIORITY_SLIDER_COLUMN_SPAN;
+		priorityConstraint.gridy = ADDEDITDIALOG_LAYOUT_PRIORITY_ROW;
+		priorityConstraint.fill = ADDEDITDIALOG_LAYOUT_SLIDER_FILL;
+		gridBagContainer.add(sliPriority, priorityConstraint);
+		priorityConstraint.gridx = ADDEDITDIALOG_LAYOUT_PRIORITY_TEXT_COLUMN;
+		priorityConstraint.gridwidth = ADDEDITDIALOG_LAYOUT_PRIORITY_TEXT_COLUMN_SPAN;
+		gridBagContainer.add(txtPriority, priorityConstraint);
 
 		// Add description components
 		labelConstraint.gridy = ADDEDITDIALOG_LAYOUT_DESCRIPTION_ROW;
@@ -483,6 +512,16 @@ public class AddEditDialog extends JDialog {
 	}
 
 	/**
+	 * UpdatePriorityTextBox
+	 * 
+	 * @author bjorn
+	 * @description Sets the text of the priority text box to the value of the slider.
+	 */
+	private void UpdatePriorityTextBox() {
+		txtPriority.setText(Integer.toString(sliPriority.getValue()));
+	}
+	
+	/**
 	 * HideAddEditDialog
 	 * 
 	 * @author bjorn
@@ -559,6 +598,7 @@ public class AddEditDialog extends JDialog {
 		// Select the quarter closest to the current time.
 		cmbDueDateMinute.setSelectedIndex(currentDate.getMinutes());
 		cmbDueDateHour.setSelectedIndex(currentDate.getHours());
+		UpdatePriorityTextBox();
 		PopulateCategoryComboBox();
 		this.setTitle(LanguageManager.getString("AddEditDialog_Add_Dialog_Title"));
 		this.setVisible(true);
@@ -586,6 +626,7 @@ public class AddEditDialog extends JDialog {
 		cmbDueDateHour.setSelectedIndex(editTask.getDueDate().getHours());
 		sliPriority.setValue(editTask.getPriority());
 		PopulateCategoryComboBox();
+		UpdatePriorityTextBox();
 		this.setTitle(LanguageManager.getString("AddEditDialog_Edit_Dialog_Title"));
 		this.setVisible(true);
 
