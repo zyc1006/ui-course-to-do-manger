@@ -183,7 +183,7 @@ public class AddEditDialog extends JDialog {
 			ADDEDITDIALOG_BUTTON_WIDTH, ADDEDITDIALOG_BUTTON_HEIGHT);
 	
 	// A resource bundle for keeping track of language information.
-	private ResourceBundle resLocale;
+	private LanguageManager resLocale;
 
 	// The content pane of the dialog
 	private Container gridBagContainer;
@@ -204,7 +204,7 @@ public class AddEditDialog extends JDialog {
 		try {
 //			resLocale = ResourceBundle.getBundle("locale.ToDoManager", 
 //		                                         Locale.getDefault());
-			resLocale = LanguageManager.getDefaultResourceBundle();
+			resLocale = new LanguageManager();
 		} catch (MissingResourceException mre) {
 		    System.err.println("res/locale/ToDoManager.properties not found");
 		    System.exit(1);

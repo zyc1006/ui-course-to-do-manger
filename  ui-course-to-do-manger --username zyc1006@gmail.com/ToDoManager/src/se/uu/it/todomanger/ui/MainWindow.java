@@ -136,7 +136,7 @@ public class MainWindow extends JFrame {
 	public static final int MAINWINDOW_HEIGHT = 600;
 
 	// Language data
-	private ResourceBundle resLocale;
+	private LanguageManager resLocale;
 
 	public MainWindow(/* ClientController controller */) {
 		// this.controller = controller;
@@ -153,12 +153,14 @@ public class MainWindow extends JFrame {
 	 */
 	public void init() {
 
-		// Load the international words/phrases from the resourcebundle.
+		// Load the international words/phrases from the LanguageManager.
 		try {
-//			resLocale = ResourceBundle.getBundle("locale.ToDoManager",
-//					Locale.getDefault());
-//			resLocale = LanguageManager.getDefaultResourceBundle();
-			resLocale = LanguageManager.resetResourceBundle(LanguageManager.ENGLISH);
+			// Get the language manager for this window.
+			resLocale = new LanguageManager();
+			
+			// Set the default language -- this is supposed to be remembered by the program between exits TBD!
+			//LanguageManager.setLocale(LanguageManager.ENGLISH);
+			
 		} catch (MissingResourceException mre) {
 			System.err.println("res/locale/ToDoManager.properties not found");
 			System.exit(1);
@@ -246,7 +248,7 @@ public class MainWindow extends JFrame {
 	
 	
 	private void setMainWindowText(){
-		this.resLocale = LanguageManager.getDefaultResourceBundle();
+		//this.resLocale = LanguageManager.getDefaultResourceBundle();
 		this.setTitle(resLocale.getString("MainWindow_Title"));	
 	}
 	
