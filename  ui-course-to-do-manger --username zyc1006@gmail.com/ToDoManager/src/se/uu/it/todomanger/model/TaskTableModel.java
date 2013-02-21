@@ -4,9 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Locale;
 import java.util.MissingResourceException;
-import java.util.ResourceBundle;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -32,9 +30,11 @@ public class TaskTableModel extends DefaultTableModel {
 
 	/**
 	 * TaskTableModel
+	 * 
 	 * @author Bjorn
 	 * 
-	 * @description Create the table model and set headers to internationalized names.
+	 * @description Create the table model and set headers to internationalized
+	 *              names.
 	 */
 	public TaskTableModel() {
 
@@ -42,30 +42,18 @@ public class TaskTableModel extends DefaultTableModel {
 		super(columnName, 0);
 
 		// Load the resource bundle for the current locale.
-		LanguageManager resLocale;
-		try {
-//			resLocale = ResourceBundle.getBundle("locale.ToDoManager",
-//					Locale.getDefault());
-			resLocale = new LanguageManager();
-			// Create the list of column header names
-			String[] localColumnTitles = { "id",
-					LanguageManager.getString("TaskTable_Column_Title_Label"),
-					LanguageManager.getString("TaskTable_Column_Category_Label"),
-					LanguageManager.getString("TaskTable_Column_Priority_Label"),
-					LanguageManager.getString("TaskTable_Column_DueDate_Label") };
+		String[] localColumnTitles = { "id",
+				LanguageManager.getString("TaskTable_Column_Title_Label"),
+				LanguageManager.getString("TaskTable_Column_Category_Label"),
+				LanguageManager.getString("TaskTable_Column_Priority_Label"),
+				LanguageManager.getString("TaskTable_Column_DueDate_Label") };
 
-			// Set the column header names
-			this.setColumnIdentifiers(localColumnTitles);
-
-		} catch (MissingResourceException mre) {
-			System.err.println("res/locale/ToDoManager.properties not found");
-			System.exit(1);
-		}
+		// Set the column header names
+		this.setColumnIdentifiers(localColumnTitles);
 
 	}
-	
-	public void setTaskTableText(){
-		LanguageManager resLocale = new LanguageManager();
+
+	public void setTaskTableText() {
 		// Create the list of column header names
 		String[] localColumnTitles = { "id",
 				LanguageManager.getString("TaskTable_Column_Title_Label"),
@@ -76,8 +64,6 @@ public class TaskTableModel extends DefaultTableModel {
 		// Set the column header names
 		this.setColumnIdentifiers(localColumnTitles);
 	}
-	
-
 
 	/**
 	 * Add a task into the table
