@@ -30,6 +30,12 @@ public class TaskManager {
 	/**An arraylist stores all the task, used for sorting */
 	private ArrayList<Task> taskArrayList = new ArrayList<Task>();
 	
+	public HashMap<Integer, Task> getTaskHashMap() {
+		return taskHashMap;
+	}
+	public void setTaskHashMap(HashMap<Integer, Task> taskHashMap) {
+		this.taskHashMap = taskHashMap;
+	}
 	public ArrayList<Task> getTaskArrayList() {
 		return taskArrayList;
 	}
@@ -68,6 +74,10 @@ public class TaskManager {
 	public void addTask(Task task) {
 		taskHashMap.put(task.getId(), task);
 		toArrayList();
+	}
+	
+	public Task getTask(int id) {
+		return (Task)taskHashMap.get(id);
 	}
 
 	/**

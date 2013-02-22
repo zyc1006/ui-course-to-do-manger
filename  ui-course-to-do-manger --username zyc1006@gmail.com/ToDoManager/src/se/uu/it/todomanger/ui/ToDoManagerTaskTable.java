@@ -67,6 +67,7 @@ public class ToDoManagerTaskTable extends JTable {
 				//		task.setCategory((Integer)taskTable.getModel().getValueAt(selectedRow, 2));
 						task.setPriority((Integer)taskTable.getModel().getValueAt(selectedRow, 3));
 						SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+						task.setDescription(TaskManager.getInstance().getTask(task.getId()).getDescription());
 						Date dueDate;
 						try {
 							dueDate = sdf.parse((String)taskTable.getModel().getValueAt(selectedRow, 4));

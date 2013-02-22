@@ -152,7 +152,7 @@ public class AddEditDialog extends JDialog {
 	public static final Boolean ADDEDITDIALOG_LAYOUT_ORDER_CANCELOK = true;
 
 	// Window data
-	public static final Boolean ADDEDITDIALOG_WINDOW_RESIZABLE = true;
+	public static final Boolean ADDEDITDIALOG_WINDOW_RESIZABLE = false;
 
 	// END OF CONSTANTS
 
@@ -628,6 +628,7 @@ public class AddEditDialog extends JDialog {
 		cmbDueDateMinute.setSelectedIndex(editTask.getDueDate().getMinutes());
 		cmbDueDateHour.setSelectedIndex(editTask.getDueDate().getHours());
 		sliPriority.setValue(editTask.getPriority());
+		txtDescription.setText(editTask.getDescription());
 		PopulateCategoryComboBox();
 		UpdatePriorityTextBox();
 		this.setTitle(LanguageManager
