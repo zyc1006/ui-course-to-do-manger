@@ -121,6 +121,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import se.uu.it.todomanger.controller.LanguageManager;
+import se.uu.it.todomanger.controller.TaskManager;
+import se.uu.it.todomanger.dao.DataSource;
 import se.uu.it.todomanger.dao.Savestate;
 import se.uu.it.todomanger.model.TaskTableModel;
 
@@ -182,33 +184,23 @@ public class MainWindow extends JFrame {
 			this.setSize(size);
 			
 			String la = prop.getProperty("lang");
-			if(la == null)
-			{
-					LanguageManager.setLocale(LanguageManager.ENGLISH);
-					lang = "en";
-			}
-			else
-			{
-			if(la.equals("de"))
-			{
-				LanguageManager.setLocale(LanguageManager.GERMAN);
-				lang = "de";
-			}
-			else if(la.equals("en"))
-			{
+			if (la == null) {
 				LanguageManager.setLocale(LanguageManager.ENGLISH);
 				lang = "en";
-			}
-			else if(la.equals("sv"))
-			{
-				LanguageManager.setLocale(LanguageManager.SWEDISH);
-				lang = "sv";
-			}
-			else if(la.equals("zh"))
-			{
-				LanguageManager.setLocale(LanguageManager.CHINESE);
-				lang = "zh";
-			}
+			} else {
+				if (la.equals("de")) {
+					LanguageManager.setLocale(LanguageManager.GERMAN);
+					lang = "de";
+				} else if (la.equals("en")) {
+					LanguageManager.setLocale(LanguageManager.ENGLISH);
+					lang = "en";
+				} else if (la.equals("sv")) {
+					LanguageManager.setLocale(LanguageManager.SWEDISH);
+					lang = "sv";
+				} else if (la.equals("zh")) {
+					LanguageManager.setLocale(LanguageManager.CHINESE);
+					lang = "zh";
+				}
 			}
 			this.setTitle(LanguageManager.getString("MainWindow_Title"));
 		}
@@ -228,6 +220,13 @@ public class MainWindow extends JFrame {
 				System.exit(1);
 			}
 		}
+		
+		
+		//load tasks----------------------
+		TaskManager.getInstance().setTaskArrayList(DataSource.toTaskList());
+		TaskManager.getInstance().displayTaskByDueDateAsc();
+		
+		//-----------------------------------
 		this.setContentPane(createPanel());
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -251,6 +250,8 @@ public class MainWindow extends JFrame {
 						Savestate save = new Savestate();
 
 						save.saveLocation(size, location , lang);
+						//save tasks
+						DataSource.toXmlFile(TaskManager.getInstance().getTaskArrayList());
 						System.exit(0);
 					}
 				}

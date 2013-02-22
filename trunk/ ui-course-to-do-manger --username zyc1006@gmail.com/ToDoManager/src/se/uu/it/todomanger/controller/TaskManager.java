@@ -30,6 +30,14 @@ public class TaskManager {
 	/**An arraylist stores all the task, used for sorting */
 	private ArrayList<Task> taskArrayList = new ArrayList<Task>();
 	
+	public ArrayList<Task> getTaskArrayList() {
+		return taskArrayList;
+	}
+	public void setTaskArrayList(ArrayList<Task> taskArrayList) {
+		this.taskArrayList = taskArrayList;
+		toHashMap();
+	}
+
 	/**A task table instance to handle the display operation on the task table */
 	private ToDoManagerTaskTable taskTable = ToDoManagerTaskTable.getInstance();
 	
@@ -98,6 +106,14 @@ public class TaskManager {
 		}
 		return taskArrayList;
 	}
+	
+	private HashMap<Integer,Task> toHashMap(){
+		taskHashMap.clear();
+		for(Task task: taskArrayList){
+			taskHashMap.put(task.getId(), task);
+		}
+		return taskHashMap;
+	}
 
 	/**
 	 * display the tasks by due date in ascending order
@@ -142,5 +158,15 @@ public class TaskManager {
 				return -1;
 
 		}
+	}
+	
+	public int getNextTaskId(){
+		int nextid = 0;
+		for(int i = 0; i < taskArrayList.size(); i++){
+			if(taskArrayList.get(i).getId() >= nextid){
+				nextid = taskArrayList.get(i).getId()+1;
+			}
+		}
+		return nextid;
 	}
 }
