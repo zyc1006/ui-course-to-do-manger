@@ -59,7 +59,7 @@ private static MainShowPanel Panel = null;
 		
 		//create catalog 
 		ShowCatalog sc = new ShowCatalog();
-		panel_left.add(sc.initJTree());
+		panel_left.add(sc.init());
 		
 		JScrollPane taskPane = new JScrollPane(ToDoManagerTaskTable.getInstance(), 
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
