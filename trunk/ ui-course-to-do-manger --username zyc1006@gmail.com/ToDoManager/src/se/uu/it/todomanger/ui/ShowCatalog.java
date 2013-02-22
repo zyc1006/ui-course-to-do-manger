@@ -2,6 +2,7 @@ package se.uu.it.todomanger.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,13 +27,14 @@ public class ShowCatalog  {
 	DefaultMutableTreeNode root = new DefaultMutableTreeNode("All");
 	
 	DefaultTreeModel model = new DefaultTreeModel(root);
-
-    JPanel panel = new JPanel();
+	
+	BorderLayout bl = new BorderLayout();
+	JPanel panel = new JPanel(new BorderLayout());
 	JTree tree = new JTree(model);
 	JButton addButton = new JButton("Add Cateogry");;
 	
 	
-	public JTree initJTree() {
+	public JPanel init() {
 	    addButton.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent event) {
 		        DefaultMutableTreeNode selNode = (DefaultMutableTreeNode) tree
@@ -56,28 +58,16 @@ public class ShowCatalog  {
 		    });
 		    
 		
+	    
 		tree.setEditable(true);
 	    tree.setSelectionRow(0);
-
 	    
-
 	    
-	    panel.add(addButton);
-//	    getContentPane().add(panel, BorderLayout.SOUTH);
-//	    setSize(300, 400);
-//	    setVisible(true);
-	  
+		panel.add(BorderLayout.NORTH, addButton);
+		panel.add(BorderLayout.CENTER, tree);
 		
 		
-		
-		return tree;
+		return panel;
 	}
-	
-	//static public ToDoManagerCatalog getInstance(){
-		/*if(null == tree){
-			tree = new ToDoManagerCatalog();
-			init();
-		}*/
-		//return tree;
-	//}
+
 }
