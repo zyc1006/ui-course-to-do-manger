@@ -4,6 +4,9 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -11,6 +14,8 @@ import javax.swing.JToolBar;
 
 import se.uu.it.todomanger.controller.LanguageManager;
 import se.uu.it.todomanger.controller.TaskManager;
+import se.uu.it.todomanger.model.Task;
+import se.uu.it.todomanger.model.TaskTableModel;
 
 /**
  * A singleton of tool bar for ToDoManager
@@ -28,9 +33,9 @@ public class ToDoManagerToolBar extends JToolBar {
 	public static final int TOOLBAR_BUTTON_MAX_HEIGHT = 35;
 
 	// Icon file data
-	public static final String TOOLBAR_ICON_ADD_TASK = "res/image/Add.gif";
-	public static final String TOOLBAR_ICON_EDIT_TASK = "res/image/Edit.gif";
-	public static final String TOOLBAR_ICON_DELETE_TASK = "res/image/Delete.gif";
+	public static final String TOOLBAR_ICON_ADD_TASK = "/image/Add.gif";
+	public static final String TOOLBAR_ICON_EDIT_TASK = "/image/Edit.gif";
+	public static final String TOOLBAR_ICON_DELETE_TASK = "/image/Delete.gif";
 
 	private static ToDoManagerToolBar toolBar = null;
 
@@ -51,8 +56,11 @@ public class ToDoManagerToolBar extends JToolBar {
 	 * @author Bjorn
 	 */
 	private static void initToolBar() {
-
-		ImageIcon imageIcon = new ImageIcon(TOOLBAR_ICON_ADD_TASK);
+		System.out.println(ToDoManagerToolBar.class.
+				getResource(TOOLBAR_ICON_ADD_TASK));
+		
+		ImageIcon imageIcon = new ImageIcon(ToDoManagerToolBar.class
+				.getResource(TOOLBAR_ICON_ADD_TASK));
 		createTaskButton = new JButton(scaleImage(imageIcon,
 				TOOLBAR_BUTTON_WIDTH, TOOLBAR_BUTTON_HEIGHT));
 		createTaskButton.setToolTipText(LanguageManager
@@ -61,7 +69,8 @@ public class ToDoManagerToolBar extends JToolBar {
 				TOOLBAR_BUTTON_MAX_HEIGHT));
 		createTaskButton.setBorderPainted(false);
 
-		imageIcon = new ImageIcon(TOOLBAR_ICON_EDIT_TASK);
+		imageIcon = new ImageIcon(ToDoManagerToolBar.class
+				.getResource(TOOLBAR_ICON_EDIT_TASK));
 		editTaskButton = new JButton(scaleImage(imageIcon,
 				TOOLBAR_BUTTON_WIDTH, TOOLBAR_BUTTON_HEIGHT));
 		editTaskButton.setToolTipText(LanguageManager
@@ -70,7 +79,8 @@ public class ToDoManagerToolBar extends JToolBar {
 				TOOLBAR_BUTTON_MAX_HEIGHT));
 		editTaskButton.setBorderPainted(false);
 
-		imageIcon = new ImageIcon(TOOLBAR_ICON_DELETE_TASK);
+		imageIcon = new ImageIcon(ToDoManagerToolBar.class
+				.getResource(TOOLBAR_ICON_DELETE_TASK));
 		delTaskButton = new JButton(scaleImage(imageIcon, TOOLBAR_BUTTON_WIDTH,
 				TOOLBAR_BUTTON_HEIGHT));
 		delTaskButton.setToolTipText(LanguageManager
@@ -109,8 +119,47 @@ public class ToDoManagerToolBar extends JToolBar {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				TaskManager.getInstance().displayTaskByDueDateDesc();
+				ToDoManagerTaskTable taskTable = ToDoManagerTaskTable
+						.getInstance();
+				int selectedRow = taskTable.getSelectedRow();
+				if (selectedRow >= 0) {
+					Task task = new Task();
+					task.setId((Integer) taskTable.getModel().getValueAt(
+							selectedRow, 0));
+					task.setTitle((String) taskTable.getModel().getValueAt(
+							selectedRow, 1));
+					// task.setCategory((Integer)taskTable.getModel().getValueAt(selectedRow,
+					// 2));
+					task.setPriority((Integer) taskTable.getModel().getValueAt(
+							selectedRow, 3));
+					SimpleDateFormat sdf = new SimpleDateFormat(
+							"dd/MM/yyyy HH:mm");
+					task.setDescription(TaskManager.getInstance()
+							.getTask(task.getId()).getDescription());
+					Date dueDate;
+					try {
+						dueDate = sdf.parse((String) taskTable.getModel()
+								.getValueAt(selectedRow, 4));
+						task.setDueDate(dueDate);
+					} catch (ParseException e1) {
+						e1.printStackTrace();
+					}
+
+					// title, dueDate, category, description, priority,
+					// completed)
+					// taskTable.getModel().g
+
+					AddEditDialog addEditDialog = new AddEditDialog();
+					addEditDialog.ShowEditDialog(task);
+					if (addEditDialog.clickedOK()) {
+						// Add a task here
+						TaskManager tm = TaskManager.getInstance();
+						tm.editTask(addEditDialog.getTask());
+						tm.displayTaskByDueDateAsc();
+					} else {
+						System.out.println("cancel");
+					}
+				}
 			}
 		});
 

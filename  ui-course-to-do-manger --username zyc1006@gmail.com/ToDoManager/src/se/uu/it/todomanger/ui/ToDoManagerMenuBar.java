@@ -7,6 +7,9 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -19,6 +22,7 @@ import javax.swing.UIManager;
 import se.uu.it.todomanger.controller.LanguageManager;
 import se.uu.it.todomanger.controller.TaskManager;
 import se.uu.it.todomanger.dao.Savestate;
+import se.uu.it.todomanger.model.Task;
 
 /**
  * A singleton of menu bar for ToDoManager
@@ -150,7 +154,47 @@ public class ToDoManagerMenuBar extends JMenuBar {
 		// Edit task
 		EditItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ToDoManagerTaskTable taskTable = ToDoManagerTaskTable
+						.getInstance();
+				int selectedRow = taskTable.getSelectedRow();
+				if (selectedRow >= 0) {
+					Task task = new Task();
+					task.setId((Integer) taskTable.getModel().getValueAt(
+							selectedRow, 0));
+					task.setTitle((String) taskTable.getModel().getValueAt(
+							selectedRow, 1));
+					// task.setCategory((Integer)taskTable.getModel().getValueAt(selectedRow,
+					// 2));
+					task.setPriority((Integer) taskTable.getModel().getValueAt(
+							selectedRow, 3));
+					SimpleDateFormat sdf = new SimpleDateFormat(
+							"dd/MM/yyyy HH:mm");
+					task.setDescription(TaskManager.getInstance()
+							.getTask(task.getId()).getDescription());
+					Date dueDate;
+					try {
+						dueDate = sdf.parse((String) taskTable.getModel()
+								.getValueAt(selectedRow, 4));
+						task.setDueDate(dueDate);
+					} catch (ParseException e1) {
+						e1.printStackTrace();
+					}
 
+					// title, dueDate, category, description, priority,
+					// completed)
+					// taskTable.getModel().g
+
+					AddEditDialog addEditDialog = new AddEditDialog();
+					addEditDialog.ShowEditDialog(task);
+					if (addEditDialog.clickedOK()) {
+						// Add a task here
+						TaskManager tm = TaskManager.getInstance();
+						tm.editTask(addEditDialog.getTask());
+						tm.displayTaskByDueDateAsc();
+					} else {
+						System.out.println("cancel");
+					}
+				}
 			}
 		});
 		// delete task
