@@ -3,14 +3,22 @@
  */
 package se.uu.it.todomanger.ui;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 
+import javax.swing.JList;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
 
+import se.uu.it.todomanger.controller.TaskManager;
 import se.uu.it.todomanger.model.Task;
 import se.uu.it.todomanger.model.TaskTableModel;
 
@@ -38,9 +46,57 @@ public class ToDoManagerTaskTable extends JTable {
 		return taskTable;
 	}
 	
+	//if we need more initialization on task table, add it here
 	private static void initTaskTable(){
-		//if we need more initialization on task table, add it here
 		
+		taskTable.setRowSelectionAllowed(true);
+		taskTable.setColumnSelectionAllowed(false);
+		//Single selection only
+		taskTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		taskTable.addMouseListener(new MouseAdapter() {
+		
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//double click
+				if (e.getClickCount() == 2) {
+					int selectedRow = taskTable.getSelectedRow();
+					if (selectedRow >= 0) {
+						Task task = new Task();
+						task.setId((Integer)taskTable.getModel().getValueAt(selectedRow, 0));
+						task.setTitle((String)taskTable.getModel().getValueAt(selectedRow, 1));
+				//		task.setCategory((Integer)taskTable.getModel().getValueAt(selectedRow, 2));
+						task.setPriority((Integer)taskTable.getModel().getValueAt(selectedRow, 3));
+						SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+						Date dueDate;
+						try {
+							dueDate = sdf.parse((String)taskTable.getModel().getValueAt(selectedRow, 4));
+							task.setDueDate(dueDate);
+						} catch (ParseException e1) {
+							e1.printStackTrace();
+						}
+						
+
+						// title, dueDate, category, description, priority,
+						// completed)
+						// taskTable.getModel().g
+						
+						AddEditDialog addEditDialog = new AddEditDialog();
+						addEditDialog.ShowEditDialog(task);
+						if (addEditDialog.clickedOK()) {
+							// Add a task here
+							TaskManager tm = TaskManager.getInstance();
+							tm.editTask(addEditDialog.getTask());
+							tm.displayTaskByDueDateAsc();
+						} else {
+							System.out.println("cancel");
+						}
+					}
+				}
+				super.mouseClicked(e);
+				
+			}
+			
+		});
 	}
 	
 	/**
@@ -72,6 +128,7 @@ public class ToDoManagerTaskTable extends JTable {
 		((TaskTableModel)taskTable.getModel()).setTaskTableText();
 		taskTable.hideColumn(0);
 	}
+	
 	
 	
 }

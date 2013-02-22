@@ -32,6 +32,7 @@ import javax.swing.event.ChangeListener;
 
 import se.uu.it.todomanger.controller.CategoryManager;
 import se.uu.it.todomanger.controller.LanguageManager;
+import se.uu.it.todomanger.controller.TaskManager;
 import se.uu.it.todomanger.model.Category;
 // Todo manager imports
 import se.uu.it.todomanger.model.Task;
@@ -493,7 +494,7 @@ public class AddEditDialog extends JDialog {
 			// provided task.
 			if (dialogMode == DialogMode.ADD_DIALOG) {
 				// temp task id
-				task = new Task(Task.nexttaskid++, taskTitle, taskDueDate,
+				task = new Task(TaskManager.getInstance().getNextTaskId(), taskTitle, taskDueDate,
 						taskCategory, taskDescription, taskPriority, false);
 			} else {
 				task.setTitle(taskTitle);

@@ -29,6 +29,9 @@ private static MainShowPanel Panel = null;
 		JPanel panel_middle = new JPanel(new BorderLayout());
 		JPanel panel_right = new JPanel(new GridLayout());
 		
+		
+		
+		
 		panel_left.setBorder(new BevelBorder(BevelBorder.RAISED));
 		panel_middle.setBorder(new BevelBorder(BevelBorder.RAISED));
 		panel_right.setBorder(new BevelBorder(BevelBorder.RAISED));

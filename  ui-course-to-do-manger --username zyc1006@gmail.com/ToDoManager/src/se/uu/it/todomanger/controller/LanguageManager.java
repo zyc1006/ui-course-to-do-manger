@@ -71,4 +71,7 @@ public class LanguageManager {
 					"The LanguageManager Locale has not been set using the setLocale(loc) method."));
 		}
 	}
+	
+	
+	
 }
