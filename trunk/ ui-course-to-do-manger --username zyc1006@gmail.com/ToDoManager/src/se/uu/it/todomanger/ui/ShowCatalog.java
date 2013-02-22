@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,20 +22,23 @@ import se.uu.it.todomanger.controller.CategoryManager;
 import se.uu.it.todomanger.model.Category;
 /**
  * 
- * @author Shiyu
+ * @author Sara
  */
 public class ShowCatalog  {
 	
+	//Create tree
 	DefaultMutableTreeNode root = new DefaultMutableTreeNode("All");
 	
 	DefaultTreeModel model = new DefaultTreeModel(root);
 	
+	//Init layout
 	BorderLayout bl = new BorderLayout();
 	JPanel panel = new JPanel(new BorderLayout());
 	JTree tree = new JTree(model);
 	JButton addButton = new JButton("Add Cateogry");;
 	
 	
+	//Add category-button
 	public JPanel init() {
 	    addButton.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent event) {
@@ -58,10 +63,17 @@ public class ShowCatalog  {
 		    });
 		    
 		
-	    
+	    //Making the nodes editable
 		tree.setEditable(true);
 	    tree.setSelectionRow(0);
-	    
+	    tree.addPropertyChangeListener(new PropertyChangeListener() {
+
+			@Override
+			public void propertyChange(PropertyChangeEvent arg0) {
+				
+			}
+	    	
+	    });
 	    
 		panel.add(BorderLayout.NORTH, addButton);
 		panel.add(BorderLayout.CENTER, tree);
