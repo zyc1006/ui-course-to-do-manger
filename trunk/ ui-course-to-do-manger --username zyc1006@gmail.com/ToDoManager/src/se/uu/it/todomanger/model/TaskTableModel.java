@@ -74,8 +74,9 @@ public class TaskTableModel extends DefaultTableModel {
 				"", task.getPriority(),
 				sdf.format(task.getDueDate()) };
 
-		
-		//cm.getCategories().get(task.getCategory()).getCategoryTitle()
+
+		//Need to store the categories in the xml-file too.
+		//After that get the categories with cm.getCategories().get(task.getCategory()).getCategoryTitle()
 		
 		super.addRow(row);
 	}
