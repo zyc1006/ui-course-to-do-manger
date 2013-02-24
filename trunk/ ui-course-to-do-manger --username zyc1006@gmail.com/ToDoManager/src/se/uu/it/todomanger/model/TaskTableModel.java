@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import javax.swing.table.DefaultTableModel;
 
+import se.uu.it.todomanger.controller.CategoryManager;
 import se.uu.it.todomanger.controller.LanguageManager;
 import se.uu.it.todomanger.controller.TaskManager;
 
@@ -68,10 +69,14 @@ public class TaskTableModel extends DefaultTableModel {
 	private void addTaskAsRow(Task task) {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		CategoryManager cm = CategoryManager.getInstance();
 		Object[] row = { task.getId(), task.getTitle(),
-				Category.category[task.getCategory()], task.getPriority(),
+				"", task.getPriority(),
 				sdf.format(task.getDueDate()) };
 
+		
+		//cm.getCategories().get(task.getCategory()).getCategoryTitle()
+		
 		super.addRow(row);
 	}
 

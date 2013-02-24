@@ -547,9 +547,9 @@ public class AddEditDialog extends JDialog {
 		// cmbCategory.addItem("HARDCODED_TEST_1");
 		// cmbCategory.addItem("HARDCODED_TEST_2");
 		// cmbCategory.addItem("HARDCODED_TEST_3");
-		for (String str : Category.category) {
-			cmbCategory.addItem(str);
-		}
+		//for (String str : Category.category) {
+		//	cmbCategory.addItem(str);
+		//}
 
 		CategoryManager cm = CategoryManager.getInstance();
 
