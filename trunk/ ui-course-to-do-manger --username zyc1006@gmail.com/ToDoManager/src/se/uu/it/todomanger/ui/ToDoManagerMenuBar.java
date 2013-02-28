@@ -308,6 +308,10 @@ public class ToDoManagerMenuBar extends JMenuBar {
 		ChineseItem.setText(LanguageManager.getString("MenuBar_Chinese_Option"));
 	}
 	
+	/**
+	 * returns the singleton instance of the menu bar
+	 * @return menu bar
+	 */
 	static public ToDoManagerMenuBar getInstance() {
 		if (null == MenuBar) {
 			MenuBar = new ToDoManagerMenuBar();

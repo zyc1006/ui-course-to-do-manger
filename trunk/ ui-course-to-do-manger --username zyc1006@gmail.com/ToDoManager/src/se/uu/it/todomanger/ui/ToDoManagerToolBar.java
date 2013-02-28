@@ -165,6 +165,10 @@ public class ToDoManagerToolBar extends JToolBar {
 
 	}
 
+	/**
+	 * returns the single instance of the tool bar
+	 * @return tool bar
+	 */
 	public static ToDoManagerToolBar getInstance() {
 		if (null == toolBar) {
 			toolBar = new ToDoManagerToolBar();
@@ -173,6 +177,9 @@ public class ToDoManagerToolBar extends JToolBar {
 		return toolBar;
 	}
 
+	/**
+	 * set the text of tool bar
+	 */
 	public void setToolBarText() {
 		// resLocale = LanguageManager.getDefaultResourceBundle();
 		delTaskButton.setToolTipText(LanguageManager

@@ -7,6 +7,10 @@ import se.uu.it.todomanger.controller.LanguageManager;
 
 public class HelpDialog extends JDialog{
 	
+	
+	/**
+	 * Default dialog
+	 */
 	public HelpDialog()
 	{
 		/*try {

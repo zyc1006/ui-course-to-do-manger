@@ -48,7 +48,10 @@ public class TaskTableModel extends DefaultTableModel {
 		this.setColumnIdentifiers(localColumnTitles);
 
 	}
-
+	
+	/**
+	 * reset the column text of the a task table
+	 */
 	public void setTaskTableText() {
 		// Create the list of column header names
 		String[] localColumnTitles = { "id",
@@ -81,6 +84,11 @@ public class TaskTableModel extends DefaultTableModel {
 		super.addRow(row);
 	}
 
+	/**
+	 * sort the tasks by comparator
+	 * @param a array list of task to be sorted
+	 * @param comparator for sorting
+	 */
 	public void displayAllTasksByOrder(ArrayList<Task> taskList,
 			Comparator<Task> comparator) {
 
@@ -93,6 +101,9 @@ public class TaskTableModel extends DefaultTableModel {
 
 	}
 
+	/**
+	 * the cell in task table is not editable
+	 */
 	@Override
 	public boolean isCellEditable(int row, int column) {
 		return false;

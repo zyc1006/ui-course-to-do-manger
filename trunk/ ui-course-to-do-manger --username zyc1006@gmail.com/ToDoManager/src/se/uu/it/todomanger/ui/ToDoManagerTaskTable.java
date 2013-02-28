@@ -125,6 +125,9 @@ public class ToDoManagerTaskTable extends JTable {
 		this.getTableHeader().getColumnModel().getColumn(index).setMinWidth(0);
 	}
 	
+	/**
+	 * set text of the task table
+	 */
 	public void setTaskTableText(){
 		((TaskTableModel)taskTable.getModel()).setTaskTableText();
 		taskTable.hideColumn(0);

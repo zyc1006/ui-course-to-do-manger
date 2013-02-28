@@ -38,12 +38,12 @@ public class CategoryManager {
 	
 	
 	/**
-	 * addTask
+	 * get the Categories
 	 * 
 	 * @author sara
 	 * @param category
 	 *            - The category that is going to be added
-	 * @description Adds a category
+	 * @description Get the category
 	 */
 	public HashMap<Integer, Category> getCategories() {
 		return categoryHashMap;
@@ -51,7 +51,7 @@ public class CategoryManager {
 	
 	
 	/**
-	 * addTask
+	 * addCatery
 	 * 
 	 * @author sara
 	 * @param category
@@ -64,12 +64,12 @@ public class CategoryManager {
 
 	
 	/**
-	 * deleteTask
+	 * deleteCategory
 	 * 
 	 * @author sara
 	 * @param category
 	 *            - The category that is going to be deleted
-	 * @description Adds a category
+	 * @description delete a category
 	 */
 	public void deleteCategory(Category category) {
 		categoryHashMap.remove(category.getCategoryId());

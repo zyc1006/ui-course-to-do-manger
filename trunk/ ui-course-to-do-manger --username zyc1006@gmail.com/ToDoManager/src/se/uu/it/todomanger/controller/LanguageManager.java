@@ -17,11 +17,25 @@ public class LanguageManager {
 	// only set the default language the first time the constructor is called.
 	private static Boolean localeSet = false;
 
-	// Public references to locales that the program accepts.
+	/**
+	 *  English locale 
+	 */
 	public static final Locale ENGLISH = Locale.ENGLISH;
+	
+	/**
+	 *  German locale 
+	 */
 	public static final Locale GERMAN = Locale.GERMAN;
+	
+	/**
+	 *  Swedish locale 
+	 */
 	public static final Locale SWEDISH = new Locale("sv","SE");
-	//public static final Locale SWEDISH = Locale.SWEDISH;
+	
+	
+	/**
+	 *  Chinese locale
+	 */
 	public static final Locale CHINESE = Locale.CHINESE;
 
 	// The ResourceBundle we use for loading words/phrases.

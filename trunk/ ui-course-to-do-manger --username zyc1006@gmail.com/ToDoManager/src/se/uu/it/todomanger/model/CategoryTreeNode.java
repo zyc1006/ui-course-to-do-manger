@@ -11,18 +11,26 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public class CategoryTreeNode extends DefaultMutableTreeNode{
 
 	   public Category category;
-
-	   //Constructor
+	   /**
+	    * Constructor
+	    * @param title
+	    */
 	    public CategoryTreeNode(String title) {
 	        setUserObject(title);
 	    }
 	    
-		//Setters
+		/**
+		 * sets the category
+		 * @param category
+		 */
 	    public void setCategory(Category category) {
 	        this.category = category;
 	    }
 
-		//Getters
+		/**
+		 * returns the category
+		 * @return category
+		 */
 	    public Category getCategory() {
 	        return category;
 	    }

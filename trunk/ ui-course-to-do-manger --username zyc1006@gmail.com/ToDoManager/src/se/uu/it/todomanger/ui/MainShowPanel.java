@@ -20,9 +20,13 @@ public class MainShowPanel {
 	
 private static MainShowPanel Panel = null;
 	
+	/**
+	 * Initialize main panel
+	 * @return the initailize main panel
+	 */
 	public JPanel initMainShow()
 	{
-		//JPanel panel = new JPanel(new GridLayout(1,3));
+		
 		GridBagLayout gbl = new GridBagLayout();
 		JPanel panel = new JPanel(gbl);
 		JPanel panel_left = new JPanel(new GridLayout());
@@ -61,20 +65,12 @@ private static MainShowPanel Panel = null;
 		ShowCatalog sc = new ShowCatalog();
 		panel_left.add(sc.init());
 		
+		//Task table
 		JScrollPane taskPane = new JScrollPane(ToDoManagerTaskTable.getInstance(), 
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
-//------------------testing code-------------------------------		
-//		TaskManager tm = TaskManager.getInstance();
-//		tm.addTask(new Task(1, "first", new Date(2012-1900, 12-1, 1), 1, "hello", 5, true));
-//		tm.addTask(new Task(2, "first", new Date(2012-1900, 4-1, 12), 2, "hello", 4, true));
-//		tm.addTask(new Task(3, "first", new Date(2011-1900, 5-1, 18), 3, "hello", 3, true));
-//		tm.addTask(new Task(4, "first", new Date(2012-1900, 6-1, 13), 4, "hello", 2, true));
-		
-		
-//		tm.displayTaskByDueDateDesc();
-//------------------------------------------------------------------		
+
 		panel_middle.add(taskPane);
 		//create the blank panel to add additional function in the future
 		AdditionRequire ar = new AdditionRequire();

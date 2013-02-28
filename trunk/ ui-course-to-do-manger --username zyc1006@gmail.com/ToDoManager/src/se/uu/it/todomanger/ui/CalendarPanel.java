@@ -74,25 +74,41 @@ public class CalendarPanel extends JPanel {
  
 	public static final String dateFormat = "dd/MM/yyyy";
 	
+	/** 
+	 * Creates a new instance of DateChooser
+	 * @return CalendarPanel 
+	 */
 	public static CalendarPanel getInstance() {
 		return new CalendarPanel();
 	}
- 
+	/**
+	 * Creates a new instance of DateChooser 
+	 * @param date
+	 * @return CalendarPanel
+	 */
 	public static CalendarPanel getInstance(Date date) {
 		return new CalendarPanel(date);
 	}
- 
+	
+	/**
+	 * Creates a new instance of DateChooser 
+	 * @param date format
+	 * @return CalendarPanel
+	 */
 	public static CalendarPanel getInstance(String format) {
 		return new CalendarPanel(format);
 	}
- 
+	/**
+	 * Creates a new instance of DateChooser 
+	 * @param date
+	 * @param date format
+	 * @return CalendarPanel
+	 */
 	public static CalendarPanel getInstance(Date date, String format) {
 		return new CalendarPanel(date, format);
 	}
  
-	/** 
-	 * Creates a new instance of DateChooser 
-	 */
+
 	private CalendarPanel() {
 		this(new Date());
 	}
@@ -127,11 +143,16 @@ public class CalendarPanel extends JPanel {
 	public Date getDate() {
 		return select.getTime();
 	}
- 
+	/** 
+	 *Get selected date in string
+	 */
 	public String getStrDate() {
 		return sdf.format(select.getTime());
 	}
- 
+	
+	/** 
+	 *Get selected date in string by format
+	 */
 	public String getStrDate(String format) {
 		sdf = new SimpleDateFormat(format);
 		return sdf.format(select.getTime());
@@ -162,7 +183,13 @@ public class CalendarPanel extends JPanel {
 			}
 		});
 	}
- 
+	
+	
+	/**
+	 * 
+	 * Bind the calendar to a JCompnent
+	 * @param a JComponent to be bound to
+	 */
 	public void register(final JComponent showDate) {
 		this.showDate = showDate;
  
