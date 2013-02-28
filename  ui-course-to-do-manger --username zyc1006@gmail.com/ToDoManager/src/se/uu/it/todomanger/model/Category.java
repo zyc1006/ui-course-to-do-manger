@@ -19,13 +19,23 @@ public class Category {
     private Category parent;
     
     
-    // Constructor
+   /**
+    * Constructor
+    * @param id category id
+    * @param title category title
+    */
+    
     public Category(int id, String title) {
         this.id    = id;
         this.title = title;
     }
     
-    // Constructor with parent
+    /**
+     * Constructor
+     * @param id category task
+     * @param title category title 
+     * @param parent category parent
+     */
     public Category(int id, String title, Category parent) {
         this.id     = id;
         this.title  = title;

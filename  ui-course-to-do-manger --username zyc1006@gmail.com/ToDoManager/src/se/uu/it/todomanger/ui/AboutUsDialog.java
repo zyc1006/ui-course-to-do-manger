@@ -13,11 +13,12 @@ import se.uu.it.todomanger.controller.LanguageManager;
 public class AboutUsDialog extends JDialog
 {
 	
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Default constructor
+	 */
 	public AboutUsDialog()
 	{
 		

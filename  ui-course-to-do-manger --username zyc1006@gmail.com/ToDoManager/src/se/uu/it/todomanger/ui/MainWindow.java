@@ -153,21 +153,7 @@ public class MainWindow extends JFrame {
 	 */
 	public void init() {
 
-		// Load the international words/phrases from the LanguageManager.
-		/*try {
-			// Set the default language -- this is supposed to be remembered by
-			// the program between exits TBD!
-			//String a = "ENGLISH";
-			//LanguageManager.setLocale(new Locale("de","DE"));
-			//sv,SE; en,SU; zh,CN;de,DE
-			LanguageManager.setLocale(LanguageManager.ENGLISH);
-			lang = "de";
-		} catch (MissingResourceException mre) {
-			System.err.println("res/locale/ToDoManager.properties not found");
-			System.exit(1);
-		}*/
-
-		//this.setTitle(LanguageManager.getString("MainWindow_Title"));
+		
 		Savestate save = new Savestate();
 		// load saved size and location
 		Properties prop = save.loadLocation(System.getProperty("user.home")
@@ -259,7 +245,8 @@ public class MainWindow extends JFrame {
 		});
 	}
 
-	public JPanel createPanel() {
+	
+	private JPanel createPanel() {
 		JPanel menu_toolbar_panel = new JPanel(new BorderLayout());
 		JPanel panel = new JPanel(new BorderLayout());
 		// create menubar
@@ -278,7 +265,6 @@ public class MainWindow extends JFrame {
 	/**
 	 * reset application language
 	 * 
-	 * @param language
 	 */
 	public void resetAllLanguage() {
 		this.setMainWindowText();
@@ -289,10 +275,14 @@ public class MainWindow extends JFrame {
 	}
 
 	private void setMainWindowText() {
-		// this.resLocale = LanguageManager.getDefaultResourceBundle();
+		
 		this.setTitle(LanguageManager.getString("MainWindow_Title"));
 	}
 
+	/**
+	 * The entry for the application
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		MainWindow window = new MainWindow();
 

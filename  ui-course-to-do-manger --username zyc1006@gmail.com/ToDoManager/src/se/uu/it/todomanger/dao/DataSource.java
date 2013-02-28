@@ -17,18 +17,38 @@ import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
 import se.uu.it.todomanger.model.Task;
-
+/**
+ * A dao object in charge of saving and loading task data.
+ * @author Yucheng
+ *
+ */
 public class DataSource {
 	
-	
+	/**
+	 * public staitc toXmlFile({@link ArrayList<Task>} task)<br>
+	 * Convert a arraylist of tasks into a xml file in default directory (user home directory)
+	 * @param an arraylist of tasks
+	 */
 	public  static void toXmlFile(ArrayList<Task> tasks){
 		toXmlFile(tasks, null);
 	}
+	
+	/**
+	 * public staitc toXmlFile({@link ArrayList<Task>} task, {@link String} fileName})<br>
+	 * Convert a arraylist of tasks into a xml file in a specific directory
+	 * @param tasks an arraylist of tasks
+	 * @param filename the file name of the xml file
+	 */
 	public  static void toXmlFile(ArrayList<Task> tasks, String fileName){
 		Document doc = DocumentHelper.createDocument();
+		
+		//root element
 		Element rootElement = doc.addElement("ToDoManager");
+		
 		Element tasksElement = rootElement.addElement("tasks");
 		String userHome = System.getProperty("user.home");
+		
+		//add the nodes to root element
 		for(int i = 0; i < tasks.size(); i++){
 			Element task = tasksElement.addElement("task");
 			task.addAttribute("id", Integer.toString(tasks.get(i).getId()));
@@ -45,6 +65,7 @@ public class DataSource {
 			description.setText(tasks.get(i).getDescription());
 		}
 		
+		//wirte file
 		XMLWriter output;
 		try {
 			OutputFormat format = OutputFormat.createPrettyPrint();
@@ -68,13 +89,25 @@ public class DataSource {
 		
 	}
 	
+	/**
+	 * public public static {@link ArrayList<Task>} toTaskList()<br>
+	 * Load the xml file from default directory(user home directory)
+	 * @param an arraylist of tasks
+	 */
 	public static ArrayList<Task> toTaskList(){
 		ArrayList<Task> tasks = toTaskList(null);
 		return tasks;
 	}
 	
+	/**
+	 * public static {@link ArrayList} toTaskList({@link String} fileName)
+	 * @param fileName the xml file name
+	 * @return an arraylist contains all the tasks
+	 */
 	public static ArrayList<Task> toTaskList(String fileName){
 		ArrayList<Task> tasks = new ArrayList<Task>();
+		
+		//default directory
 		String userHome = System.getProperty("user.home");
 		SAXReader reader = new SAXReader();
 		
