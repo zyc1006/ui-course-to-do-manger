@@ -46,7 +46,7 @@ private static MainShowPanel Panel = null;
 		c.gridwidth = 1; c.gridheight = GridBagConstraints.REMAINDER; 
 		c.weightx = 0.1; c.weighty = 1.0;
 		c.fill = GridBagConstraints.BOTH;
-		c.ipadx = 120;
+		c.ipadx = 80;
 		
 		gbl.setConstraints(panel_left, c);	
 		panel.add(panel_left);

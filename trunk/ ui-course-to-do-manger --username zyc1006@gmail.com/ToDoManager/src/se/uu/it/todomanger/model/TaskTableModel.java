@@ -30,7 +30,6 @@ public class TaskTableModel extends DefaultTableModel {
 	/**
 	 * Create the table model and set headers to internationalized names.
 	 * 
-	 * @author Bjorn
 	 */
 	public TaskTableModel() {
 
@@ -86,7 +85,7 @@ public class TaskTableModel extends DefaultTableModel {
 
 	/**
 	 * sort the tasks by comparator
-	 * @param a array list of task to be sorted
+	 * @param task list a array list of task to be sorted
 	 * @param comparator for sorting
 	 */
 	public void displayAllTasksByOrder(ArrayList<Task> taskList,

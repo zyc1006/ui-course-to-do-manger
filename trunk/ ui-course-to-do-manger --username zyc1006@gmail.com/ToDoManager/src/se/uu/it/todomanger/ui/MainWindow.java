@@ -209,8 +209,9 @@ public class MainWindow extends JFrame {
 		
 		
 		//load tasks----------------------
-		TaskManager.getInstance().setTaskArrayList(DataSource.toTaskList());
-		TaskManager.getInstance().displayTaskByDueDateAsc();
+		DataSource.taskArrayList = DataSource.toTaskList();
+//		TaskManager.getInstance().setTaskArrayList(DataSource.toTaskList());
+//		TaskManager.getInstance().displayTaskByDueDateAsc();
 		
 		//-----------------------------------
 		this.setContentPane(createPanel());
@@ -237,7 +238,7 @@ public class MainWindow extends JFrame {
 
 						save.saveLocation(size, location , lang);
 						//save tasks
-						DataSource.toXmlFile(TaskManager.getInstance().getTaskArrayList());
+						DataSource.toXmlFile(DataSource.taskArrayList);
 						System.exit(0);
 					}
 				}

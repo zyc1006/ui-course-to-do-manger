@@ -19,7 +19,9 @@ import javax.swing.table.TableModel;
 
 
 import se.uu.it.todomanger.controller.TaskManager;
+import se.uu.it.todomanger.dao.DataSource;
 import se.uu.it.todomanger.model.Task;
+import se.uu.it.todomanger.model.NewTaskTableModel;
 import se.uu.it.todomanger.model.TaskTableModel;
 
 /**
@@ -29,7 +31,7 @@ import se.uu.it.todomanger.model.TaskTableModel;
 public class ToDoManagerTaskTable extends JTable {
 	
 	private static ToDoManagerTaskTable taskTable = null;
-	private static TaskTableModel taskTableModel = null;
+	private static NewTaskTableModel taskTableModel = null;
 	
 	
 	private ToDoManagerTaskTable (TableModel tableModel){
@@ -38,7 +40,7 @@ public class ToDoManagerTaskTable extends JTable {
 	
 	public static ToDoManagerTaskTable getInstance(){
 		if(null == taskTable){
-			taskTableModel = new TaskTableModel();
+			taskTableModel = new NewTaskTableModel(DataSource.taskArrayList);
 			taskTable = new ToDoManagerTaskTable(taskTableModel);
 			taskTable.hideColumn(0);
 			initTaskTable();
@@ -53,6 +55,7 @@ public class ToDoManagerTaskTable extends JTable {
 		taskTable.setColumnSelectionAllowed(false);
 		//Single selection only
 		taskTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		taskTable.setAutoCreateRowSorter(true);
 		taskTable.addMouseListener(new MouseAdapter() {
 		
 			@Override
@@ -60,34 +63,18 @@ public class ToDoManagerTaskTable extends JTable {
 				//double click
 				if (e.getClickCount() == 2) {
 					int selectedRow = taskTable.getSelectedRow();
-					if (selectedRow >= 0) {
-						Task task = new Task();
-						task.setId((Integer)taskTable.getModel().getValueAt(selectedRow, 0));
-						task.setTitle((String)taskTable.getModel().getValueAt(selectedRow, 1));
-				//		task.setCategory((Integer)taskTable.getModel().getValueAt(selectedRow, 2));
-						task.setPriority((Integer)taskTable.getModel().getValueAt(selectedRow, 3));
-						SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-						task.setDescription(TaskManager.getInstance().getTask(task.getId()).getDescription());
-						Date dueDate;
-						try {
-							dueDate = sdf.parse((String)taskTable.getModel().getValueAt(selectedRow, 4));
-							task.setDueDate(dueDate);
-						} catch (ParseException e1) {
-							e1.printStackTrace();
-						}
-						
-
-						// title, dueDate, category, description, priority,
-						// completed)
-						// taskTable.getModel().g
+					if(selectedRow >= 0){
+					
+						int modelRow = taskTable.getRowSorter().convertRowIndexToModel(selectedRow);
+						Task task = ((NewTaskTableModel)taskTable.getModel()).getTask(modelRow);
 						
 						AddEditDialog addEditDialog = new AddEditDialog();
 						addEditDialog.ShowEditDialog(task);
 						if (addEditDialog.clickedOK()) {
 							// Add a task here
 							TaskManager tm = TaskManager.getInstance();
-							tm.editTask(addEditDialog.getTask());
-							tm.displayTaskByDueDateAsc();
+							tm.editTask(modelRow, addEditDialog.getTask());
+					//		tm.displayTaskByDueDateAsc();
 						} else {
 							System.out.println("cancel");
 						}
@@ -110,10 +97,10 @@ public class ToDoManagerTaskTable extends JTable {
 	 * In what order the tasks will be displayed
 	 * @see TaskManager
 	 */
-	public void displayAllTasksByOrder(ArrayList<Task> taskList, Comparator<Task> comparator){
-
-		taskTableModel.displayAllTasksByOrder(taskList, comparator);
-	}
+//	public void displayAllTasksByOrder(ArrayList<Task> taskList, Comparator<Task> comparator){
+//
+//		taskTableModel.displayAllTasksByOrder(taskList, comparator);
+//	}
 
 	private void hideColumn(int index) {
 		TableColumn tc = this.getColumnModel().getColumn(index);
@@ -129,7 +116,7 @@ public class ToDoManagerTaskTable extends JTable {
 	 * set text of the task table
 	 */
 	public void setTaskTableText(){
-		((TaskTableModel)taskTable.getModel()).setTaskTableText();
+		((NewTaskTableModel)taskTable.getModel()).setTaskTableText();
 		taskTable.hideColumn(0);
 	}
 	

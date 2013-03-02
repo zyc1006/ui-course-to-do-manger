@@ -22,6 +22,7 @@ import javax.swing.UIManager;
 import se.uu.it.todomanger.controller.LanguageManager;
 import se.uu.it.todomanger.controller.TaskManager;
 import se.uu.it.todomanger.dao.Savestate;
+import se.uu.it.todomanger.model.NewTaskTableModel;
 import se.uu.it.todomanger.model.Task;
 
 /**
@@ -157,40 +158,18 @@ public class ToDoManagerMenuBar extends JMenuBar {
 				ToDoManagerTaskTable taskTable = ToDoManagerTaskTable
 						.getInstance();
 				int selectedRow = taskTable.getSelectedRow();
-				if (selectedRow >= 0) {
-					Task task = new Task();
-					task.setId((Integer) taskTable.getModel().getValueAt(
-							selectedRow, 0));
-					task.setTitle((String) taskTable.getModel().getValueAt(
-							selectedRow, 1));
-					// task.setCategory((Integer)taskTable.getModel().getValueAt(selectedRow,
-					// 2));
-					task.setPriority((Integer) taskTable.getModel().getValueAt(
-							selectedRow, 3));
-					SimpleDateFormat sdf = new SimpleDateFormat(
-							"dd/MM/yyyy HH:mm");
-					task.setDescription(TaskManager.getInstance()
-							.getTask(task.getId()).getDescription());
-					Date dueDate;
-					try {
-						dueDate = sdf.parse((String) taskTable.getModel()
-								.getValueAt(selectedRow, 4));
-						task.setDueDate(dueDate);
-					} catch (ParseException e1) {
-						e1.printStackTrace();
-					}
-
-					// title, dueDate, category, description, priority,
-					// completed)
-					// taskTable.getModel().g
-
+				
+				if(selectedRow >= 0){
+					int modelRow = taskTable.getRowSorter().convertRowIndexToModel(selectedRow);
+					Task task = ((NewTaskTableModel)taskTable.getModel()).getTask(modelRow);
+					
 					AddEditDialog addEditDialog = new AddEditDialog();
 					addEditDialog.ShowEditDialog(task);
 					if (addEditDialog.clickedOK()) {
 						// Add a task here
 						TaskManager tm = TaskManager.getInstance();
-						tm.editTask(addEditDialog.getTask());
-						tm.displayTaskByDueDateAsc();
+						tm.editTask(modelRow, addEditDialog.getTask());
+				//		tm.displayTaskByDueDateAsc();
 					} else {
 						System.out.println("cancel");
 					}
@@ -213,7 +192,7 @@ public class ToDoManagerMenuBar extends JMenuBar {
 					//Add a task here
 					TaskManager tm = TaskManager.getInstance();
 					tm.addTask(addEditDialog.getTask());
-					tm.displayTaskByDueDateAsc();
+				//	tm.displayTaskByDueDateAsc();
 				}
 			}
 		});
