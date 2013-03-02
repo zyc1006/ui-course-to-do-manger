@@ -288,10 +288,10 @@ public class Savestate
     	
     }
     
-    /** public void loadLocation({@link Dimension} size, {@link Point} location)
+    /** public void loadLocation({@link String} filename)
      * <br>load the previous window's size and location
-     * @param size
-     * @param location
+     * @param filename
+     * 
      */
     public Properties loadLocation(String filename) {
     	

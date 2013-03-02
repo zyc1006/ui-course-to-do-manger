@@ -40,9 +40,9 @@ public class Task {
 	}
 	protected String title;
 	protected Date dueDate;
-	protected int category;
+	protected Integer category;
 	protected String description;
-	protected int priority;
+	protected Integer priority;
 	protected boolean completed;
 
 	/**
@@ -97,7 +97,7 @@ public class Task {
 	 * returns the category id of a task
 	 * @return category id
 	 */
-	public int getCategory() {
+	public Integer getCategory() {
 		return category;
 	}
 	
@@ -105,7 +105,7 @@ public class Task {
 	 * sets the category id for a task
 	 * @param category
 	 */
-	public void setCategory(int category) {
+	public void setCategory(Integer category) {
 		this.category = category;
 	}
 	
@@ -129,7 +129,7 @@ public class Task {
 	 * returns the task priority
 	 * @return task priority
 	 */
-	public int getPriority() {
+	public Integer getPriority() {
 		return priority;
 	}
 	
@@ -137,13 +137,13 @@ public class Task {
 	 * sets the task priority
 	 * @param priority
 	 */
-	public void setPriority(int priority) {
+	public void setPriority(Integer priority) {
 		this.priority = priority;
 	}
 	
 	/**
 	 * returns whether the task is completed
-	 * @return true if the task is completed and false if the task is not completed
+	 * @return boolean true if the task is completed and false if the task is not completed
 	 */
 	public boolean isCompleted() {
 		return completed;

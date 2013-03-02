@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -24,8 +26,38 @@ import se.uu.it.todomanger.model.Task;
  */
 public class DataSource {
 	
+	/**A hashmap stores all the task*/
+	public static HashMap<Integer, Task> taskHashMap = new HashMap<Integer, Task>();
+	
+	/**An arraylist stores all the task, used for sorting */
+	public static ArrayList<Task> taskArrayList = new ArrayList<Task>();
+	
+//	/**
+//	 * get the hashmap of tasks
+//	 * @return a hashmap contanis all the tasks
+//	 */
+//	public HashMap<Integer, Task> getTaskHashMap() {
+//		return taskHashMap;
+//	}
+	
+//	/**
+//	 * get the ArrayList of tasks
+//	 * @return an ArrayList contanis all the tasks
+//	 */
+//	public ArrayList<Task> getTaskArrayList() {
+//		return taskArrayList;
+//	}
+//	
+//	/**
+//	 * set the ArrayList of tasks
+//	 */
+//	public void setTaskArrayList(ArrayList<Task> taskArrayList) {
+//		this.taskArrayList = taskArrayList;
+//		toHashMap();
+//	}
+	
 	/**
-	 * public staitc toXmlFile({@link ArrayList<Task>} task)<br>
+	 * public staitc toXmlFile({@link ArrayList} task)<br>
 	 * Convert a arraylist of tasks into a xml file in default directory (user home directory)
 	 * @param an arraylist of tasks
 	 */
@@ -33,11 +65,13 @@ public class DataSource {
 		toXmlFile(tasks, null);
 	}
 	
+	
+	
 	/**
-	 * public staitc toXmlFile({@link ArrayList<Task>} task, {@link String} fileName})<br>
+	 * public staitc toXmlFile({@link ArrayList} task, {@link String} fileName})<br>
 	 * Convert a arraylist of tasks into a xml file in a specific directory
 	 * @param tasks an arraylist of tasks
-	 * @param filename the file name of the xml file
+	 * @param fileName the file name of the xml file
 	 */
 	public  static void toXmlFile(ArrayList<Task> tasks, String fileName){
 		Document doc = DocumentHelper.createDocument();
@@ -63,6 +97,8 @@ public class DataSource {
 			priority.setText(Integer.toString(tasks.get(i).getPriority()));
 			Element description = task.addElement("description");
 			description.setText(tasks.get(i).getDescription());
+			Element isComplete = task.addElement("isCompleted");
+			isComplete.setText(tasks.get(i).isCompleted()? "true":"false");
 		}
 		
 		//wirte file
@@ -90,9 +126,9 @@ public class DataSource {
 	}
 	
 	/**
-	 * public public static {@link ArrayList<Task>} toTaskList()<br>
+	 * public public static {@link ArrayList} toTaskList()<br>
 	 * Load the xml file from default directory(user home directory)
-	 * @param an arraylist of tasks
+	 * 
 	 */
 	public static ArrayList<Task> toTaskList(){
 		ArrayList<Task> tasks = toTaskList(null);
@@ -128,6 +164,7 @@ public class DataSource {
 				task.setDescription(taskElement.elementText("description"));
 				SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 				task.setDueDate(sdf.parse(taskElement.elementText("duedate")));
+				task.setCompleted(taskElement.elementText("isCompleted").equals("true")? true:false);
 				tasks.add(task);
 			}
 			
@@ -139,7 +176,10 @@ public class DataSource {
 			e.printStackTrace();
 		}
 		
+//		toHashMap();
 		
 		return tasks;
 	}
+	
+	
 }
