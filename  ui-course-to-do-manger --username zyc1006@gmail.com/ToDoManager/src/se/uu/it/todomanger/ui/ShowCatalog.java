@@ -40,9 +40,7 @@ public class ShowCatalog  {
 	// Size of buttons
 	public static final int CATEGORY_BUTTON_WIDTH = 50;
 	public static final int CATEGORY_BUTTON_HEIGHT = 36;
-	
-	
-	
+
 	
 	/**
 	 * Defines the GUI for categories
@@ -116,7 +114,6 @@ public class ShowCatalog  {
 		         
 		          Category nc = new Category(Category.nextCategoryId, newNode.getUserObject().toString());
 		          newNode.setCategory(nc);
-		          Category.nextCategoryId++;
 		          
 		          CategoryManager cm = CategoryManager.getInstance();
 		          cm.addCategory(nc);
@@ -151,7 +148,7 @@ public class ShowCatalog  {
 	
 	
 	/**
-	 * Handles changes in treenodes
+	 * Handles changes of category titles
 	 * 
 	 * @author sara
 	 */

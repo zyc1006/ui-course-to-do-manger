@@ -68,7 +68,7 @@ public class DataSource {
 	
 	
 	/**
-	 * public staitc toXmlFile({@link ArrayList} task, {@link String} fileName})<br>
+	 * public static toXmlFile({@link ArrayList} task, {@link String} fileName})<br>
 	 * Convert a arraylist of tasks into a xml file in a specific directory
 	 * @param tasks an arraylist of tasks
 	 * @param fileName the file name of the xml file

@@ -28,6 +28,7 @@ public class Category {
     public Category(int id, String title) {
         this.id    = id;
         this.title = title;
+        Category.nextCategoryId++;
     }
     
     /**
