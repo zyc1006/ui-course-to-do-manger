@@ -554,8 +554,10 @@ public class AddEditDialog extends JDialog {
 		CategoryManager cm = CategoryManager.getInstance();
 
 		HashMap<Integer, Category> cat = cm.getCategories();
-		for (int i = 0; i < cat.size(); i++) {
-			cmbCategory.addItem(cat.get(i).getCategoryTitle());
+		for (int i = 0; i <= cat.size(); i++) {
+			if (cat.containsKey(i)) {
+				cmbCategory.addItem(cat.get(i).getCategoryTitle());
+			}
 		}
 		cmbCategory.updateUI();
 	}
