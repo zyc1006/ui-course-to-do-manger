@@ -1,6 +1,7 @@
 package se.uu.it.todomanger.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -47,6 +48,9 @@ private static MainShowPanel Panel = null;
 		c.weightx = 0.1; c.weighty = 1.0;
 		c.fill = GridBagConstraints.BOTH;
 		c.ipadx = 80;
+		
+		
+		
 		
 		gbl.setConstraints(panel_left, c);	
 		panel.add(panel_left);
