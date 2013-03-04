@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -71,7 +72,7 @@ public class ShowCatalog  {
 	    removeButton = new JButton("Delete Category");
 	    gc.gridx = 2;
 	    gc.gridy = 0;
-		setRemoveButtonListener(addButton);
+		setRemoveButtonListener(removeButton);
 		gridbagLayoutSettings.setConstraints(removeButton, gc);
 		removeButton.setMargin(new Insets(2,0,2,0));
 	    panel.add(removeButton);
@@ -105,11 +106,6 @@ public class ShowCatalog  {
 		addButton.addActionListener(new ActionListener() {
     	
 			public void actionPerformed(ActionEvent event) {
-	    	  //Get the selected node
-	    	  //DefaultMutableTreeNode selNode = (DefaultMutableTreeNode) tree .getLastSelectedPathComponent();
-	    	  
-	    	  //Create the new category
-	    	  //if (selNode != null) {
 		          CategoryTreeNode newNode = new CategoryTreeNode("New Category");
 		          model.insertNodeInto(newNode, root, root.getChildCount());
 		          TreeNode[] nodes = model.getPathToRoot(newNode);
@@ -124,8 +120,8 @@ public class ShowCatalog  {
 		          
 		          CategoryManager cm = CategoryManager.getInstance();
 		          cm.addCategory(nc);
+
 	    	  }
-	      //}
 	    });
 	}
 	
@@ -140,17 +136,14 @@ public class ShowCatalog  {
 		addButton.addActionListener(new ActionListener() {
     	
 			public void actionPerformed(ActionEvent event) {
-				//Get the selected node
-				DefaultMutableTreeNode selNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-					
-				System.out.print("selNode: " + selNode.getUserObject().toString());
-			    	if (selNode != null && !selNode.equals(root)) {
-			    		root.remove(selNode);
-				          
-				        //CategoryManager cm = CategoryManager.getInstance();
-				        //cm.deleteCategory(selNode.getCategory());
-			    	}
-				 
+			    try {
+			    		DefaultMutableTreeNode selNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+				    	model.removeNodeFromParent(selNode);
+				        CategoryTreeNode selCategoryNode = (CategoryTreeNode) selNode;
+				        CategoryManager cm = CategoryManager.getInstance();
+				        cm.deleteCategory(selCategoryNode.getCategory());			    
+			        
+			    } catch (NullPointerException exc) {} 
 			}
 		});
 	
@@ -185,18 +178,7 @@ public class ShowCatalog  {
 		}
 		
 		public void treeNodesRemoved(TreeModelEvent e) {
-		    //Get current selected node
-			DefaultMutableTreeNode node;
-		    node = (DefaultMutableTreeNode) (e.getTreePath().getLastPathComponent());
 
-		    //Try if a node has been selected
-		    try {
-		        int index = e.getChildIndices()[0];
-		        node = (CategoryTreeNode) (node.getChildAt(index));
-		    } catch (NullPointerException exc) {}
-
-	        CategoryManager cm = CategoryManager.getInstance();
-	        cm.deleteCategory(((CategoryTreeNode) node).getCategory());
 		}
 		
 		public void treeStructureChanged(TreeModelEvent e) {
