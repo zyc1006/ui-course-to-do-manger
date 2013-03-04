@@ -21,6 +21,7 @@ import javax.swing.UIManager;
 
 import se.uu.it.todomanger.controller.LanguageManager;
 import se.uu.it.todomanger.controller.TaskManager;
+import se.uu.it.todomanger.dao.DataSource;
 import se.uu.it.todomanger.dao.Savestate;
 import se.uu.it.todomanger.model.NewTaskTableModel;
 import se.uu.it.todomanger.model.Task;
@@ -131,24 +132,47 @@ public class ToDoManagerMenuBar extends JMenuBar {
 		});
 		// Quit
 		QuitItem.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				int val = JOptionPane.showConfirmDialog(
+//						null,
+//						LanguageManager
+//								.getString("MainWindow_ConfirmExit_Message"),
+//						LanguageManager.getString("MainWindow_ConfirmExit_Title"),
+//						0);
+//				if (val == JOptionPane.OK_OPTION) {
+//					
+//					//save status
+//					MainWindow main = (MainWindow)MenuBar.getTopLevelAncestor();
+//					//JFrame main = (JFrame) e.getSource();
+//					Dimension size = main.getSize();
+//					Point location = main.getLocationOnScreen();
+//					Savestate save = new Savestate();
+//					
+//					save.saveLocation(size, location , MainWindow.lang);
+//					System.exit(0);
+//				}
+//			}
 			public void actionPerformed(ActionEvent e) {
-				int val = JOptionPane.showConfirmDialog(
-						null,
-						LanguageManager
-								.getString("MainWindow_ConfirmExit_Message"),
-						LanguageManager.getString("MainWindow_ConfirmExit_Title"),
-						0);
-				if (val == JOptionPane.OK_OPTION) {
-					
-					//save status
-					MainWindow main = (MainWindow)MenuBar.getTopLevelAncestor();
-					//JFrame main = (JFrame) e.getSource();
-					Dimension size = main.getSize();
-					Point location = main.getLocationOnScreen();
-					Savestate save = new Savestate();
-					
-					save.saveLocation(size, location , MainWindow.lang);
-					System.exit(0);
+				{
+					int val = JOptionPane.showConfirmDialog(
+							null,
+							LanguageManager
+									.getString("MainWindow_ConfirmExit_Message"),
+							LanguageManager.getString("MainWindow_ConfirmExit_Title"),
+							0);
+					if (val == JOptionPane.OK_OPTION) {
+						
+						//save status
+						MainWindow main = (MainWindow)MenuBar.getTopLevelAncestor();
+						//JFrame main = (JFrame) e.getSource();
+						Dimension size = main.getSize();
+						Point location = main.getLocationOnScreen();
+						Savestate save = new Savestate();
+						
+						save.saveLocation(size, location , MainWindow.lang);
+						DataSource.toXmlFile(DataSource.taskArrayList);
+						System.exit(0);
+					}
 				}
 			}
 		});
