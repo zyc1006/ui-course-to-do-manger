@@ -125,6 +125,7 @@ import se.uu.it.todomanger.controller.TaskManager;
 import se.uu.it.todomanger.dao.DataSource;
 import se.uu.it.todomanger.dao.Savestate;
 import se.uu.it.todomanger.model.TaskTableModel;
+import se.uu.it.todomanger.controller.ReminderTimerManager;
 
 /**
  * @author Shiyu
@@ -212,6 +213,9 @@ public class MainWindow extends JFrame {
 		DataSource.taskArrayList = DataSource.toTaskList();
 //		TaskManager.getInstance().setTaskArrayList(DataSource.toTaskList());
 //		TaskManager.getInstance().displayTaskByDueDateAsc();
+		
+		//Run ReminderTimerManager thread
+		ReminderTimerManager.getInstance().TimeMonitor();
 		
 		//-----------------------------------
 		this.setContentPane(createPanel());
