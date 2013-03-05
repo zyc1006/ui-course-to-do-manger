@@ -1,6 +1,7 @@
 package se.uu.it.todomanger.ui;
 
 import java.awt.Dimension;
+
 import java.awt.GridLayout;
 import java.awt.MenuItem;
 import java.awt.Point;
@@ -17,14 +18,18 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import se.uu.it.todomanger.controller.LanguageManager;
 import se.uu.it.todomanger.controller.TaskManager;
+import se.uu.it.todomanger.controller.ThemeManager;
 import se.uu.it.todomanger.dao.DataSource;
 import se.uu.it.todomanger.dao.Savestate;
 import se.uu.it.todomanger.model.NewTaskTableModel;
 import se.uu.it.todomanger.model.Task;
+
+import com.sun.java.swing.plaf.*;
 
 /**
  * A singleton of menu bar for ToDoManager
@@ -47,6 +52,7 @@ public class ToDoManagerMenuBar extends JMenuBar {
 	private static JMenu TaskMenu;
 	private static JMenu HelpMenu;
 	private static JMenu LanguageMenu;
+	private static JMenu ThemeMenu;
 	private static JMenuItem OpenItem;
 	private static JMenuItem SaveItem;
 	private static JMenuItem QuitItem;
@@ -59,6 +65,8 @@ public class ToDoManagerMenuBar extends JMenuBar {
 	private static JMenuItem EnglishItem;
 	private static JMenuItem SwedishItem;
 	private static JMenuItem ChineseItem;
+	private static JMenuItem Theme1Item;
+	private static JMenuItem Theme2Item;
 	
 	private ToDoManagerMenuBar() {
 		
@@ -76,10 +84,19 @@ public class ToDoManagerMenuBar extends JMenuBar {
 		TaskMenu = new JMenu(LanguageManager.getString("MenuBar_Task_Menu"));
 		HelpMenu = new JMenu(LanguageManager.getString("MenuBar_Help_Menu"));
 		LanguageMenu = new JMenu(LanguageManager.getString("MenuBar_Language_Menu"));
+		ThemeMenu = new JMenu(LanguageManager.getString("MenuBar_Theme_Menu"));
 		MenuBar.add(FileMenu);
 		MenuBar.add(TaskMenu);
+		MenuBar.add(ThemeMenu);
 		MenuBar.add(LanguageMenu);
 		MenuBar.add(HelpMenu);
+		
+		Theme1Item = new JMenuItem(LanguageManager.getString("MenuBar_Theme1_Option"), KeyEvent.VK_A);
+		Theme2Item = new JMenuItem(LanguageManager.getString("MenuBar_Theme2_Option"), KeyEvent.VK_B);
+		ThemeMenu.add(Theme1Item);
+		ThemeMenu.addSeparator();
+		ThemeMenu.add(Theme2Item);
+		
 		OpenItem = new JMenuItem(LanguageManager.getString("MenuBar_Open_File_Option"), KeyEvent.VK_O);
 		SaveItem = new JMenuItem(LanguageManager.getString("MenuBar_Save_File_Option"), KeyEvent.VK_S);
 		QuitItem = new JMenuItem(LanguageManager.getString("MenuBar_Quit_Option"), KeyEvent.VK_Q);
@@ -218,6 +235,26 @@ public class ToDoManagerMenuBar extends JMenuBar {
 					tm.addTask(addEditDialog.getTask());
 				//	tm.displayTaskByDueDateAsc();
 				}
+			}
+		});
+		
+		// Theme1
+		Theme1Item.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ThemeManager.setTheme(1);
+				
+				// Re-render the program
+				SwingUtilities.updateComponentTreeUI(getInstance().getTopLevelAncestor());
+			}
+		});
+		
+		// Theme2
+		Theme2Item.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ThemeManager.setTheme(2);
+				
+				// Re-render the program
+				SwingUtilities.updateComponentTreeUI(getInstance().getTopLevelAncestor());
 			}
 		});
 		

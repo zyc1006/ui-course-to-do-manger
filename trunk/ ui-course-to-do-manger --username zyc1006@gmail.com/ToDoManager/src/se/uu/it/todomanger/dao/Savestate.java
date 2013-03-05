@@ -24,6 +24,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import se.uu.it.todomanger.model.*;
+import se.uu.it.todomanger.controller.ThemeManager;
 
 public class Savestate
 {
@@ -262,7 +263,7 @@ public class Savestate
     
     
     /** public void saveLocation({@link Dimension} size, {@link Point} location)
-     * <br>Save the window's size and location when the window is closed
+     * <br>Save the window's size, theme and location when the window is closed
      * @param size
      * @param location
      */
@@ -276,6 +277,7 @@ public class Savestate
 			prop.put("width", Integer.toString(size.width));
 			prop.put("height", Integer.toString(size.height));
 			prop.put("lang", lang.toString());
+			prop.put("theme", Integer.toString(ThemeManager.getTheme()));
 			prop.store(os, "Window size and location");
 			os.close();
 		} catch (FileNotFoundException e) {
