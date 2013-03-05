@@ -346,6 +346,10 @@ public class ToDoManagerMenuBar extends JMenuBar {
 		EnglishItem.setText(LanguageManager.getString("MenuBar_English_Option"));
 		SwedishItem.setText(LanguageManager.getString("MenuBar_Swedish_Option"));
 		ChineseItem.setText(LanguageManager.getString("MenuBar_Chinese_Option"));
+		
+		ThemeMenu.setText(LanguageManager.getString("MenuBar_Theme_Menu"));
+		Theme1Item.setText(LanguageManager.getString("MenuBar_Theme1_Option"));
+		Theme2Item.setText(LanguageManager.getString("MenuBar_Theme2_Option"));
 	}
 	
 	/**
