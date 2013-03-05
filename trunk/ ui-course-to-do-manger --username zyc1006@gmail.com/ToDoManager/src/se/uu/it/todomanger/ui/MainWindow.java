@@ -276,6 +276,7 @@ public class MainWindow extends JFrame {
 		ToDoManagerMenuBar.getInstance().setMenuBarText();
 		ToDoManagerToolBar.getInstance().setToolBarText();
 		ToDoManagerTaskTable.getInstance().setTaskTableText();
+		ShowCatalog.UpdateLanguageText();
 
 	}
 
