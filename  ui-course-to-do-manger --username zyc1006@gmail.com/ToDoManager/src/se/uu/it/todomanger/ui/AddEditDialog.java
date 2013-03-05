@@ -52,112 +52,38 @@ public class AddEditDialog extends JDialog {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	// CONSTANTS for dialog language and look:
+	// === CONSTANTS for dialog language and look ===
 
-	// Priority slider data
-	public static final int ADDEDITDIALOG_PRIORITY_MIN = 0;
-	public static final int ADDEDITDIALOG_PRIORITY_MAX = 2;
-	public static final int ADDEDITDIALOG_PRIORITY_TICK_SPACING = 1;
-	public static final Boolean ADDEDITDIALOG_PRIORITY_SHOW_TICKS = true;
-	public static final Boolean ADDEDITDIALOG_PRIORITY_SHOW_LABELS = true;
+		// Priority slider data
+		private static final int ADDEDITDIALOG_PRIORITY_MIN = 0;
+		private static final int ADDEDITDIALOG_PRIORITY_MAX = 2;
+		private static final int ADDEDITDIALOG_PRIORITY_TICK_SPACING = 1;
+		private static final Boolean ADDEDITDIALOG_PRIORITY_SHOW_TICKS = true;
+		private static final Boolean ADDEDITDIALOG_PRIORITY_SHOW_LABELS = true;
+	
+		// Padding of GridBagView
+		private static final int ADDEDITDIALOG_LAYOUT_COMMON_PADDING_TOP = 10;
+		private static final int ADDEDITDIALOG_LAYOUT_COMMON_PADDING_RIGHT = 10;
+		private static final int ADDEDITDIALOG_LAYOUT_FIELDS_PADDING_LEFT = 0;
+		private static final int ADDEDITDIALOG_LAYOUT_FIELDS_PADDING_BOTTOM = 0;
+	
+	
+		// Placement data for components in GridBagLayout
+		private static final int ADDEDITDIALOG_LAYOUT_TITLE_ROW = 0;
+		private static final int ADDEDITDIALOG_LAYOUT_DUEDATE_ROW = 1;
+		private static final int ADDEDITDIALOG_LAYOUT_CATEGORY_ROW = 2;
+		private static final int ADDEDITDIALOG_LAYOUT_PRIORITY_ROW = 3;
+		private static final int ADDEDITDIALOG_LAYOUT_DESCRIPTION_ROW = 4;
+	
+		private static final Boolean ADDEDITDIALOG_LAYOUT_ORDER_CANCELOK = true;
+	
+		// Window data
+		private static final Boolean ADDEDITDIALOG_WINDOW_RESIZABLE = false;
 
-	// Language data
-	public static final int ADDEDITDIALOG_LABEL_FILL = GridBagConstraints.NONE;
-
-	// Size of regular text fields
-	public static final int ADDEDITDIALOG_WIDETEXT_WIDTH = 350;
-	public static final int ADDEDITDIALOG_WIDETEXT_HEIGHT = 22;
-
-	// Size of multirow text fields
-	public static final int ADDEDITDIALOG_LONGTEXT_WIDTH = 350;
-	public static final int ADDEDITDIALOG_LONGTEXT_HEIGHT = 64;
-	public static final int ADDEDITDIALOG_SHORTTEXT_WIDTH = 48;
-	public static final int ADDEDITDIALOG_SHORTTEXT_HEIGHT = 22;
-	public static final int ADDEDITDIALOG_SLIDER_WIDTH = 350;
-	public static final int ADDEDITDIALOG_SLIDER_HEIGHT = 48;
-
-	// Size of buttons
-	public static final int ADDEDITDIALOG_BUTTON_WIDTH = 50;
-	public static final int ADDEDITDIALOG_BUTTON_HEIGHT = 36;
-
-	// Padding of GridBagView
-	public static final int ADDEDITDIALOG_LAYOUT_COMMON_PADDING_TOP = 10;
-	public static final int ADDEDITDIALOG_LAYOUT_COMMON_PADDING_RIGHT = 10;
-
-	public static final int ADDEDITDIALOG_LAYOUT_LABEL_PADDING_LEFT = 10;
-	public static final int ADDEDITDIALOG_LAYOUT_LABEL_PADDING_BOTTOM = 0;
-
-	public static final int ADDEDITDIALOG_LAYOUT_FIELDS_PADDING_LEFT = 0;
-	public static final int ADDEDITDIALOG_LAYOUT_FIELDS_PADDING_BOTTOM = 0;
-
-	public static final int ADDEDITDIALOG_LAYOUT_BUTTON_PADDING_LEFT = 10;
-	public static final int ADDEDITDIALOG_LAYOUT_BUTTON_PADDING_BOTTOM = 10;
-
-	// Grid cell filling
-	public static final int ADDEDITDIALOG_LAYOUT_WIDETEXT_FILL = GridBagConstraints.HORIZONTAL;
-	public static final int ADDEDITDIALOG_LAYOUT_LONGTEXT_FILL = GridBagConstraints.BOTH;
-	public static final int ADDEDITDIALOG_LAYOUT_SHORTTEXT_FILL = GridBagConstraints.NONE;
-	public static final int ADDEDITDIALOG_LAYOUT_SLIDER_FILL = GridBagConstraints.HORIZONTAL;
-	public static final int ADDEDITDIALOG_LAYOUT_BUTTONS_FILL = GridBagConstraints.NONE;
-	public static final int ADDEDITDIALOG_LAYOUT_DATEFIELD_FILL = GridBagConstraints.BOTH;
-
-	// Data for label column
-	public static final int ADDEDITDIALOG_LAYOUT_LABEL_ANCHOR = GridBagConstraints.EAST;
-	public static final int ADDEDITDIALOG_LAYOUT_LABEL_COLUMN = 0;
-	public static final int ADDEDITDIALOG_LAYOUT_LABEL_COLUMN_SPAN = 1;
-	public static final double ADDEDITDIALOG_LAYOUT_LABEL_COLUMN_WEIGHT = 0.0;
-
-	// Data for standard field column
-	public static final int ADDEDITDIALOG_LAYOUT_FIELDS_ANCHOR = GridBagConstraints.WEST;
-	public static final int ADDEDITDIALOG_LAYOUT_FIELDS_COLUMN = 1;
-	public static final int ADDEDITDIALOG_LAYOUT_FIELDS_COLUMN_SPAN = 5;
-	public static final double ADDEDITDIALOG_LAYOUT_FIELDS_COLUMN_WEIGHT = 1.0;
-
-	// Data for date columns
-	public static final int ADDEDITDIALOG_LAYOUT_DATEFIELD_ANCHOR = GridBagConstraints.WEST;
-	public static final int ADDEDITDIALOG_LAYOUT_DATEFIELD_DATE_COLUMN = 1;
-	public static final int ADDEDITDIALOG_LAYOUT_DATEFIELD_DATE_COLUMN_SPAN = 3;
-	public static final double ADDEDITDIALOG_LAYOUT_DATEFIELD_DATE_COLUMN_WEIGHT = 0.6;
-	public static final int ADDEDITDIALOG_LAYOUT_DATEFIELD_HOUR_COLUMN = 4;
-	public static final int ADDEDITDIALOG_LAYOUT_DATEFIELD_HOUR_COLUMN_SPAN = 1;
-	public static final double ADDEDITDIALOG_LAYOUT_DATEFIELD_HOUR_COLUMN_WEIGHT = 0.2;
-	public static final int ADDEDITDIALOG_LAYOUT_DATEFIELD_MINUTE_COLUMN = 5;
-	public static final int ADDEDITDIALOG_LAYOUT_DATEFIELD_MINUTE_COLUMN_SPAN = 1;
-	public static final double ADDEDITDIALOG_LAYOUT_DATEFIELD_MINUTE_COLUMN_WEIGHT = 0.2;
-
-	// Data for priority
-	public static final int ADDEDITDIALOG_LAYOUT_PRIORITY_SLIDER_COLUMN = 1;
-	public static final int ADDEDITDIALOG_LAYOUT_PRIORITY_SLIDER_COLUMN_SPAN = 4;
-	public static final int ADDEDITDIALOG_LAYOUT_PRIORITY_TEXT_COLUMN = 5;
-	public static final int ADDEDITDIALOG_LAYOUT_PRIORITY_TEXT_COLUMN_SPAN = 1;
-
-	// Data for buttons
-	public static final int ADDEDITDIALOG_LAYOUT_BUTTONS_ANCHOR = GridBagConstraints.EAST;
-	public static final int ADDEDITDIALOG_LAYOUT_BUTTONS_COLUMN_SPAN = 6;
-
-	// Placement data for components in GridBagLayout
-	public static final int ADDEDITDIALOG_LAYOUT_TITLE_ROW = 0;
-	public static final double ADDEDITDIALOG_LAYOUT_TITLE_ROW_WEIGHT = 0.0;
-	public static final int ADDEDITDIALOG_LAYOUT_DUEDATE_ROW = 1;
-	public static final double ADDEDITDIALOG_LAYOUT_DUEDATE_ROW_WEIGHT = 0.0;
-	public static final int ADDEDITDIALOG_LAYOUT_CATEGORY_ROW = 2;
-	public static final double ADDEDITDIALOG_LAYOUT_CATEGORY_ROW_WEIGHT = 0.0;
-	public static final int ADDEDITDIALOG_LAYOUT_PRIORITY_ROW = 3;
-	public static final double ADDEDITDIALOG_LAYOUT_PRIORITY_ROW_WEIGHT = 0.0;
-	public static final int ADDEDITDIALOG_LAYOUT_DESCRIPTION_ROW = 4;
-	public static final double ADDEDITDIALOG_LAYOUT_DESCRIPTION_ROW_WEIGHT = 1.0;
-	public static final int ADDEDITDIALOG_LAYOUT_BUTTONS_ROW = 5;
-	public static final double ADDEDITDIALOG_LAYOUT_BUTTONS_ROW_WEIGHT = 0.0;
-	public static final int ADDEDITDIALOG_LAYOUT_BUTTONS_COLUMN = 0;
-	public static final Boolean ADDEDITDIALOG_LAYOUT_ORDER_CANCELOK = true;
-
-	// Window data
-	public static final Boolean ADDEDITDIALOG_WINDOW_RESIZABLE = false;
-
-	// END OF CONSTANTS
+	// === END OF CONSTANTS ===
 
 	// For keeping track of which mode the AddEditDialog is in.
-	public static enum DialogMode {
+	private static enum DialogMode {
 		ADD_DIALOG, EDIT_DIALOG
 	}
 
@@ -175,16 +101,11 @@ public class AddEditDialog extends JDialog {
 	private JSlider sliPriority;
 	private JComboBox cmbCategory;
 
-	private Dimension wideTextDimension = new Dimension(
-			ADDEDITDIALOG_WIDETEXT_WIDTH, ADDEDITDIALOG_WIDETEXT_HEIGHT);
-	private Dimension dateFieldDimension = new Dimension(
-			ADDEDITDIALOG_SHORTTEXT_WIDTH, ADDEDITDIALOG_SHORTTEXT_HEIGHT);
-	private Dimension sliderDimension = new Dimension(
-			ADDEDITDIALOG_SLIDER_WIDTH, ADDEDITDIALOG_SLIDER_HEIGHT);
-	private Dimension longTextDimension = new Dimension(
-			ADDEDITDIALOG_LONGTEXT_WIDTH, ADDEDITDIALOG_LONGTEXT_HEIGHT);
-	private Dimension buttonDimension = new Dimension(
-			ADDEDITDIALOG_BUTTON_WIDTH, ADDEDITDIALOG_BUTTON_HEIGHT);
+	private Dimension wideTextDimension = new Dimension(350, 22);
+	private Dimension dateFieldDimension = new Dimension(32, 22);
+	private Dimension sliderDimension = new Dimension(350, 48);
+	private Dimension longTextDimension = new Dimension(350, 64);
+	private Dimension buttonDimension = new Dimension(50, 36);
 
 	// The content pane of the dialog
 	private Container gridBagContainer;
@@ -213,25 +134,25 @@ public class AddEditDialog extends JDialog {
 
 		// Text field for title
 		txtTitle = new JTextField();
-		txtTitle.setPreferredSize(wideTextDimension);
+		txtTitle.setMinimumSize(wideTextDimension);
 
 		// Combo box for categories
 		cmbCategory = new JComboBox();
-		cmbCategory.setPreferredSize(wideTextDimension);
+		cmbCategory.setMinimumSize(wideTextDimension);
 
 		// Text fields for due date
 		txtDueDate = new JTextField();
-		txtDueDate.setPreferredSize(dateFieldDimension);
+		txtDueDate.setMinimumSize(dateFieldDimension);
 		CalendarPanel cp = CalendarPanel.getInstance();
 		cp.register(txtDueDate);
 		cmbDueDateHour = new JComboBox();
-		cmbDueDateHour.setPreferredSize(dateFieldDimension);
+		cmbDueDateHour.setMinimumSize(dateFieldDimension);
 		cmbDueDateMinute = new JComboBox();
-		cmbDueDateMinute.setPreferredSize(dateFieldDimension);
+		cmbDueDateMinute.setMinimumSize(dateFieldDimension);
 
 		// JSlider for Priority
 		sliPriority = new JSlider();
-		sliPriority.setPreferredSize(sliderDimension);
+		sliPriority.setMinimumSize(sliderDimension);
 		sliPriority.setMinimum(ADDEDITDIALOG_PRIORITY_MIN);
 		sliPriority.setMaximum(ADDEDITDIALOG_PRIORITY_MAX);
 		sliPriority.setMajorTickSpacing(ADDEDITDIALOG_PRIORITY_TICK_SPACING);
@@ -303,14 +224,14 @@ public class AddEditDialog extends JDialog {
 		// Common information for the labels
 		labelConstraint.insets = new Insets(
 				ADDEDITDIALOG_LAYOUT_COMMON_PADDING_TOP,
-				ADDEDITDIALOG_LAYOUT_LABEL_PADDING_LEFT,
-				ADDEDITDIALOG_LAYOUT_LABEL_PADDING_BOTTOM,
+				10,
+				0,
 				ADDEDITDIALOG_LAYOUT_COMMON_PADDING_RIGHT);
-		labelConstraint.gridx = ADDEDITDIALOG_LAYOUT_LABEL_COLUMN;
-		labelConstraint.gridwidth = ADDEDITDIALOG_LAYOUT_LABEL_COLUMN_SPAN;
-		labelConstraint.anchor = ADDEDITDIALOG_LAYOUT_LABEL_ANCHOR;
-		labelConstraint.fill = ADDEDITDIALOG_LABEL_FILL;
-		labelConstraint.weightx = ADDEDITDIALOG_LAYOUT_LABEL_COLUMN_WEIGHT;
+		labelConstraint.gridx = 0;
+		labelConstraint.gridwidth = 1;
+		labelConstraint.anchor = GridBagConstraints.EAST;
+		labelConstraint.fill = GridBagConstraints.NONE;
+		labelConstraint.weightx = 0.0;
 
 		// Common information for the fields/sliders/combobox
 		fieldsConstraint.insets = new Insets(
@@ -318,10 +239,10 @@ public class AddEditDialog extends JDialog {
 				ADDEDITDIALOG_LAYOUT_FIELDS_PADDING_LEFT,
 				ADDEDITDIALOG_LAYOUT_FIELDS_PADDING_BOTTOM,
 				ADDEDITDIALOG_LAYOUT_COMMON_PADDING_RIGHT);
-		fieldsConstraint.gridx = ADDEDITDIALOG_LAYOUT_FIELDS_COLUMN;
-		fieldsConstraint.gridwidth = ADDEDITDIALOG_LAYOUT_FIELDS_COLUMN_SPAN;
-		fieldsConstraint.anchor = ADDEDITDIALOG_LAYOUT_FIELDS_ANCHOR;
-		fieldsConstraint.weightx = ADDEDITDIALOG_LAYOUT_FIELDS_COLUMN_WEIGHT;
+		fieldsConstraint.gridx = 1;
+		fieldsConstraint.gridwidth = 5;
+		fieldsConstraint.anchor = GridBagConstraints.WEST;
+		fieldsConstraint.weightx = 1.0;
 
 		// Priority information
 		priorityConstraint = (GridBagConstraints) fieldsConstraint.clone();
@@ -333,74 +254,74 @@ public class AddEditDialog extends JDialog {
 				ADDEDITDIALOG_LAYOUT_FIELDS_PADDING_BOTTOM,
 				ADDEDITDIALOG_LAYOUT_COMMON_PADDING_RIGHT);
 		dateConstraint.gridy = ADDEDITDIALOG_LAYOUT_DUEDATE_ROW;
-		dateConstraint.anchor = ADDEDITDIALOG_LAYOUT_DATEFIELD_ANCHOR;
-		dateConstraint.fill = ADDEDITDIALOG_LAYOUT_DATEFIELD_FILL;
+		dateConstraint.anchor = GridBagConstraints.WEST;
+		dateConstraint.fill = GridBagConstraints.BOTH;
 
 		// Common information for the buttons
 		buttonConstraint.insets = new Insets(
 				ADDEDITDIALOG_LAYOUT_COMMON_PADDING_TOP,
-				ADDEDITDIALOG_LAYOUT_BUTTON_PADDING_LEFT,
-				ADDEDITDIALOG_LAYOUT_BUTTON_PADDING_BOTTOM,
+				10,
+				10,
 				ADDEDITDIALOG_LAYOUT_COMMON_PADDING_RIGHT);
-		buttonConstraint.weighty = ADDEDITDIALOG_LAYOUT_BUTTONS_ROW_WEIGHT;
-		buttonConstraint.gridx = ADDEDITDIALOG_LAYOUT_BUTTONS_COLUMN;
-		buttonConstraint.gridy = ADDEDITDIALOG_LAYOUT_BUTTONS_ROW;
-		buttonConstraint.gridwidth = ADDEDITDIALOG_LAYOUT_BUTTONS_COLUMN_SPAN;
-		buttonConstraint.anchor = ADDEDITDIALOG_LAYOUT_BUTTONS_ANCHOR;
-		buttonConstraint.fill = ADDEDITDIALOG_LAYOUT_BUTTONS_FILL;
+		buttonConstraint.weighty = 0.0;
+		buttonConstraint.gridx = 0;
+		buttonConstraint.gridy = 5;
+		buttonConstraint.gridwidth = 6;
+		buttonConstraint.anchor = GridBagConstraints.EAST;
+		buttonConstraint.fill = GridBagConstraints.NONE;
 
 		// Add Title components
 		labelConstraint.gridy = ADDEDITDIALOG_LAYOUT_TITLE_ROW;
 		gridBagContainer.add(lblTitle, labelConstraint);
-		fieldsConstraint.weighty = ADDEDITDIALOG_LAYOUT_TITLE_ROW_WEIGHT;
+		fieldsConstraint.weighty = 0.0;
 		fieldsConstraint.gridy = ADDEDITDIALOG_LAYOUT_TITLE_ROW;
-		fieldsConstraint.fill = ADDEDITDIALOG_LAYOUT_WIDETEXT_FILL;
+		fieldsConstraint.fill = GridBagConstraints.HORIZONTAL;
 		gridBagContainer.add(txtTitle, fieldsConstraint);
 
 		// Add Category components
 		labelConstraint.gridy = ADDEDITDIALOG_LAYOUT_CATEGORY_ROW;
 		gridBagContainer.add(lblCategory, labelConstraint);
-		fieldsConstraint.weighty = ADDEDITDIALOG_LAYOUT_CATEGORY_ROW_WEIGHT;
+		fieldsConstraint.weighty = 0.0;
 		fieldsConstraint.gridy = ADDEDITDIALOG_LAYOUT_CATEGORY_ROW;
-		fieldsConstraint.fill = ADDEDITDIALOG_LAYOUT_WIDETEXT_FILL;
+		fieldsConstraint.fill = GridBagConstraints.HORIZONTAL;
 		gridBagContainer.add(cmbCategory, fieldsConstraint);
 
 		// Add Date components
-		labelConstraint.weighty = ADDEDITDIALOG_LAYOUT_DUEDATE_ROW_WEIGHT;
+		labelConstraint.weighty = 0.0;
 		labelConstraint.gridy = ADDEDITDIALOG_LAYOUT_DUEDATE_ROW;
 		gridBagContainer.add(lblDueDate, labelConstraint);
-		dateConstraint.gridx = ADDEDITDIALOG_LAYOUT_DATEFIELD_DATE_COLUMN;
-		dateConstraint.gridwidth = ADDEDITDIALOG_LAYOUT_DATEFIELD_DATE_COLUMN_SPAN;
-		dateConstraint.weightx = ADDEDITDIALOG_LAYOUT_DATEFIELD_DATE_COLUMN_WEIGHT;
+		dateConstraint.gridx = 1;
+		dateConstraint.gridwidth = 3;
+		dateConstraint.weightx = 0.6;
 		gridBagContainer.add(txtDueDate, dateConstraint);
-		dateConstraint.gridx = ADDEDITDIALOG_LAYOUT_DATEFIELD_HOUR_COLUMN;
-		dateConstraint.gridwidth = ADDEDITDIALOG_LAYOUT_DATEFIELD_HOUR_COLUMN_SPAN;
-		dateConstraint.weightx = ADDEDITDIALOG_LAYOUT_DATEFIELD_HOUR_COLUMN_WEIGHT;
+		dateConstraint.gridx = 4;
+		dateConstraint.gridwidth = 1;
+		dateConstraint.weightx = 0.2;
 		gridBagContainer.add(cmbDueDateHour, dateConstraint);
-		dateConstraint.gridx = ADDEDITDIALOG_LAYOUT_DATEFIELD_MINUTE_COLUMN;
-		dateConstraint.gridwidth = ADDEDITDIALOG_LAYOUT_DATEFIELD_MINUTE_COLUMN_SPAN;
-		dateConstraint.weightx = ADDEDITDIALOG_LAYOUT_DATEFIELD_MINUTE_COLUMN_WEIGHT;
+		dateConstraint.gridx = 5;
+		dateConstraint.gridwidth = 1;
+		dateConstraint.weightx = 0.2;
 		gridBagContainer.add(cmbDueDateMinute, dateConstraint);
 
 		// Add priority components
 		labelConstraint.gridy = ADDEDITDIALOG_LAYOUT_PRIORITY_ROW;
 		gridBagContainer.add(lblPriority, labelConstraint);
-		priorityConstraint.weighty = ADDEDITDIALOG_LAYOUT_PRIORITY_ROW_WEIGHT;
-		priorityConstraint.gridx = ADDEDITDIALOG_LAYOUT_PRIORITY_SLIDER_COLUMN;
-		priorityConstraint.gridwidth = ADDEDITDIALOG_LAYOUT_PRIORITY_SLIDER_COLUMN_SPAN;
+		priorityConstraint.weighty = 0.0;
+		priorityConstraint.gridx = 1;
+		priorityConstraint.gridwidth = 4;
 		priorityConstraint.gridy = ADDEDITDIALOG_LAYOUT_PRIORITY_ROW;
-		priorityConstraint.fill = ADDEDITDIALOG_LAYOUT_SLIDER_FILL;
+		priorityConstraint.fill = GridBagConstraints.HORIZONTAL;
 		gridBagContainer.add(sliPriority, priorityConstraint);
-		priorityConstraint.gridx = ADDEDITDIALOG_LAYOUT_PRIORITY_TEXT_COLUMN;
-		priorityConstraint.gridwidth = ADDEDITDIALOG_LAYOUT_PRIORITY_TEXT_COLUMN_SPAN;
+		priorityConstraint.gridx = 5;
+		priorityConstraint.gridwidth = 1;
 		gridBagContainer.add(txtPriority, priorityConstraint);
 
 		// Add description components
 		labelConstraint.gridy = ADDEDITDIALOG_LAYOUT_DESCRIPTION_ROW;
 		gridBagContainer.add(lblDescription, labelConstraint);
-		fieldsConstraint.weighty = ADDEDITDIALOG_LAYOUT_DESCRIPTION_ROW_WEIGHT;
+		fieldsConstraint.weighty = 1.0;
 		fieldsConstraint.gridy = ADDEDITDIALOG_LAYOUT_DESCRIPTION_ROW;
-		fieldsConstraint.fill = ADDEDITDIALOG_LAYOUT_LONGTEXT_FILL;
+		fieldsConstraint.fill = GridBagConstraints.BOTH;
 		gridBagContainer.add(txtDescription, fieldsConstraint);
 
 		// Add OK/Cancel components
