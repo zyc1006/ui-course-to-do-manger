@@ -21,6 +21,7 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 import se.uu.it.todomanger.controller.CategoryManager;
+import se.uu.it.todomanger.controller.LanguageManager;
 import se.uu.it.todomanger.model.Category;
 import se.uu.it.todomanger.model.CategoryTreeNode;
 
@@ -30,12 +31,12 @@ import se.uu.it.todomanger.model.CategoryTreeNode;
  */
 
 public class ShowCatalog  {
-	private DefaultMutableTreeNode root;
-	private DefaultTreeModel model;
-	private JPanel panel;
-	private JTree tree;
-	private JButton addButton;
-	private JButton removeButton;
+	private static DefaultMutableTreeNode root;
+	private static DefaultTreeModel model;
+	private static JPanel panel;
+	private static JTree tree;
+	private static JButton addButton;
+	private static JButton removeButton;
 	
 	// Size of buttons
 	public static final int CATEGORY_BUTTON_WIDTH = 50;
@@ -57,7 +58,7 @@ public class ShowCatalog  {
 	    gc.anchor = GridBagConstraints.NORTHWEST;
 	    
 		//Init Add Button
-		addButton = new JButton("Add Cateogry");
+		addButton = new JButton(LanguageManager.getString("MainWindow_AddCategory_Label"));
 	    gc.weightx = 0.5;
 	    gc.gridx = 0;
 	    gc.gridy = 0;
@@ -67,7 +68,7 @@ public class ShowCatalog  {
 	    panel.add(addButton);
 
 		//Init Remove Button 
-	    removeButton = new JButton("Delete Category");
+	    removeButton = new JButton(LanguageManager.getString("MainWindow_RemoveCategory_Label"));
 	    gc.gridx = 2;
 	    gc.gridy = 0;
 		setRemoveButtonListener(removeButton);
@@ -76,7 +77,7 @@ public class ShowCatalog  {
 	    panel.add(removeButton);
 
 		//Init tree
-		root = new DefaultMutableTreeNode("All");
+		root = new DefaultMutableTreeNode(LanguageManager.getString("MainWindow_AllCategories_Label"));
 		model = new DefaultTreeModel(root);
 	    tree = new JTree(model);
 		tree.setEditable(true);
@@ -98,13 +99,14 @@ public class ShowCatalog  {
 	 * Handles the add button
 	 * 
 	 * @author sara
+	 * @author bjorn
 	 */
 	
 	private void setAddButtonListener(JButton addButton) {
 		addButton.addActionListener(new ActionListener() {
     	
 			public void actionPerformed(ActionEvent event) {
-		          CategoryTreeNode newNode = new CategoryTreeNode("New Category");
+		          CategoryTreeNode newNode = new CategoryTreeNode(LanguageManager.getString("MainWindow_NewCategoryName"));
 		          model.insertNodeInto(newNode, root, root.getChildCount());
 		          TreeNode[] nodes = model.getPathToRoot(newNode);
 		          TreePath path = new TreePath(nodes);
@@ -144,6 +146,17 @@ public class ShowCatalog  {
 			}
 		});
 	
+	}
+	
+	/**
+	 * 
+	 */
+	public static void UpdateLanguageText() {
+		Integer width, height;
+		removeButton.setText(LanguageManager.getString("MainWindow_RemoveCategory_Label"));
+		addButton.setText(LanguageManager.getString("MainWindow_AddCategory_Label"));
+		root.setUserObject(new String(LanguageManager.getString("MainWindow_AllCategories_Label")));
+		tree.updateUI();
 	}
 	
 	
