@@ -121,6 +121,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import se.uu.it.todomanger.controller.LanguageManager;
+import se.uu.it.todomanger.controller.ThemeManager;
 import se.uu.it.todomanger.controller.TaskManager;
 import se.uu.it.todomanger.dao.DataSource;
 import se.uu.it.todomanger.dao.Savestate;
@@ -156,7 +157,7 @@ public class MainWindow extends JFrame {
 
 		
 		Savestate save = new Savestate();
-		// load saved size and location
+		// load saved size, theme and location
 		Properties prop = save.loadLocation(System.getProperty("user.home")
 				+ "/TODOgroup12.properties");
 		if (null != prop) {
@@ -169,6 +170,21 @@ public class MainWindow extends JFrame {
 			size.width = Integer.parseInt(prop.getProperty("width"));
 			size.height = Integer.parseInt(prop.getProperty("height"));
 			this.setSize(size);
+			
+			// Load theme
+			String theme = prop.getProperty("theme");
+			if (theme == null) {
+				ThemeManager.setTheme(1);
+			}
+			else
+			{
+				if (theme.equals("1")) {
+					ThemeManager.setTheme(1);
+				} else if (theme.equals("2")) {
+					ThemeManager.setTheme(2);
+				}
+				
+			}
 			
 			String la = prop.getProperty("lang");
 			if (la == null) {
@@ -202,6 +218,8 @@ public class MainWindow extends JFrame {
 				//sv,SE; en,SU; zh,CN;de,DE
 				LanguageManager.setLocale(LanguageManager.ENGLISH);
 				lang = "en";
+				// Set the default theme
+				ThemeManager.setTheme(1);
 			} catch (MissingResourceException mre) {
 				System.err.println("res/locale/ToDoManager.properties not found");
 				System.exit(1);
