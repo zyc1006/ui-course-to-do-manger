@@ -41,7 +41,8 @@ public class TaskTableModel extends DefaultTableModel {
 				LanguageManager.getString("TaskTable_Column_Title_Label"),
 				LanguageManager.getString("TaskTable_Column_Category_Label"),
 				LanguageManager.getString("TaskTable_Column_Priority_Label"),
-				LanguageManager.getString("TaskTable_Column_DueDate_Label") };
+				LanguageManager.getString("TaskTable_Column_DueDate_Label"),
+				LanguageManager.getString("TaskTable_Column_Completed_Label") };
 
 		// Set the column header names
 		this.setColumnIdentifiers(localColumnTitles);
@@ -57,7 +58,8 @@ public class TaskTableModel extends DefaultTableModel {
 				LanguageManager.getString("TaskTable_Column_Title_Label"),
 				LanguageManager.getString("TaskTable_Column_Category_Label"),
 				LanguageManager.getString("TaskTable_Column_Priority_Label"),
-				LanguageManager.getString("TaskTable_Column_DueDate_Label") };
+				LanguageManager.getString("TaskTable_Column_DueDate_Label"),
+				LanguageManager.getString("TaskTable_Column_Completed_Label")};
 
 		// Set the column header names
 		this.setColumnIdentifiers(localColumnTitles);

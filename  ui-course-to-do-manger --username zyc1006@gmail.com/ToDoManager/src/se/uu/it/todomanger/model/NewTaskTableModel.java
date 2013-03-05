@@ -41,7 +41,7 @@ public class NewTaskTableModel extends AbstractTableModel {
 		this.localColumnTitles.add(LanguageManager.getString("TaskTable_Column_Category_Label"));
 		this.localColumnTitles.add(LanguageManager.getString("TaskTable_Column_Priority_Label"));
 		this.localColumnTitles.add(LanguageManager.getString("TaskTable_Column_DueDate_Label"));
-		this.localColumnTitles.add("completed");
+		this.localColumnTitles.add(LanguageManager.getString("TaskTable_Column_Completed_Label"));
 		fireTableStructureChanged();
 	}
 	
