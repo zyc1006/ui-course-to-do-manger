@@ -328,6 +328,9 @@ public class ToDoManagerMenuBar extends JMenuBar {
 		// return panel;
 	}
 
+	/**
+	 * Set the language of the menu to the language in the LanguageManager.
+	 */
 	public void setMenuBarText(){
 		//resLocale = LanguageManager.getDefaultResourceBundle();
 		FileMenu.setText(LanguageManager.getString("MenuBar_File_Menu"));
