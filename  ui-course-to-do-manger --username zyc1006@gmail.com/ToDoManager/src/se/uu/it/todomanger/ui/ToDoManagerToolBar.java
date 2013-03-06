@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JToolBar;
 
 import se.uu.it.todomanger.controller.LanguageManager;
+import se.uu.it.todomanger.controller.ReminderTimerManager;
 import se.uu.it.todomanger.controller.TaskManager;
 import se.uu.it.todomanger.model.NewTaskTableModel;
 import se.uu.it.todomanger.model.Task;
@@ -109,6 +110,8 @@ public class ToDoManagerToolBar extends JToolBar {
 					TaskManager tm = TaskManager.getInstance();
 					tm.addTask(addEditDialog.getTask());
 				//	tm.displayTaskByDueDateAsc();
+					//add Timer  to monitor
+					ReminderTimerManager.getInstance().TimeMonitorTask(addEditDialog.getTask());
 				} else {
 					System.out.println("cancel");
 				}
@@ -135,6 +138,8 @@ public class ToDoManagerToolBar extends JToolBar {
 						TaskManager tm = TaskManager.getInstance();
 						tm.editTask(modelRow, addEditDialog.getTask());
 				//		tm.displayTaskByDueDateAsc();
+						//add Timer  to monitor
+						ReminderTimerManager.getInstance().TimeMonitorTask(addEditDialog.getTask());
 					} else {
 						System.out.println("cancel");
 					}
