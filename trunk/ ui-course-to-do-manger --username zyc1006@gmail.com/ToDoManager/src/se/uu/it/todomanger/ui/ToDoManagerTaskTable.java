@@ -18,6 +18,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
 
+import se.uu.it.todomanger.controller.ReminderTimerManager;
 import se.uu.it.todomanger.controller.TaskManager;
 import se.uu.it.todomanger.dao.DataSource;
 import se.uu.it.todomanger.model.Task;
@@ -60,10 +61,18 @@ public class ToDoManagerTaskTable extends JTable {
 		
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//double click
-				if (e.getClickCount() == 2) {
+				if (e.getClickCount() == 1) {
 					int selectedRow = taskTable.getSelectedRow();
-					if(selectedRow >= 0){
+					if (selectedRow >= 0) {
+						int modelRow = taskTable.getRowSorter().convertRowIndexToModel(selectedRow);
+						Task task = ((NewTaskTableModel)taskTable.getModel()).getTask(modelRow);
+						ReminderTimerManager.getInstance().resetTaskTimer(task);
+					}
+				}
+				// double click
+				else if (e.getClickCount() == 2) {
+					int selectedRow = taskTable.getSelectedRow();
+					if (selectedRow >= 0) {
 					
 						int modelRow = taskTable.getRowSorter().convertRowIndexToModel(selectedRow);
 						Task task = ((NewTaskTableModel)taskTable.getModel()).getTask(modelRow);
@@ -75,6 +84,8 @@ public class ToDoManagerTaskTable extends JTable {
 							TaskManager tm = TaskManager.getInstance();
 							tm.editTask(modelRow, addEditDialog.getTask());
 					//		tm.displayTaskByDueDateAsc();
+							//add Timer  to monitor
+							ReminderTimerManager.getInstance().TimeMonitorTask(addEditDialog.getTask());
 						} else {
 							System.out.println("cancel");
 						}

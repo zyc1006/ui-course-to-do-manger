@@ -22,6 +22,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import se.uu.it.todomanger.controller.LanguageManager;
+import se.uu.it.todomanger.controller.ReminderTimerManager;
 import se.uu.it.todomanger.controller.TaskManager;
 import se.uu.it.todomanger.controller.ThemeManager;
 import se.uu.it.todomanger.dao.DataSource;
@@ -149,26 +150,6 @@ public class ToDoManagerMenuBar extends JMenuBar {
 		});
 		// Quit
 		QuitItem.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				int val = JOptionPane.showConfirmDialog(
-//						null,
-//						LanguageManager
-//								.getString("MainWindow_ConfirmExit_Message"),
-//						LanguageManager.getString("MainWindow_ConfirmExit_Title"),
-//						0);
-//				if (val == JOptionPane.OK_OPTION) {
-//					
-//					//save status
-//					MainWindow main = (MainWindow)MenuBar.getTopLevelAncestor();
-//					//JFrame main = (JFrame) e.getSource();
-//					Dimension size = main.getSize();
-//					Point location = main.getLocationOnScreen();
-//					Savestate save = new Savestate();
-//					
-//					save.saveLocation(size, location , MainWindow.lang);
-//					System.exit(0);
-//				}
-//			}
 			public void actionPerformed(ActionEvent e) {
 				{
 					int val = JOptionPane.showConfirmDialog(
@@ -211,6 +192,8 @@ public class ToDoManagerMenuBar extends JMenuBar {
 						TaskManager tm = TaskManager.getInstance();
 						tm.editTask(modelRow, addEditDialog.getTask());
 				//		tm.displayTaskByDueDateAsc();
+						//add Timer  to monitor
+						ReminderTimerManager.getInstance().TimeMonitorTask(addEditDialog.getTask());
 					} else {
 						System.out.println("cancel");
 					}
@@ -233,7 +216,9 @@ public class ToDoManagerMenuBar extends JMenuBar {
 					//Add a task here
 					TaskManager tm = TaskManager.getInstance();
 					tm.addTask(addEditDialog.getTask());
-				//	tm.displayTaskByDueDateAsc();
+					
+					//add Timer  to monitor
+					ReminderTimerManager.getInstance().TimeMonitorTask(addEditDialog.getTask());
 				}
 			}
 		});

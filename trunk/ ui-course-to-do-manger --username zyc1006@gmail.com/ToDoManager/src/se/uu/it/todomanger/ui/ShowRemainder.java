@@ -1,5 +1,7 @@
 package se.uu.it.todomanger.ui;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,6 +10,8 @@ import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -27,7 +31,7 @@ public class ShowRemainder extends JWindow implements Runnable
 	private Integer windowWidth = 300; // the width of reminder window
 	private Integer windowHeight = 200; // the height of reminder window
 	private Integer bottomToolKitHeight; 
-	private Integer stayTime = 5000; // the time the reminder window will stay
+	private Integer sleepTime = 5000;
 	private Integer x;  
 	private Integer y; 
 	private String Title = "Reminder" + "                                      ";
@@ -50,7 +54,7 @@ public class ShowRemainder extends JWindow implements Runnable
 	
 	private void initComponents(Task task)
 	{
-		message = task.getDueDate().toString();
+		message = "Hello! This is a reminder: " + task.getTitle().toString();
 		bottomToolKitHeight = Toolkit.getDefaultToolkit().getScreenInsets(this.getGraphicsConfiguration()).bottom;
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 		screenWidth = dimension.width;
@@ -82,6 +86,13 @@ public class ShowRemainder extends JWindow implements Runnable
         this.setAlwaysOnTop(true);
         this.getContentPane().add(mainPanel);
         Toolkit.getDefaultToolkit().beep(); // to notify
+//		try {
+//			AudioClip ac = Applet.newAudioClip(new URL("/msg.wav"));
+//			ac.play();
+//		} catch (MalformedURLException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
         this.addMouseListener(new MouseAdapter(){
     	public void mouseClicked(MouseEvent e)
      	{
@@ -107,7 +118,7 @@ public class ShowRemainder extends JWindow implements Runnable
 	y = y - 1;
 	this.setLocation(x, y);
 	if(step >end){
-	Thread.sleep(stayTime);
+	Thread.sleep(sleepTime);
 	break;
 	}
 	Thread.sleep(delay);
