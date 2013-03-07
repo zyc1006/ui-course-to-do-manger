@@ -1,7 +1,9 @@
 package se.uu.it.todomanger.controller;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
 
+import se.uu.it.todomanger.dao.CategoryDataSource;
 import se.uu.it.todomanger.model.Category;
 
 
@@ -20,7 +22,15 @@ public class CategoryManager {
 	private static CategoryManager cm = null;
 	
 	private CategoryManager() {
-	
+		categoryHashMap = CategoryDataSource.categoryHashMap;
+		int index = 0;
+		
+		for (Entry<Integer, Category> entry : categoryHashMap.entrySet()) {
+			if (entry.getKey() > index ) { index = entry.getKey(); }
+		}
+			
+		Category.nextCategoryId = index+1;
+		
 	}
 	
 	

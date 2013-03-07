@@ -9,12 +9,15 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTree;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
@@ -83,16 +86,63 @@ public class ShowCatalog  {
 		tree.setEditable(true);
 	    tree.setSelectionRow(0);
 	    model.addTreeModelListener(new CategoryTreeModelListener());
+	    setTreeNodeListener();
         gc.weightx = 0.0;
         gc.weighty = 1.0;
         gc.gridwidth = 3;
         gc.gridx = 0;
         gc.gridy = 1;
 		gridbagLayoutSettings.setConstraints(tree, gc);
+		
+		CategoryManager cm = CategoryManager.getInstance();
+
+
+				
+		for (Entry<Integer, Category> entry : cm.getCategories().entrySet()) {
+			CategoryTreeNode loadNode = new CategoryTreeNode(entry.getValue().getCategoryTitle());
+	        model.insertNodeInto(loadNode, root, root.getChildCount());
+	 
+	        Category nc = new Category(entry.getKey(), entry.getValue().getCategoryTitle());
+	        loadNode.setCategory(nc);
+	        
+	        cm.addCategory(nc);
+		}
+
+		tree.expandRow(0);
 	    panel.add(tree);
-	
 		return panel;
 	}
+	
+	
+	
+	/**
+	 * Handles selecting of treenodes
+	 * 
+	 * @author sara
+	 */
+	
+	private void setTreeNodeListener() {
+		tree.addTreeSelectionListener(new TreeSelectionListener() {
+		    public void valueChanged(TreeSelectionEvent e) { 
+			    try {
+		    		DefaultMutableTreeNode selNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+		    		
+		    		if (selNode.equals(root)) {
+		    			System.out.print("Selected category: All \n");
+		    			System.out.print("Change this in ShowCatalog, row 130-138\n\n");
+		    		} else {
+				    	CategoryTreeNode selCategoryNode = (CategoryTreeNode) selNode;
+			    		System.out.print("Selected Category: "+ selCategoryNode.getCategory().getCategoryTitle() + " with id: " + selCategoryNode.getCategory().getCategoryId() + "\n");
+		    			System.out.print("Change this in ShowCatalog, row 130-138\n\n");
+		    		}
+			    	
+
+			    } catch (NullPointerException exc) {}
+
+		    }
+		});
+	}
+	
 	
 	
 	/**
@@ -119,8 +169,7 @@ public class ShowCatalog  {
 		          
 		          CategoryManager cm = CategoryManager.getInstance();
 		          cm.addCategory(nc);
-
-	    	  }
+		  	 }
 	    });
 	}
 	

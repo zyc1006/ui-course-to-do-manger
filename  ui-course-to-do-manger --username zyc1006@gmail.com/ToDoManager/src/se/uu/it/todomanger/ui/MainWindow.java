@@ -123,6 +123,7 @@ import javax.swing.JPanel;
 import se.uu.it.todomanger.controller.LanguageManager;
 import se.uu.it.todomanger.controller.ThemeManager;
 import se.uu.it.todomanger.controller.TaskManager;
+import se.uu.it.todomanger.dao.CategoryDataSource;
 import se.uu.it.todomanger.dao.DataSource;
 import se.uu.it.todomanger.dao.Savestate;
 import se.uu.it.todomanger.model.TaskTableModel;
@@ -229,6 +230,7 @@ public class MainWindow extends JFrame {
 		
 		//load tasks----------------------
 		DataSource.taskArrayList = DataSource.toTaskList();
+		CategoryDataSource.categoryHashMap = CategoryDataSource.toCategoryList();
 //		TaskManager.getInstance().setTaskArrayList(DataSource.toTaskList());
 //		TaskManager.getInstance().displayTaskByDueDateAsc();
 		
@@ -261,6 +263,7 @@ public class MainWindow extends JFrame {
 						save.saveLocation(size, location , lang);
 						//save tasks
 						DataSource.toXmlFile(DataSource.taskArrayList);
+						CategoryDataSource.toXmlFile(CategoryDataSource.categoryHashMap);
 						System.exit(0);
 					}
 				}
