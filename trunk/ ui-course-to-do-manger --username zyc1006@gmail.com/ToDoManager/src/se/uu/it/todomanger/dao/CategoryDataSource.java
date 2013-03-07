@@ -30,14 +30,11 @@ public class CategoryDataSource {
 	/**A hashmap stores all the categories*/
 	public static HashMap<Integer, Category> categoryHashMap = new HashMap<Integer, Category>();
 	
-	/**An arraylist stores all the cateogies, used for sorting */
-	//public static ArrayList<Category> categoryArrayList = new ArrayList<Category>();
-	
 	
 	/**
-	 * public static toXmlFile({@link ArrayList} category)<br>
-	 * Convert an arraylist of categories into a xml file in default directory (user home directory)
-	 * @param an arraylist of categories
+	 * public static toXmlFile({@link HashMap<Integer, Category>} categories)<br>
+	 * Convert a HashMap of categories into a xml file in default directory (user home directory)
+	 * @param a HashMap of categories
 	 */
 	public  static void toXmlFile(HashMap<Integer, Category> categories){
 		toXmlFile(categories, null);
@@ -45,9 +42,9 @@ public class CategoryDataSource {
 	
 	
 	/**
-	 * public static toXmlFile({@link ArrayList} categories, {@link String} fileName})<br>
-	 * Convert an arraylist of categories into a xml file in a specific directory
-	 * @param categories - an arraylist of categories
+	 * public static toXmlFile({@link HashMap<Integer, Category>} categories, {@link String} fileName})<br>
+	 * Convert a HashMap of categories into a xml file in a specific directory
+	 * @param categories - a HashMap of categories
 	 * @param fileName - the file name of the xml file
 	 */
 	public  static void toXmlFile(HashMap<Integer,Category> categories, String fileName){
@@ -92,7 +89,7 @@ public class CategoryDataSource {
 	}
 	
 	/**
-	 * public static {@link ArrayList} toCategoryList()<br>
+	 * public static {@link HashMap<Integer, Category>} toCategoryList()<br>
 	 * Load the xml file from default directory(user home directory)
 	 * 
 	 */
@@ -102,9 +99,9 @@ public class CategoryDataSource {
 	}
 	
 	/**
-	 * public static {@link ArrayList} toCategoryList({@link String} fileName)
+	 * public static {@link HashMap<Integer, Category>} toCategoryList({@link String} fileName)
 	 * @param fileName the xml file name
-	 * @return an arraylist contains all the cateogories
+	 * @return an HashMap contains all the cateogories
 	 */
 	public static HashMap<Integer, Category> toCategoryList(String fileName){
 		HashMap<Integer,Category> categories = new HashMap<Integer,Category>();

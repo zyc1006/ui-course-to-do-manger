@@ -97,7 +97,7 @@ public class ShowCatalog  {
 		CategoryManager cm = CategoryManager.getInstance();
 
 
-				
+		//Create nodes for all loaded categories from xml
 		for (Entry<Integer, Category> entry : cm.getCategories().entrySet()) {
 			CategoryTreeNode loadNode = new CategoryTreeNode(entry.getValue().getCategoryTitle());
 	        model.insertNodeInto(loadNode, root, root.getChildCount());
@@ -107,7 +107,7 @@ public class ShowCatalog  {
 	        
 	        cm.addCategory(nc);
 		}
-
+	
 		tree.expandRow(0);
 	    panel.add(tree);
 		return panel;
@@ -125,8 +125,10 @@ public class ShowCatalog  {
 		tree.addTreeSelectionListener(new TreeSelectionListener() {
 		    public void valueChanged(TreeSelectionEvent e) { 
 			    try {
+				    //Try if a node has been selected
 		    		DefaultMutableTreeNode selNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
 		    		
+		    		//Display tasks in the selected category. If root is selected all tasks is dispayed.
 		    		if (selNode.equals(root)) {
 		    			System.out.print("Selected category: All \n");
 		    			System.out.print("Change this in ShowCatalog, row 130-138\n\n");
@@ -156,19 +158,22 @@ public class ShowCatalog  {
 		addButton.addActionListener(new ActionListener() {
     	
 			public void actionPerformed(ActionEvent event) {
-		          CategoryTreeNode newNode = new CategoryTreeNode(LanguageManager.getString("MainWindow_NewCategoryName"));
-		          model.insertNodeInto(newNode, root, root.getChildCount());
-		          TreeNode[] nodes = model.getPathToRoot(newNode);
-		          TreePath path = new TreePath(nodes);
-		          tree.scrollPathToVisible(path);
-		          tree.setSelectionPath(path);
-		          tree.startEditingAtPath(path);
+			    //Create new tree node
+		        CategoryTreeNode newNode = new CategoryTreeNode(LanguageManager.getString("MainWindow_NewCategoryName"));
+		        model.insertNodeInto(newNode, root, root.getChildCount());
+		        TreeNode[] nodes = model.getPathToRoot(newNode);
+		        TreePath path = new TreePath(nodes);
+		        tree.scrollPathToVisible(path);
+		        tree.setSelectionPath(path);
+		        tree.startEditingAtPath(path);
 		         
-		          Category nc = new Category(Category.nextCategoryId, newNode.getUserObject().toString());
-		          newNode.setCategory(nc);
+		        //Add category to tree node
+		        Category nc = new Category(Category.nextCategoryId, newNode.getUserObject().toString());
+		        newNode.setCategory(nc);
 		          
-		          CategoryManager cm = CategoryManager.getInstance();
-		          cm.addCategory(nc);
+		        //Add category to category list
+		        CategoryManager cm = CategoryManager.getInstance();
+		        cm.addCategory(nc);
 		  	 }
 	    });
 	}
@@ -185,11 +190,16 @@ public class ShowCatalog  {
     	
 			public void actionPerformed(ActionEvent event) {
 			    try {
-			    		DefaultMutableTreeNode selNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-				    	model.removeNodeFromParent(selNode);
-				        CategoryTreeNode selCategoryNode = (CategoryTreeNode) selNode;
-				        CategoryManager cm = CategoryManager.getInstance();
-				        cm.deleteCategory(selCategoryNode.getCategory());			    
+				    //Try if a node has been selected
+			    	DefaultMutableTreeNode selNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+			    	
+			    	//Remove node from tree
+				    model.removeNodeFromParent(selNode);
+				    
+				    //Remove category from category list
+				    CategoryTreeNode selCategoryNode = (CategoryTreeNode) selNode;
+				    CategoryManager cm = CategoryManager.getInstance();
+				    cm.deleteCategory(selCategoryNode.getCategory());			    
 			        
 			    } catch (NullPointerException exc) {} 
 			}
@@ -198,7 +208,9 @@ public class ShowCatalog  {
 	}
 	
 	/**
+	 * Handles the language for add and remove buttons
 	 * 
+	 * @author bjorn
 	 */
 	public static void UpdateLanguageText() {
 		Integer width, height;
