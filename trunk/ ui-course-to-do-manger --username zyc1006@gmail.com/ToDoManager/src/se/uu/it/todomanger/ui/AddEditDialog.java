@@ -16,6 +16,8 @@ import java.util.Date;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Map.Entry;
 
 // Swing imports
 import javax.swing.JButton;
@@ -29,6 +31,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import org.dom4j.Element;
 
 import se.uu.it.todomanger.controller.CategoryManager;
 import se.uu.it.todomanger.controller.LanguageManager;
@@ -473,12 +477,11 @@ public class AddEditDialog extends JDialog {
 		//}
 
 		CategoryManager cm = CategoryManager.getInstance();
-
-		HashMap<Integer, Category> cat = cm.getCategories();
-		for (int i = 0; i <= cat.size(); i++) {
-			if (cat.containsKey(i)) {
-				cmbCategory.addItem(cat.get(i).getCategoryTitle());
-			}
+		
+		for (Entry<Integer, Category> entry : cm.getCategories().entrySet()) {
+		    Integer key = entry.getKey();
+		    Category nextCategory = entry.getValue();
+			cmbCategory.addItem(nextCategory.getCategoryTitle());
 		}
 		cmbCategory.updateUI();
 	}
