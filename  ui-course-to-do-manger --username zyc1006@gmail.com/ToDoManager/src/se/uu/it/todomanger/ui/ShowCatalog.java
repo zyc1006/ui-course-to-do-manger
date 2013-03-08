@@ -264,6 +264,7 @@ public class ShowCatalog  {
 
 		    //Change the title of the current category to the new value
             ((CategoryTreeNode) node).getCategory().setCategoryTitle(node.getUserObject().toString());
+            System.out.println(node.getUserObject().toString());
             CategoryManager.updateXmlFile();
 		}
 		

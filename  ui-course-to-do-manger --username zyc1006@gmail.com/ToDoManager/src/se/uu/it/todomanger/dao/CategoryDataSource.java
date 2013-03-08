@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
@@ -57,8 +59,9 @@ public class CategoryDataSource {
 			Element category = categoriesElement.addElement("category");
 			category.addAttribute("id", Integer.toString(nextCategory.getCategoryId()));
 			Element title = category.addElement("title");
-			title.setText(nextCategory.getCategoryTitle());
-
+			
+			// Escape special characters!
+			title.setText(StringEscapeUtils.escapeXml(nextCategory.getCategoryTitle()));
 		}
 
 		Element index = rootElement.addElement("index");
@@ -115,7 +118,9 @@ public class CategoryDataSource {
 			while(it.hasNext()){
 				Element categoryElement = (Element)it.next();
 				Integer id = Integer.parseInt(categoryElement.attributeValue("id"));
-				String title = categoryElement.elementText("title");		
+				
+				// Unescape special characters!
+				String title = StringEscapeUtils.unescapeXml(categoryElement.elementText("title"));		
 				Category category = new Category(id, title);
 				categories.put(id,  category);
 			}
