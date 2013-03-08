@@ -17,6 +17,7 @@ import se.uu.it.todomanger.controller.LanguageManager;
  */
 public class WidgetWindow extends JFrame
 {
+	private static final long serialVersionUID = 1L;
 	// The widget's height and width
 	private static final int width  = 300;
 	private static final int height = 500;
