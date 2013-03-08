@@ -72,8 +72,6 @@ public class ToDoManagerMenuBar extends JMenuBar {
 	private static JMenuItem Theme1Item;
 	private static JMenuItem Theme2Item;
 	
-	private static boolean widgetOpen = false;
-	
 	private ToDoManagerMenuBar() {
 		
 	}
@@ -83,6 +81,7 @@ public class ToDoManagerMenuBar extends JMenuBar {
 	 * @author Shiyu
 	 * @author Yucheng
 	 * @author Bjorn
+	 * @author Mattias
 	 */
 	private static void initMenuBar() {
 
@@ -260,8 +259,8 @@ public class ToDoManagerMenuBar extends JMenuBar {
 				MainWindow.lang = "de";
 				MainWindow mainWindow = (MainWindow)MenuBar.getTopLevelAncestor();
 				mainWindow.resetAllLanguage();
-
 				
+				MainWindow.widgetWindow.refreshWidget();
 			}
 		});
 		
@@ -274,6 +273,8 @@ public class ToDoManagerMenuBar extends JMenuBar {
 				MainWindow.lang = "en";
 				MainWindow mainWindow = (MainWindow)MenuBar.getTopLevelAncestor();
 				mainWindow.resetAllLanguage();
+				
+				MainWindow.widgetWindow.refreshWidget();
 			}
 		});
 
@@ -287,6 +288,8 @@ public class ToDoManagerMenuBar extends JMenuBar {
 				MainWindow mainWindow = (MainWindow) MenuBar
 						.getTopLevelAncestor();
 				mainWindow.resetAllLanguage();
+				
+				MainWindow.widgetWindow.refreshWidget();
 			}
 		});
 
@@ -300,6 +303,8 @@ public class ToDoManagerMenuBar extends JMenuBar {
 				MainWindow mainWindow = (MainWindow) MenuBar
 						.getTopLevelAncestor();
 				mainWindow.resetAllLanguage();
+				
+				MainWindow.widgetWindow.refreshWidget();
 			}
 		});
 		
@@ -318,16 +323,24 @@ public class ToDoManagerMenuBar extends JMenuBar {
 			}
 		});
 		
-		// Open Widget
+		// Open/Close widget
 		WidgetItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(!widgetOpen)
+				// Open widget
+				if(!MainWindow.widgetOpen())
 				{
+					// Get the appropriate position
 					int x = getInstance().getTopLevelAncestor().getLocation().x;
 					int y = getInstance().getTopLevelAncestor().getLocation().y;
 					
-					widgetOpen = true;
-					WidgetWindow widgetWindow = new WidgetWindow(x-WidgetWindow.getWidgetWidth(), y);
+					MainWindow.setWidgetOpen(true);
+					MainWindow.widgetWindow = new WidgetWindow(x-WidgetWindow.getWidgetWidth(), y);
+				}
+				// Close widget
+				else
+				{
+					MainWindow.setWidgetOpen(false);
+					MainWindow.widgetWindow.setVisible(false);
 				}
 			}
 		});
@@ -362,15 +375,6 @@ public class ToDoManagerMenuBar extends JMenuBar {
 		Theme2Item.setText(LanguageManager.getString("MenuBar_Theme2_Option"));
 		
 		WidgetItem.setText(LanguageManager.getString("MenuBar_Widget_Item"));
-	}
-	
-	/**
-	 * Sets the widgetOpen to false
-	 * 
-	 */
-	public static void widgetClosed()
-	{
-		widgetOpen = false;
 	}
 	
 	/**
