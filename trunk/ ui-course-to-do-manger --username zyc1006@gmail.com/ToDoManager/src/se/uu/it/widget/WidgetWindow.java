@@ -22,6 +22,8 @@ public class WidgetWindow extends JFrame
 	private static final int width  = 300;
 	private static final int height = 500;
 	
+	private WidgetContent widgetContent;
+	
 	// Widget data
 	// The instance of the widgetWindow
 	public static WidgetWindow widgetWindow;
@@ -79,6 +81,7 @@ public class WidgetWindow extends JFrame
 	public void refreshWidget()
 	{
 		this.setTitle(LanguageManager.getString("WidgetWindow_Title"));
+		widgetContent.updateLanguage();
 	}
 	
 	/**
@@ -120,7 +123,7 @@ public class WidgetWindow extends JFrame
 	// Creates what's in the Widget
 	private JPanel createPanel() {
 		JPanel panel   = new JPanel(new BorderLayout());
-		WidgetContent widgetContent = new WidgetContent();
+		widgetContent = new WidgetContent();
 		
 		panel.add(widgetContent.initContent());
 		
