@@ -3,6 +3,9 @@
  */
 package se.uu.it.todomanger.ui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
@@ -23,6 +26,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
 
+import se.uu.it.todomanger.controller.LanguageManager;
 import se.uu.it.todomanger.controller.ReminderTimerManager;
 import se.uu.it.todomanger.controller.TaskManager;
 import se.uu.it.todomanger.dao.DataSource;
@@ -85,15 +89,55 @@ public class ToDoManagerTaskTable extends JTable {
 				// Right click
 				if(SwingUtilities.isRightMouseButton(e))
 				{
-					int selectedRow = taskTable.getSelectedRow();
+					final int selectedRow = taskTable.getSelectedRow();
 					
 					JPopupMenu contextMenu = new JPopupMenu();
 					
-					JMenuItem editItem = new JMenuItem("Asd");
+					// Add items
+					JMenuItem editItem   = new JMenuItem(LanguageManager.getString("MenuBar_Edit_Task_Option"), KeyEvent.VK_A);
+					JMenuItem deleteItem = new JMenuItem(LanguageManager.getString("MenuBar_Delete_Task_Option"), KeyEvent.VK_B);
 					contextMenu.add(editItem);
+					contextMenu.add(deleteItem);
 					
 					// Display the context menu
 					contextMenu.show(e.getComponent(), e.getX(), e.getY());
+					
+					// Add action listeners
+					// Edit task
+					editItem.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent event) {
+							int modelRow = taskTable.getRowSorter().convertRowIndexToModel(selectedRow);
+							Task task = ((NewTaskTableModel)taskTable.getModel()).getTask(modelRow);
+							
+							AddEditDialog addEditDialog = new AddEditDialog();
+							addEditDialog.ShowEditDialog(task);
+							
+							if(addEditDialog.clickedOK())
+							{
+								// Add a task here
+								TaskManager tm = TaskManager.getInstance();
+								tm.editTask(modelRow, addEditDialog.getTask());
+								// tm.displayTaskByDueDateAsc();
+								// add Timer  to monitor
+								ReminderTimerManager.getInstance().TimeMonitorTask(addEditDialog.getTask());
+							}
+							else
+							{
+								System.out.println("cancel");
+							}
+						}
+					});
+					
+					// Delete task
+					deleteItem.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent event) {
+							int modelRow = taskTable.getRowSorter().convertRowIndexToModel(selectedRow);
+							TaskManager tm = TaskManager.getInstance();
+							tm.deleteTask(modelRow);
+						}
+					});
 				}
 				// Left single click
 				else if (e.getClickCount() == 1) {
