@@ -20,6 +20,10 @@ import se.uu.it.todomanger.model.Task;
  */
 public class WidgetContent
 {
+	
+	private DefaultTableModel model;
+	private JTable table;
+	
 	/**
 	 * Initialize the content
 	 * 
@@ -28,11 +32,11 @@ public class WidgetContent
 	public JScrollPane initContent()
 	{
 		// Set the table model
-		DefaultTableModel model = new DefaultTableModel();
+		model = new DefaultTableModel();
 		model.addColumn(LanguageManager.getString("TaskTable_Column_Title_Label"));
 		model.addColumn(LanguageManager.getString("TaskTable_Column_DueDate_Label"));
 		
-		JTable table = new JTable(100, 2);
+		table = new JTable(100, 2);
 		table.setModel(model);
 		
 		ArrayList<Task> taskList = DataSource.taskArrayList;
@@ -67,5 +71,14 @@ public class WidgetContent
 		content.setBounds(0, 0, WidgetWindow.getWidgetWidth(), WidgetWindow.getWidgetHeight());
 		
 		return content;
+	}
+	
+	/**
+	 * Updates the language of the table.
+	 */
+	public void updateLanguage() {
+		table.getColumnModel().getColumn(0).setHeaderValue(LanguageManager.getString("TaskTable_Column_Title_Label"));
+		table.getColumnModel().getColumn(1).setHeaderValue(LanguageManager.getString("TaskTable_Column_DueDate_Label"));
+		table.updateUI();
 	}
 }
