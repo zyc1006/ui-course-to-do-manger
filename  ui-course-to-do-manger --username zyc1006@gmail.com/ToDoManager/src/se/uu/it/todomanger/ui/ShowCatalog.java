@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTree;
 import javax.swing.event.TreeModelEvent;
@@ -177,8 +178,7 @@ public class ShowCatalog  {
 		  	 }
 	    });
 	}
-	
-	
+
 	/**
 	 * Handles the remove button
 	 * 
@@ -192,14 +192,28 @@ public class ShowCatalog  {
 			    try {
 				    //Try if a node has been selected
 			    	DefaultMutableTreeNode selNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-			    	
-			    	//Remove node from tree
-				    model.removeNodeFromParent(selNode);
+			    	if (selNode.equals(root)) {
+			    		JOptionPane.showMessageDialog(panel, LanguageManager.getString("Category_Delete_Error"), LanguageManager
+			    				.getString("AddEditDialog_Error_Dialog_Title"),
+			    				JOptionPane.ERROR_MESSAGE);
+			    	} else {
 				    
-				    //Remove category from category list
-				    CategoryTreeNode selCategoryNode = (CategoryTreeNode) selNode;
-				    CategoryManager cm = CategoryManager.getInstance();
-				    cm.deleteCategory(selCategoryNode.getCategory());			    
+					    //Remove category from category list
+					    CategoryTreeNode selCategoryNode = (CategoryTreeNode) selNode;
+					    
+					    if (selCategoryNode.getCategory().getCategoryId() == 0) {
+				    		JOptionPane.showMessageDialog(panel, LanguageManager.getString("Category_Delete_Error"), LanguageManager
+				    				.getString("AddEditDialog_Error_Dialog_Title"),
+				    				JOptionPane.ERROR_MESSAGE);
+					    } else {
+						    CategoryManager cm = CategoryManager.getInstance();
+						    cm.deleteCategory(selCategoryNode.getCategory());
+						    
+					    	//Remove node from tree
+						    model.removeNodeFromParent(selNode);
+					    }
+			    	}
+			    
 			        
 			    } catch (NullPointerException exc) {} 
 			}

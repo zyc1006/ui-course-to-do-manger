@@ -25,12 +25,16 @@ public class CategoryManager {
 		categoryHashMap = CategoryDataSource.categoryHashMap;
 		int index = 0;
 		
-		for (Entry<Integer, Category> entry : categoryHashMap.entrySet()) {
-			if (entry.getKey() > index ) { index = entry.getKey(); }
+		if (categoryHashMap.size() == index) {
+			categoryHashMap.put(index, new Category(index, LanguageManager.getString("MainWindow_NoCategoryName")));
+		} else {
+			for (Entry<Integer, Category> entry : categoryHashMap.entrySet()) {
+				if (entry.getKey() > index ) { index = entry.getKey(); }
+			}
 		}
 			
 		Category.nextCategoryId = index+1;
-		
+			
 	}
 	
 	
