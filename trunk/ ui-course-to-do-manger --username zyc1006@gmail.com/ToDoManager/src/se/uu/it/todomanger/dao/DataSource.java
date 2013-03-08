@@ -234,9 +234,9 @@ public class DataSource {
 		}
     	return prop;
     }
-    
+    @SuppressWarnings("unused") 
     public static void updateTask(Task task){
-    	for(@SuppressWarnings("unused") Task taskupd: taskArrayList){
+    	for(Task taskupd: taskArrayList){
     		if(task.getId()== task.getId()){
     			taskupd = task;
     		}

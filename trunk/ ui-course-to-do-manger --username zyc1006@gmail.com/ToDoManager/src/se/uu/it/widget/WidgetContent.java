@@ -4,13 +4,17 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListModel;
 import javax.swing.table.DefaultTableModel;
 
 import se.uu.it.todomanger.controller.LanguageManager;
 import se.uu.it.todomanger.dao.DataSource;
 import se.uu.it.todomanger.model.Task;
+import se.uu.it.todomanger.ui.TaskListRenderer;
 
 /**
  * The content of the widget
@@ -23,6 +27,8 @@ public class WidgetContent
 	
 	private DefaultTableModel model;
 	private JTable table;
+	private JList list;
+	private DefaultListModel listModel;
 	
 	/**
 	 * Initialize the content
@@ -32,42 +38,67 @@ public class WidgetContent
 	public JScrollPane initContent()
 	{
 		// Set the table model
-		model = new DefaultTableModel();
-		model.addColumn(LanguageManager.getString("TaskTable_Column_Title_Label"));
-		model.addColumn(LanguageManager.getString("TaskTable_Column_DueDate_Label"));
-		
-		table = new JTable(100, 2);
-		table.setModel(model);
+	//	model = new DefaultTableModel();
+		listModel = new DefaultListModel();
+		list = new JList(listModel);
+		list.setCellRenderer(new TaskListRenderer());
 		
 		ArrayList<Task> taskList = DataSource.taskArrayList;
-		
-		// Simple date formats for comparison
 		SimpleDateFormat sdf  = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 		SimpleDateFormat sdf2 = new SimpleDateFormat("MM/dd/yyyy");
-		
-		// Fill the table
 		for(int i = 0; i < taskList.size(); i++)
 		{
 			String dueDate = sdf.format(taskList.get(i).getDueDate());
-			dueDate = dueDate.substring(0, 10);
-			
-			String today = sdf2.format(new Date());
-			
+			dueDate = dueDate.substring(0, 10);			
+			String today = sdf2.format(new Date());			
 			try
 			{
 				sdf2.parse(dueDate);
 				
 				if(dueDate.equals(today))
 				{
-					model.addRow(new Object[] {taskList.get(i).getTitle(), dueDate});
+					listModel.addElement(taskList.get(i).getTitle());
 				}
 			}
 			catch(Exception e)
-			{}
+			{
+				e.printStackTrace();
+			}
 		}
+	//	model.addColumn(LanguageManager.getString("TaskTable_Column_Title_Label"));
+	//	model.addColumn(LanguageManager.getString("TaskTable_Column_DueDate_Label"));
+		
+	//	table = new JTable(100, 2);
+	//	table.setModel(model);
+		
+		
+		
+		// Simple date formats for comparison
+		
+		
+		// Fill the table
+//		for(int i = 0; i < taskList.size(); i++)
+//		{
+//			String dueDate = sdf.format(taskList.get(i).getDueDate());
+//			dueDate = dueDate.substring(0, 10);
+//			
+//			String today = sdf2.format(new Date());
+//			
+//			try
+//			{
+//				sdf2.parse(dueDate);
+//				
+//				if(dueDate.equals(today))
+//				{
+//					model.addRow(new Object[] {taskList.get(i).getTitle(), dueDate});
+//				}
+//			}
+//			catch(Exception e)
+//			{}
+//		}
 		
 		// Set content and bounds of the JScrollPane
-		JScrollPane content = new JScrollPane(table);
+		JScrollPane content = new JScrollPane(list);
 		content.setBounds(0, 0, WidgetWindow.getWidgetWidth(), WidgetWindow.getWidgetHeight());
 		
 		return content;
