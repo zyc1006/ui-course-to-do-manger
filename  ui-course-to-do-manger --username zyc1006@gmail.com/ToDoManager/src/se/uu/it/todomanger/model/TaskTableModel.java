@@ -4,11 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
 import javax.swing.table.DefaultTableModel;
 
 import se.uu.it.todomanger.controller.CategoryManager;
 import se.uu.it.todomanger.controller.LanguageManager;
-import se.uu.it.todomanger.controller.TaskManager;
 
 /**
  * A task table model which will be linked with an instance of JTable. Task

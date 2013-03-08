@@ -1,23 +1,29 @@
 package se.uu.it.todomanger.dao;
 
+import java.awt.Dimension;
+import java.awt.Point;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.ParseException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map.Entry;
+import java.util.Properties;
 
 import org.dom4j.Document;
-import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
+import se.uu.it.todomanger.controller.ThemeManager;
 import se.uu.it.todomanger.model.Task;
 /**
  * A dao object in charge of saving and loading task data.
@@ -168,18 +174,64 @@ public class DataSource {
 				tasks.add(task);
 			}
 			
-		} catch (DocumentException e) {
+		} catch (Exception e) {
 			
 			e.printStackTrace();
-		} catch (ParseException e) {
+		} 
+		
+//		toHashMap();
+		return tasks;
+	}
+	
+	/** public void saveLocation({@link Dimension} size, {@link Point} location)
+     * <br>Save the window's size, theme and location when the window is closed
+     * @param size
+     * @param location
+     */
+    public static void saveLocation(Dimension size, Point location ,String lang){
+    	String userHome = System.getProperty("user.home");
+    	try {
+			OutputStream os = new FileOutputStream(userHome + "/TODOgroup12.properties");
+			Properties prop = new Properties();
+			prop.put("x", Integer.toString(location.x));
+			prop.put("y", Integer.toString(location.y));
+			prop.put("width", Integer.toString(size.width));
+			prop.put("height", Integer.toString(size.height));
+			prop.put("lang", lang.toString());
+			prop.put("theme", Integer.toString(ThemeManager.getTheme()));
+			prop.store(os, "Window size and location");
+			os.close();
+		} catch (FileNotFoundException e) {
+			
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-//		toHashMap();
-		
-		return tasks;
-	}
+    	
+    }
+    
+    /** public void loadLocation({@link String} filename)
+     * <br>load the previous window's size and location
+     * @param filename
+     * 
+     */
+    public static Properties loadLocation(String filename) {
+    	
+    	Properties prop = new Properties();
+    	try {
+			prop.load(new FileInputStream(new File(filename)));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+    	return prop;
+    }
 	
 	
 }

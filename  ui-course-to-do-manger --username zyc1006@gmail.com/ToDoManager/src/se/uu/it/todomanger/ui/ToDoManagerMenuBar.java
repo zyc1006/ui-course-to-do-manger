@@ -1,38 +1,26 @@
 package se.uu.it.todomanger.ui;
 
 import java.awt.Dimension;
-
-import java.awt.GridLayout;
-import java.awt.MenuItem;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 
 import se.uu.it.todomanger.controller.LanguageManager;
 import se.uu.it.todomanger.controller.ReminderTimerManager;
 import se.uu.it.todomanger.controller.TaskManager;
 import se.uu.it.todomanger.controller.ThemeManager;
 import se.uu.it.todomanger.dao.DataSource;
-import se.uu.it.todomanger.dao.Savestate;
 import se.uu.it.todomanger.model.NewTaskTableModel;
 import se.uu.it.todomanger.model.Task;
 import se.uu.it.widget.WidgetWindow;
-
-import com.sun.java.swing.plaf.*;
 
 /**
  * A singleton of menu bar for ToDoManager
@@ -172,9 +160,9 @@ public class ToDoManagerMenuBar extends JMenuBar {
 						//JFrame main = (JFrame) e.getSource();
 						Dimension size = main.getSize();
 						Point location = main.getLocationOnScreen();
-						Savestate save = new Savestate();
+						//Savestate save = new Savestate();
 						
-						save.saveLocation(size, location , MainWindow.lang);
+						DataSource.saveLocation(size, location , MainWindow.lang);
 						DataSource.toXmlFile(DataSource.taskArrayList);
 						System.exit(0);
 					}

@@ -3,10 +3,10 @@
 package se.uu.it.todomanger.ui;
 
 // Imports
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,12 +14,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Dictionary;
-import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.Map.Entry;
 
-// Swing imports
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -32,14 +29,13 @@ import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.dom4j.Element;
-
 import se.uu.it.todomanger.controller.CategoryManager;
 import se.uu.it.todomanger.controller.LanguageManager;
 import se.uu.it.todomanger.controller.TaskManager;
 import se.uu.it.todomanger.model.Category;
-// Todo manager imports
 import se.uu.it.todomanger.model.Task;
+// Swing imports
+// Todo manager imports
 
 /**
  * A class that can display a dialog for adding and editing tasks.

@@ -77,8 +77,8 @@ private static MainShowPanel Panel = null;
 
 		panel_middle.add(taskPane);
 		//create the blank panel to add additional function in the future
-		AdditionRequire ar = new AdditionRequire();
-		panel_right.add(ar.initAdditionRequire());
+		//AdditionRequire ar = new AdditionRequire();
+		//panel_right.add(ar.initAdditionRequire());
 
 		return panel;
 	}
