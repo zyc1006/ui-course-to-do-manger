@@ -3,12 +3,16 @@ package se.uu.it.todomanger.ui;
 import java.awt.*;
 import javax.swing.*;
 
+/**
+ * A simple listcellrenderer used for task list widget
+ * @author Yucheng
+ *
+ */
 public class TaskListRenderer extends JLabel implements ListCellRenderer {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	public Component getListCellRendererComponent(JList list, Object value,
 			int index, boolean isSelected, boolean cellHasFocus) {
 		String s = value.toString();
