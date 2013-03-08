@@ -82,7 +82,7 @@ public class WidgetWindow extends JFrame
 		return width;
 	}
 	
-	// Same as in MainWindow
+	// Creates what's in the Widget
 	private JPanel createPanel() {
 		JPanel panel   = new JPanel(new BorderLayout());
 		JPanel content = new JPanel();
