@@ -248,7 +248,7 @@ public class ToDoManagerMenuBar extends JMenuBar {
 				MainWindow mainWindow = (MainWindow)MenuBar.getTopLevelAncestor();
 				mainWindow.resetAllLanguage();
 				
-				WidgetWindow.widgetWindow.refreshWidget();
+				if(WidgetWindow.widgetWindow!=null) WidgetWindow.widgetWindow.refreshWidget();
 			}
 		});
 		
@@ -262,7 +262,7 @@ public class ToDoManagerMenuBar extends JMenuBar {
 				MainWindow mainWindow = (MainWindow)MenuBar.getTopLevelAncestor();
 				mainWindow.resetAllLanguage();
 				
-				WidgetWindow.widgetWindow.refreshWidget();
+				if(WidgetWindow.widgetWindow!=null) WidgetWindow.widgetWindow.refreshWidget();
 			}
 		});
 
@@ -277,7 +277,7 @@ public class ToDoManagerMenuBar extends JMenuBar {
 						.getTopLevelAncestor();
 				mainWindow.resetAllLanguage();
 				
-				WidgetWindow.widgetWindow.refreshWidget();
+				if(WidgetWindow.widgetWindow!=null) WidgetWindow.widgetWindow.refreshWidget();
 			}
 		});
 
@@ -292,7 +292,7 @@ public class ToDoManagerMenuBar extends JMenuBar {
 						.getTopLevelAncestor();
 				mainWindow.resetAllLanguage();
 				
-				WidgetWindow.widgetWindow.refreshWidget();
+				if(WidgetWindow.widgetWindow!=null) WidgetWindow.widgetWindow.refreshWidget();
 			}
 		});
 		

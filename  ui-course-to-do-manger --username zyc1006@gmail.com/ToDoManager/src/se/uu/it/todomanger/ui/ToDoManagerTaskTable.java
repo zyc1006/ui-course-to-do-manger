@@ -12,6 +12,8 @@ import java.util.Comparator;
 import java.util.Date;
 
 import javax.swing.JList;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -80,13 +82,21 @@ public class ToDoManagerTaskTable extends JTable {
 					taskTable.clearSelection();
 				}
 				
+				// Right click
 				if(SwingUtilities.isRightMouseButton(e))
 				{
 					int selectedRow = taskTable.getSelectedRow();
 					
-					System.out.println("zomg"+" "+selectedRow);
+					JPopupMenu contextMenu = new JPopupMenu();
+					
+					JMenuItem editItem = new JMenuItem("Asd");
+					contextMenu.add(editItem);
+					
+					// Display the context menu
+					contextMenu.show(e.getComponent(), e.getX(), e.getY());
 				}
-				if (e.getClickCount() == 1) {
+				// Left single click
+				else if (e.getClickCount() == 1) {
 					int selectedRow = taskTable.getSelectedRow();
 					if (selectedRow >= 0) {
 						int modelRow = taskTable.getRowSorter().convertRowIndexToModel(selectedRow);
