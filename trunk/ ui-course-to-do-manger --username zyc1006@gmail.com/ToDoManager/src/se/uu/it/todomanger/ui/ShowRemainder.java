@@ -13,9 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JWindow;
 import javax.swing.border.EtchedBorder;
-
-
-
 import se.uu.it.todomanger.model.Task;
 
 /**
@@ -98,7 +95,7 @@ public class ShowRemainder extends JWindow implements Runnable {
 //		 "msg.wav"));
 //		 ac.play();
 //		 } //catch (MalformedURLException e1) {
-//		 TODO Auto-generated catch block
+
 //		 e1.printStackTrace();
 //		 }
 		this.addMouseListener(new MouseAdapter() {
