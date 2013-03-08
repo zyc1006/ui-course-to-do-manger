@@ -35,8 +35,7 @@ public class ShowRemainder extends JWindow implements Runnable {
 	private Integer sleepTime = 5000;
 	private Integer x;
 	private Integer y;
-	private String Title = "Reminder"
-			+ "                                      ";
+	private String Title = "Reminder" + "                                      ";
 	private String message;
 	private JPanel mainPanel;
 	private JLabel titleLabel;

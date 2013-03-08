@@ -154,30 +154,15 @@ public class JClock extends JButton implements ActionListener {
 	
 	
 	private static JClock hej;
-	private static JClock hej2;
-	private static JClock hej3;
-	private static JClock hej4;
 	public static void main(String[] args) {
 		
 		
-		hej = new JClock(new Font("Helvetica", 0, 72), new SimpleDateFormat("hh:mm"), 1000);
-		hej2 = new JClock(new Font("Courier", 0, 72), new SimpleDateFormat("yyyy-MM-dd"), 1000);
-		hej3 = new JClock(new Font("Symbol", 0, 72), new SimpleDateFormat("HH:mm:ss"), 1000);
-		hej4 = new JClock(new Font("Times", 0, 72), new SimpleDateFormat("ss"), 1000);
+		hej = new JClock(new Font("Helvetica", 0, 72), new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"), 1000);
 		hej.setBackground(Color.BLACK);
 		hej.setForeground(Color.GREEN);
-		hej2.setBackground(Color.RED);
-		hej2.setForeground(Color.YELLOW);
-		hej3.setBackground(Color.ORANGE);
-		hej3.setForeground(Color.BLUE);
-		hej4.setBackground(Color.WHITE);
-		hej4.setForeground(Color.PINK);
 		JFrame frame = new JFrame();
 		JPanel panel = new JPanel();
 		panel.add(hej);
-		panel.add(hej2);
-		panel.add(hej3);
-		panel.add(hej4);
 		frame.add(panel);
 		
 		hej.addMouseListener(new MouseListener() {
