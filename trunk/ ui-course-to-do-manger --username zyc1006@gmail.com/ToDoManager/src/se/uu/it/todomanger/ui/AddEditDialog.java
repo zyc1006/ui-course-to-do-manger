@@ -100,6 +100,7 @@ public class AddEditDialog extends JDialog {
 	private JTextArea txtDescription;
 	private JSlider sliPriority;
 	private JComboBox cmbCategory;
+	private JComboBox cmdHiddenCaegoryId;
 
 	private Dimension wideTextDimension = new Dimension(350, 22);
 	private Dimension dateFieldDimension = new Dimension(32, 22);
@@ -139,6 +140,7 @@ public class AddEditDialog extends JDialog {
 		// Combo box for categories
 		cmbCategory = new JComboBox();
 		cmbCategory.setMinimumSize(wideTextDimension);
+		cmdHiddenCaegoryId = new JComboBox();
 
 		// Text fields for due date
 		txtDueDate = new JTextField();
@@ -368,7 +370,7 @@ public class AddEditDialog extends JDialog {
 		// Add leading 0 to prevent parseInt empty string exception.
 		int taskDueDateMinute = Integer.parseInt("0"
 				+ cmbDueDateMinute.getSelectedItem());
-		int taskCategory = cmbCategory.getSelectedIndex();
+		int taskCategory = (Integer)cmdHiddenCaegoryId.getItemAt(cmbCategory.getSelectedIndex()); 
 		String taskDescription = txtDescription.getText();
 		int taskPriority = sliPriority.getValue();
 
@@ -465,6 +467,7 @@ public class AddEditDialog extends JDialog {
 	 */
 	private void PopulateCategoryComboBox() {
 		cmbCategory.removeAllItems();
+		cmdHiddenCaegoryId.removeAllItems();
 		// cmbCategory.addItem("HARDCODED_TEST_1");
 		// cmbCategory.addItem("HARDCODED_TEST_2");
 		// cmbCategory.addItem("HARDCODED_TEST_3");
@@ -478,6 +481,7 @@ public class AddEditDialog extends JDialog {
 		    Integer key = entry.getKey();
 		    Category nextCategory = entry.getValue();
 			cmbCategory.addItem(nextCategory.getCategoryTitle());
+			cmdHiddenCaegoryId.addItem(nextCategory.getCategoryId());
 		}
 		cmbCategory.updateUI();
 	}
@@ -551,6 +555,13 @@ public class AddEditDialog extends JDialog {
 		cmbDueDateHour.setSelectedIndex(editTask.getDueDate().getHours());
 		sliPriority.setValue(editTask.getPriority());
 		txtDescription.setText(editTask.getDescription());
+		for(int i = 0; i < cmdHiddenCaegoryId.getItemCount(); i++){
+			if((Integer)cmdHiddenCaegoryId.getItemAt(i) == editTask.getCategory()){
+				cmbCategory.setSelectedIndex(i);
+				System.out.println(i);
+			}
+				
+		}
 		PopulateCategoryComboBox();
 		UpdatePriorityTextBox();
 		this.setTitle(LanguageManager

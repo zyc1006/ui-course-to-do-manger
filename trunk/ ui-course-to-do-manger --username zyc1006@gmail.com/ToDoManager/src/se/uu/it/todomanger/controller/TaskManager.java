@@ -85,8 +85,14 @@ public class TaskManager {
 		((NewTaskTableModel)taskTable.getModel()).removeTask(row);
 		
 	}
-
-	
+	/**
+	 * show the tasks according to category id
+	 * @param categoryid
+	 */
+	public void showTaskInCategory(int categoryid){
+		((NewTaskTableModel)taskTable.getModel()).setCurrentCategoryId(categoryid);
+		((NewTaskTableModel)taskTable.getModel()).showTaskInCategory();
+	}
 
 //	/**
 //	 * display the tasks by due date in ascending order

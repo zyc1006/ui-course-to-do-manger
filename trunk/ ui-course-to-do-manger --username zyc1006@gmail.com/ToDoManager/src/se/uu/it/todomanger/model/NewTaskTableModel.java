@@ -11,25 +11,47 @@ import java.util.Map.Entry;
 import javax.swing.table.AbstractTableModel;
 
 import se.uu.it.todomanger.controller.LanguageManager;
-
+import se.uu.it.todomanger.dao.CategoryDataSource;
+import se.uu.it.todomanger.dao.DataSource;
+/**
+ * A task table model which will be linked with an instance of JTable. Task
+ * table model defines the column names of a JTable Task table model can add and
+ * remove rows from JTable
+ * 
+ * @author Yucheng
+ * 
+ */
 public class NewTaskTableModel extends AbstractTableModel {
 
+	//a task list contains all the task to be displayed
+	private ArrayList<Task> taskListInCategory;
+	//a task list contains all the task 
+	private ArrayList<Task> taskList;
+	//a list contains all the column titles
+	private ArrayList<String> localColumnTitles;
+	
+	private int currentCategoryId = -1;
+	
 	/**
-	 * 
+	 * set the current seleced category
+	 * @param currentCategoryId
 	 */
-	private static final long serialVersionUID = -337920096270899570L;
+	public void setCurrentCategoryId(int currentCategoryId) {
+		this.currentCategoryId = currentCategoryId;
+	}
 
+
+	/**
+	 * Constructor
+	 * @param taskList
+	 */
 	public NewTaskTableModel(ArrayList<Task> taskList){
-		this.taskList = taskList;
+		this.taskList = (ArrayList<Task>) taskList.clone();
 		this.setTaskTableText();
 		
 	}
 	
-	private ArrayList<Task> taskList;
-
 	
-	
-	private ArrayList<String> localColumnTitles;
 	/**
 	 * reset the column text of the a task table
 	 */
@@ -42,6 +64,7 @@ public class NewTaskTableModel extends AbstractTableModel {
 		this.localColumnTitles.add(LanguageManager.getString("TaskTable_Column_Priority_Label"));
 		this.localColumnTitles.add(LanguageManager.getString("TaskTable_Column_DueDate_Label"));
 		this.localColumnTitles.add(LanguageManager.getString("TaskTable_Column_Completed_Label"));
+		this.localColumnTitles.add("cid");
 		fireTableStructureChanged();
 	}
 	
@@ -52,17 +75,18 @@ public class NewTaskTableModel extends AbstractTableModel {
 		case 0:return Integer.class;
 		case 1:return String.class;
 		case 2:return Integer.class;
-		case 3:return Integer.class;
+		case 3:return String.class;
 		case 4:return String.class;
 		case 5:
 			return Boolean.class;
+		case 6:return Integer.class;
 		default:
 			return String.class;
 		
 		}
 	}
 
-
+	
 	@Override
 	public String getColumnName(int column) {
 		return localColumnTitles.get(column);
@@ -85,13 +109,14 @@ public class NewTaskTableModel extends AbstractTableModel {
 		switch (columnIndex) {
 		case 0:return task.getId();
 		case 1:return task.getTitle();
-		case 2:return task.getCategory();
+		case 2:return ((Category)CategoryDataSource.categoryHashMap.get(task.getCategory())).getCategoryTitle();
 		case 3:return task.getPriority();
 		case 4:
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 			String date = sdf.format(task.getDueDate());
 			return date;
 		case 5:return task.isCompleted();
+		case 6:return task.getCategory();
 		default:
 			return null;
 		}
@@ -108,9 +133,9 @@ public class NewTaskTableModel extends AbstractTableModel {
 		case 1:
 			task.setTitle((String)aValue);
 			break;
-		case 2:
-			task.setCategory((Integer)aValue);
-			break;
+//		case 2:
+//			task.setCategory((Integer)aValue);
+//			break;
 		case 3:
 			task.setPriority((Integer)aValue);
 			break;
@@ -126,6 +151,9 @@ public class NewTaskTableModel extends AbstractTableModel {
 			break;
 		case 5:
 			task.setCompleted((Boolean)aValue);
+			break;
+		case 6:
+			task.setCategory((Integer)aValue);
 			break;
 		default:
 			break;		
@@ -145,29 +173,73 @@ public class NewTaskTableModel extends AbstractTableModel {
 		}
 	}
 	
+	/**
+	 * get the task according to the row number
+	 * @param row
+	 * @return
+	 */
 	public Task getTask(int row){
 		return taskList.get(row);
 	}
 	
+	/**
+	 * add a task into the table
+	 * @param task
+	 */
 	public void addTask(Task task){
 		insertTask(taskList.size(), task);
 	}
-	
+	/**
+	 * insert a task task in the specified row
+	 * @param row
+	 * @param task
+	 */
 	public void insertTask(int row, Task task){
-		taskList.add(row, task);
-		fireTableRowsInserted(row, row);
+	//	taskList.add(row, task);
+		DataSource.taskArrayList.add(task);
+		//fireTableRowsInserted(row, row);
+		showTaskInCategory();
 	}
 	
+	/**
+	 * remove the task from the specified row
+	 * @param row
+	 */
 	public void removeTask(int row){
-		taskList.remove(row);
-		fireTableRowsDeleted(row, row);
+//		taskList.remove(row);
+		DataSource.deleteTask(getTask(row));
+		showTaskInCategory();
+	//	fireTableRowsDeleted(row, row);
 	}
 	
+	/**
+	 * update the task at the specified row
+	 * @param row
+	 * @param task
+	 */
 	public void editTask(int row, Task task){
-		removeTask(row);
-		insertTask(row, task);
-		fireTableRowsUpdated(row, row);
+//		removeTask(row);
+//		insertTask(row, task);
+//		fireTableRowsUpdated(row, row);
+		DataSource.updateTask(task);
+		showTaskInCategory();
 	}
+	
+	public void showTaskInCategory(){
+		if(currentCategoryId == -1){
+			taskList = (ArrayList<Task>) DataSource.taskArrayList.clone();
+		}
+		else{
+			taskList = new ArrayList<Task>();
+			for(Task task : DataSource.taskArrayList){
+				if (task.getCategory() == currentCategoryId){
+					taskList.add(task);
+				}
+			}
+		}
+		fireTableDataChanged();
+	}
+	
 	
 //	/**
 //	 * reset the column text of the a task table
