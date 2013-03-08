@@ -14,6 +14,8 @@ import java.util.Date;
 import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
@@ -43,7 +45,11 @@ public class ToDoManagerTaskTable extends JTable {
 		if(null == taskTable){
 			taskTableModel = new NewTaskTableModel(DataSource.taskArrayList);
 			taskTable = new ToDoManagerTaskTable(taskTableModel);
-			taskTable.hideColumn(0);
+			taskTable.hideColumn(0);//hide id column
+			taskTable.hideColumn(6);//hide category id column
+			taskTable.setColumnStyle(2, SwingConstants.CENTER);//category,center
+			taskTable.setColumnStyle(3, SwingConstants.CENTER);//priority, center
+			taskTable.setColumnStyle(4, SwingConstants.CENTER);//duedate, center
 			initTaskTable();
 		}
 		return taskTable;
@@ -121,6 +127,14 @@ public class ToDoManagerTaskTable extends JTable {
 		tc.setMinWidth(0);
 		this.getTableHeader().getColumnModel().getColumn(index).setMaxWidth(0);
 		this.getTableHeader().getColumnModel().getColumn(index).setMinWidth(0);
+	}
+	
+	//set the alignment for priority column
+	private void setColumnStyle(int column, int alignment){
+		TableColumn tablecolumn = taskTable.getColumnModel().getColumn(column);
+		DefaultTableCellRenderer render = new DefaultTableCellRenderer();
+		render.setHorizontalAlignment(alignment);
+		tablecolumn.setCellRenderer(render);
 	}
 	
 	/**

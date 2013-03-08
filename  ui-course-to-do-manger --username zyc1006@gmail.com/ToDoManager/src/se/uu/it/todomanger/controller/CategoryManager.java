@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import se.uu.it.todomanger.dao.CategoryDataSource;
+import se.uu.it.todomanger.dao.DataSource;
 import se.uu.it.todomanger.model.Category;
+import se.uu.it.todomanger.model.Task;
 
 
 /**
@@ -79,6 +81,11 @@ public class CategoryManager {
 	 */
 	public void deleteCategory(Category category) {
 		categoryHashMap.remove(category.getCategoryId());
+		for (Task task : DataSource.taskArrayList) {
+			if (task.getCategory() == category.getCategoryId()) {
+				DataSource.taskArrayList.remove(task);
+			}
+		}
 	}
 }
 

@@ -170,7 +170,7 @@ public class DataSource {
 				task.setDescription(taskElement.elementText("description"));
 				SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 				task.setDueDate(sdf.parse(taskElement.elementText("duedate")));
-				//task.setCompleted(taskElement.elementText("isCompleted").equals("true")? true:false);
+				task.setCompleted(taskElement.elementText("isCompleted").equals("true")? true:false);
 				tasks.add(task);
 			}
 			
@@ -231,6 +231,23 @@ public class DataSource {
 			return null;
 		}
     	return prop;
+    }
+    
+    public static void updateTask(Task task){
+    	for(Task taskupd: taskArrayList){
+    		if(task.getId()== task.getId()){
+    			taskupd = task;
+    		}
+    	}
+    }
+    
+    public static void deleteTask(Task task){
+    	for(Task taskdel: taskArrayList){
+    		if(task.getId()== task.getId()){
+    			taskArrayList.remove(taskdel);
+    		}
+    	}
+    		
     }
 	
 	

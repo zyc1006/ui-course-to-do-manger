@@ -26,6 +26,8 @@ import javax.swing.tree.TreePath;
 
 import se.uu.it.todomanger.controller.CategoryManager;
 import se.uu.it.todomanger.controller.LanguageManager;
+import se.uu.it.todomanger.controller.TaskManager;
+import se.uu.it.todomanger.dao.DataSource;
 import se.uu.it.todomanger.model.Category;
 import se.uu.it.todomanger.model.CategoryTreeNode;
 
@@ -131,12 +133,14 @@ public class ShowCatalog  {
 		    		
 		    		//Display tasks in the selected category. If root is selected all tasks is dispayed.
 		    		if (selNode.equals(root)) {
+		    			TaskManager.getInstance().showTaskInCategory(-1);
 		    			System.out.print("Selected category: All \n");
 		    			System.out.print("Change this in ShowCatalog, row 130-138\n\n");
 		    		} else {
 				    	CategoryTreeNode selCategoryNode = (CategoryTreeNode) selNode;
 			    		System.out.print("Selected Category: "+ selCategoryNode.getCategory().getCategoryTitle() + " with id: " + selCategoryNode.getCategory().getCategoryId() + "\n");
 		    			System.out.print("Change this in ShowCatalog, row 130-138\n\n");
+		    			TaskManager.getInstance().showTaskInCategory(selCategoryNode.getCategory().getCategoryId());
 		    		}
 			    	
 
