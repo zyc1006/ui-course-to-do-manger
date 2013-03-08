@@ -1,13 +1,16 @@
 package se.uu.it.todomanger.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -24,6 +27,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
+import se.uu.it.clock.JClock;
 import se.uu.it.todomanger.controller.CategoryManager;
 import se.uu.it.todomanger.controller.LanguageManager;
 import se.uu.it.todomanger.controller.TaskManager;
@@ -43,6 +47,8 @@ public class ShowCatalog  {
 	private static JTree tree;
 	private static JButton addButton;
 	private static JButton removeButton;
+	private static JClock clockTime;
+	private static JClock clockDate;
 	
 	// Size of buttons
 	public static final int CATEGORY_BUTTON_WIDTH = 50;
@@ -63,24 +69,6 @@ public class ShowCatalog  {
 	    gc.fill = GridBagConstraints.BOTH;
 	    gc.anchor = GridBagConstraints.NORTHWEST;
 	    
-		//Init Add Button
-		addButton = new JButton(LanguageManager.getString("MainWindow_AddCategory_Label"));
-	    gc.weightx = 0.5;
-	    gc.gridx = 0;
-	    gc.gridy = 0;
-		setAddButtonListener(addButton);
-		gridbagLayoutSettings.setConstraints(addButton, gc);
-		addButton.setMargin(new Insets(2,0,2,0));
-	    panel.add(addButton);
-
-		//Init Remove Button 
-	    removeButton = new JButton(LanguageManager.getString("MainWindow_RemoveCategory_Label"));
-	    gc.gridx = 2;
-	    gc.gridy = 0;
-		setRemoveButtonListener(removeButton);
-		gridbagLayoutSettings.setConstraints(removeButton, gc);
-		removeButton.setMargin(new Insets(2,0,2,0));
-	    panel.add(removeButton);
 
 		//Init tree
 		root = new DefaultMutableTreeNode(LanguageManager.getString("MainWindow_AllCategories_Label"));
@@ -94,8 +82,60 @@ public class ShowCatalog  {
         gc.weighty = 1.0;
         gc.gridwidth = 3;
         gc.gridx = 0;
-        gc.gridy = 1;
+        gc.gridy = 0;
 		gridbagLayoutSettings.setConstraints(tree, gc);
+		
+
+		//Init Add Button
+		addButton = new JButton(LanguageManager.getString("MainWindow_AddCategory_Label"));
+	    gc.weightx = 0.5;
+	    gc.gridx = 0;
+	    gc.gridy = 1;
+	    gc.gridwidth = 1;
+	    gc.weighty = 0.0;
+		setAddButtonListener(addButton);
+		gridbagLayoutSettings.setConstraints(addButton, gc);
+		addButton.setMargin(new Insets(2,0,2,0));
+	    panel.add(addButton);
+
+		//Init Remove Button 
+	    removeButton = new JButton(LanguageManager.getString("MainWindow_RemoveCategory_Label"));
+	    gc.gridx = 2;
+	    gc.gridy = 1;
+	    gc.weighty = 0.0;
+		setRemoveButtonListener(removeButton);
+		gridbagLayoutSettings.setConstraints(removeButton, gc);
+		removeButton.setMargin(new Insets(2,0,2,0));
+	    panel.add(removeButton);
+	    
+	    // Init clock
+	    clockTime = new JClock(new Font("Courier", 0, 32), new SimpleDateFormat("HH:mm:ss"), 1000);
+	    clockTime.setTransparent(true);
+	    clockTime.setForeground(Color.BLACK);
+	    gc.gridx = 0;
+	    gc.gridy = 2;
+	    gc.gridwidth = 3;
+	    gc.weightx = 0.0;
+	    gc.weighty = 0.0;
+	    gc.anchor = GridBagConstraints.CENTER;
+	    gc.fill = GridBagConstraints.NONE;
+		gridbagLayoutSettings.setConstraints(clockTime, gc);
+		panel.add(clockTime, gc);
+
+		// Init clock
+	    clockDate = new JClock(new Font("Courier", 0, 16), new SimpleDateFormat("yyyy-MM-dd"), 1000);
+	    clockDate.setTransparent(true);
+	    clockDate.setForeground(Color.BLACK);
+	    gc.gridx = 0;
+	    gc.gridy = 3;
+	    gc.gridwidth = 3;
+	    gc.weightx = 0.0;
+	    gc.weighty = 0.0;
+	    gc.anchor = GridBagConstraints.CENTER;
+	    gc.fill = GridBagConstraints.NONE;
+		gridbagLayoutSettings.setConstraints(clockDate, gc);
+		panel.add(clockDate, gc);
+		
 		
 		CategoryManager cm = CategoryManager.getInstance();
 
