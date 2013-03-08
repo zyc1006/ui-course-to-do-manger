@@ -36,7 +36,6 @@ public class CategoryManager {
 		}
 			
 		Category.nextCategoryId = index+1;
-			
 	}
 	
 	
@@ -63,18 +62,24 @@ public class CategoryManager {
 	
 	
 	/**
-	 * addCategory
+	 * addCategory and save to the xml file on the fly
 	 * @param category
 	 *            - The category that is going to be added
 	 * Adds a category
 	 */
 	public void addCategory(Category category) {
 		categoryHashMap.put(category.getCategoryId(), category);
+		CategoryDataSource.toXmlFile(categoryHashMap);
+	}
+	
+	public static void updateXmlFile()
+	{
+		CategoryDataSource.toXmlFile(getInstance().categoryHashMap);
 	}
 
 	
 	/**
-	 * deleteCategory
+	 * deleteCategory and save to the xml file on the fly
 	 * @param category
 	 *            - The category that is going to be deleted
 	 * delete a category
@@ -86,6 +91,7 @@ public class CategoryManager {
 				DataSource.taskArrayList.remove(task);
 			}
 		}
+		CategoryDataSource.toXmlFile(categoryHashMap);
 	}
 }
 
