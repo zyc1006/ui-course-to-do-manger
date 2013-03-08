@@ -196,6 +196,8 @@ public class ShowCatalog  {
 			    try {
 				    //Try if a node has been selected
 			    	DefaultMutableTreeNode selNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+			    	
+			    	//Show error if root is marked since that category is not allowed to delete
 			    	if (selNode.equals(root)) {
 			    		JOptionPane.showMessageDialog(panel, LanguageManager.getString("Category_Delete_Error"), LanguageManager
 			    				.getString("AddEditDialog_Error_Dialog_Title"),
@@ -205,6 +207,7 @@ public class ShowCatalog  {
 					    //Remove category from category list
 					    CategoryTreeNode selCategoryNode = (CategoryTreeNode) selNode;
 					    
+				    	//Show error if "No Category" is marked since that category is not allowed to delete
 					    if (selCategoryNode.getCategory().getCategoryId() == 0) {
 				    		JOptionPane.showMessageDialog(panel, LanguageManager.getString("Category_Delete_Error"), LanguageManager
 				    				.getString("AddEditDialog_Error_Dialog_Title"),
