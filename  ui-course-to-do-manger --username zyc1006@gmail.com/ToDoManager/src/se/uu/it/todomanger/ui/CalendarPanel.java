@@ -1,4 +1,5 @@
  /**
+ * THIS CLASS IS NOT OURS -- SEE COPYRIGHT NOTICE BELOW
  * Copyright: copyright (c)2012
  * @author   Deng Zhiguang
  * http://zgdeng.iteye.com
