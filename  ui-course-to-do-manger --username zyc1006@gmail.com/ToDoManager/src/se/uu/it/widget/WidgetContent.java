@@ -8,8 +8,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.ListModel;
-import javax.swing.table.DefaultTableModel;
 
 import se.uu.it.todomanger.controller.LanguageManager;
 import se.uu.it.todomanger.dao.DataSource;
@@ -25,7 +23,7 @@ import se.uu.it.todomanger.ui.TaskListRenderer;
 public class WidgetContent
 {
 	
-	private DefaultTableModel model;
+//	private DefaultTableModel model;
 	private JTable table;
 	private JList list;
 	private DefaultListModel listModel;
