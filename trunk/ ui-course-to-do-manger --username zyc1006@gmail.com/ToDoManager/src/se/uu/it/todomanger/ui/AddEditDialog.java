@@ -356,6 +356,7 @@ public class AddEditDialog extends JDialog {
 	 * 
 	 * @author bjorn
 	 */
+	@SuppressWarnings("deprecation")
 	private void OKButtonHandler() {
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat(
@@ -478,7 +479,7 @@ public class AddEditDialog extends JDialog {
 		CategoryManager cm = CategoryManager.getInstance();
 		
 		for (Entry<Integer, Category> entry : cm.getCategories().entrySet()) {
-		    Integer key = entry.getKey();
+//		    Integer key = entry.getKey();
 		    Category nextCategory = entry.getValue();
 			cmbCategory.addItem(nextCategory.getCategoryTitle());
 			cmdHiddenCaegoryId.addItem(nextCategory.getCategoryId());
@@ -517,6 +518,7 @@ public class AddEditDialog extends JDialog {
 	 * 
 	 * @author bjorn
 	 */
+	@SuppressWarnings("deprecation")
 	public void ShowAddDialog() {
 		Date currentDate = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat(
@@ -542,6 +544,7 @@ public class AddEditDialog extends JDialog {
 	 * @param editTask
 	 *            - The task that contains the data to be edited.
 	 */
+	@SuppressWarnings("deprecation")
 	public void ShowEditDialog(Task editTask) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(
 				CalendarPanel.dateFormat);

@@ -32,10 +32,15 @@ import se.uu.it.widget.WidgetWindow;
 public class ToDoManagerMenuBar extends JMenuBar {
 
 	// Window  data
-	public static final int MENUBAR_PANEL_WIDTH = 80;
-	public static final int MENUBAR_PANEL_HEIGHT = 80;
+	//private static final int MENUBAR_PANEL_WIDTH = 80;
+	//private static final int MENUBAR_PANEL_HEIGHT = 80;
 	//private static String lang ;
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private static ToDoManagerMenuBar MenuBar = null;
 	
 	// MenuItem in menu bar
@@ -301,13 +306,17 @@ public class ToDoManagerMenuBar extends JMenuBar {
 		// Help
 		HelpItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				@SuppressWarnings("unused")
 				HelpDialog hd = new HelpDialog();
+				
 			}
 		});
 		// About us
 		AboutUsItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				@SuppressWarnings("unused")
 				AboutUsDialog aud = new AboutUsDialog();
+				
 			}
 		});
 		

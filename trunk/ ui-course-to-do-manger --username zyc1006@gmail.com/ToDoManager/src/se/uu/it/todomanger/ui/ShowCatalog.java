@@ -1,9 +1,6 @@
 package se.uu.it.todomanger.ui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -11,7 +8,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
 import java.util.Map.Entry;
 
 import javax.swing.JButton;
@@ -31,7 +27,6 @@ import se.uu.it.clock.JClock;
 import se.uu.it.todomanger.controller.CategoryManager;
 import se.uu.it.todomanger.controller.LanguageManager;
 import se.uu.it.todomanger.controller.TaskManager;
-import se.uu.it.todomanger.dao.DataSource;
 import se.uu.it.todomanger.model.Category;
 import se.uu.it.todomanger.model.CategoryTreeNode;
 
@@ -276,7 +271,7 @@ public class ShowCatalog  {
 	 * @author bjorn
 	 */
 	public static void UpdateLanguageText() {
-		Integer width, height;
+//		Integer width, height;
 		removeButton.setText(LanguageManager.getString("MainWindow_RemoveCategory_Label"));
 		addButton.setText(LanguageManager.getString("MainWindow_AddCategory_Label"));
 		root.setUserObject(new String(LanguageManager.getString("MainWindow_AllCategories_Label")));

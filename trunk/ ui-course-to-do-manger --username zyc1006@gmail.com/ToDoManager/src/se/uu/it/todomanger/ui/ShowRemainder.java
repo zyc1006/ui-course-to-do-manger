@@ -1,7 +1,5 @@
 package se.uu.it.todomanger.ui;
 
-import java.applet.Applet;
-import java.applet.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,12 +7,14 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.net.MalformedURLException;
-import java.net.URL;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JWindow;
 import javax.swing.border.EtchedBorder;
+
+
 
 import se.uu.it.todomanger.model.Task;
 
@@ -26,7 +26,9 @@ import se.uu.it.todomanger.model.Task;
  * @author shiyu
  */
 public class ShowRemainder extends JWindow implements Runnable {
+	
 	private static final long serialVersionUID = 1L;
+	
 	private Integer screenWidth; // the width of screen
 	private Integer screenHeight; // the height of screen
 	private Integer windowWidth = 300; // the width of reminder window
@@ -90,15 +92,15 @@ public class ShowRemainder extends JWindow implements Runnable {
 		this.setAlwaysOnTop(true);
 		this.getContentPane().add(mainPanel);
 		Toolkit.getDefaultToolkit().beep(); // to notify
-		// try {
-		// AudioClip ac =
-		// Applet.newAudioClip(ShowRemainder.class.getResource("sound/" +
-		// "msg.wav"));
-		// ac.play();
-		// } //catch (MalformedURLException e1) {
-		// TODO Auto-generated catch block
-		// e1.printStackTrace();
-		// }
+//		 try {
+//		 AudioClip ac =
+//		 Applet.newAudioClip(ShowRemainder.class.getResource("sound/" +
+//		 "msg.wav"));
+//		 ac.play();
+//		 } //catch (MalformedURLException e1) {
+//		 TODO Auto-generated catch block
+//		 e1.printStackTrace();
+//		 }
 		this.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				dispose();

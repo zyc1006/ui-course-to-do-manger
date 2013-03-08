@@ -1,25 +1,19 @@
 package se.uu.it.todomanger.ui;
 
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
-import se.uu.it.clock.JClock;
 import se.uu.it.todomanger.controller.LanguageManager;
 import se.uu.it.todomanger.controller.ReminderTimerManager;
 import se.uu.it.todomanger.controller.TaskManager;
 import se.uu.it.todomanger.model.NewTaskTableModel;
 import se.uu.it.todomanger.model.Task;
-import se.uu.it.todomanger.model.TaskTableModel;
 
 /**
  * A singleton of tool bar for ToDoManager
@@ -30,16 +24,20 @@ import se.uu.it.todomanger.model.TaskTableModel;
  */
 public class ToDoManagerToolBar extends JToolBar {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// Window data
-	public static final int TOOLBAR_BUTTON_WIDTH = 35;
-	public static final int TOOLBAR_BUTTON_HEIGHT = 35;
-	public static final int TOOLBAR_BUTTON_MAX_WIDTH = 35;
-	public static final int TOOLBAR_BUTTON_MAX_HEIGHT = 35;
+	private static final int TOOLBAR_BUTTON_WIDTH = 35;
+	private static final int TOOLBAR_BUTTON_HEIGHT = 35;
+	private static final int TOOLBAR_BUTTON_MAX_WIDTH = 35;
+	private static final int TOOLBAR_BUTTON_MAX_HEIGHT = 35;
 
 	// Icon file data
-	public static final String TOOLBAR_ICON_ADD_TASK = "/image/Add.gif";
-	public static final String TOOLBAR_ICON_EDIT_TASK = "/image/Edit.gif";
-	public static final String TOOLBAR_ICON_DELETE_TASK = "/image/Delete.gif";
+	private static final String TOOLBAR_ICON_ADD_TASK = "/image/Add.gif";
+	private static final String TOOLBAR_ICON_EDIT_TASK = "/image/Edit.gif";
+	private static final String TOOLBAR_ICON_DELETE_TASK = "/image/Delete.gif";
 
 	private static ToDoManagerToolBar toolBar = null;
 
