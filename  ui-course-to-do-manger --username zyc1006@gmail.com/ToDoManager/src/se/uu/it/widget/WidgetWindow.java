@@ -14,6 +14,12 @@ import se.uu.it.todomanger.ui.MainWindow;
 import se.uu.it.todomanger.ui.ToDoManagerMenuBar;
 import se.uu.it.todomanger.ui.ToDoManagerToolBar;
 
+/**
+ * The widget's class
+ * 
+ * @author Mattias
+ *
+ */
 public class WidgetWindow extends JFrame
 {
 	private static final int width  = 300;
@@ -52,7 +58,7 @@ public class WidgetWindow extends JFrame
 		{
 			public void windowClosing(WindowEvent e)
 			{
-				ToDoManagerMenuBar.widgetClosed();
+				MainWindow.setWidgetOpen(false);
 				getInstance().setVisible(false);
 			}
 		});
@@ -64,6 +70,11 @@ public class WidgetWindow extends JFrame
 	private WidgetWindow getInstance()
 	{
 		return this;
+	}
+	
+	public void refreshWidget()
+	{
+		this.setTitle(LanguageManager.getString("WidgetWindow_Title"));
 	}
 	
 	public static int getWidgetWidth()
