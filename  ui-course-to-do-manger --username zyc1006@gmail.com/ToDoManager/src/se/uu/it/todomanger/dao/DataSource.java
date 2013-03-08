@@ -242,9 +242,10 @@ public class DataSource {
     }
     
     public static void deleteTask(Task task){
-    	for(Task taskdel: taskArrayList){
-    		if(task.getId()== task.getId()){
-    			taskArrayList.remove(taskdel);
+    	for(int i = 0; i < taskArrayList.size(); i++){
+    		Task taskdel = taskArrayList.get(i);
+    		if(taskdel.getId() == task.getId()){
+    			taskArrayList.remove(i);
     		}
     	}
     		
