@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -29,6 +30,7 @@ import se.uu.it.todomanger.dao.DataSource;
 import se.uu.it.todomanger.dao.Savestate;
 import se.uu.it.todomanger.model.NewTaskTableModel;
 import se.uu.it.todomanger.model.Task;
+import se.uu.it.widget.WidgetWindow;
 
 import com.sun.java.swing.plaf.*;
 
@@ -54,6 +56,7 @@ public class ToDoManagerMenuBar extends JMenuBar {
 	private static JMenu HelpMenu;
 	private static JMenu LanguageMenu;
 	private static JMenu ThemeMenu;
+	private static JButton WidgetItem;
 	private static JMenuItem OpenItem;
 	private static JMenuItem SaveItem;
 	private static JMenuItem QuitItem;
@@ -68,6 +71,8 @@ public class ToDoManagerMenuBar extends JMenuBar {
 	private static JMenuItem ChineseItem;
 	private static JMenuItem Theme1Item;
 	private static JMenuItem Theme2Item;
+	
+	private static boolean widgetOpen = false;
 	
 	private ToDoManagerMenuBar() {
 		
@@ -91,6 +96,9 @@ public class ToDoManagerMenuBar extends JMenuBar {
 		MenuBar.add(ThemeMenu);
 		MenuBar.add(LanguageMenu);
 		MenuBar.add(HelpMenu);
+		
+		WidgetItem = new JButton(LanguageManager.getString("MenuBar_Widget_Item"));
+		MenuBar.add(WidgetItem);
 		
 		Theme1Item = new JMenuItem(LanguageManager.getString("MenuBar_Theme1_Option"), KeyEvent.VK_A);
 		Theme2Item = new JMenuItem(LanguageManager.getString("MenuBar_Theme2_Option"), KeyEvent.VK_B);
@@ -309,6 +317,20 @@ public class ToDoManagerMenuBar extends JMenuBar {
 				AboutUsDialog aud = new AboutUsDialog();
 			}
 		});
+		
+		// Open Widget
+		WidgetItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(!widgetOpen)
+				{
+					int x = getInstance().getTopLevelAncestor().getLocation().x;
+					int y = getInstance().getTopLevelAncestor().getLocation().y;
+					
+					widgetOpen = true;
+					WidgetWindow widgetWindow = new WidgetWindow(x-WidgetWindow.getWidgetWidth(), y);
+				}
+			}
+		});
 
 		// return panel;
 	}
@@ -338,6 +360,17 @@ public class ToDoManagerMenuBar extends JMenuBar {
 		ThemeMenu.setText(LanguageManager.getString("MenuBar_Theme_Menu"));
 		Theme1Item.setText(LanguageManager.getString("MenuBar_Theme1_Option"));
 		Theme2Item.setText(LanguageManager.getString("MenuBar_Theme2_Option"));
+		
+		WidgetItem.setText(LanguageManager.getString("MenuBar_Widget_Item"));
+	}
+	
+	/**
+	 * Sets the widgetOpen to false
+	 * 
+	 */
+	public static void widgetClosed()
+	{
+		widgetOpen = false;
 	}
 	
 	/**
