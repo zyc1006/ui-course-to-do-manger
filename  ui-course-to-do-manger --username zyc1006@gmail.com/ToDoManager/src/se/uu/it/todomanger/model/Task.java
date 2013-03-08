@@ -1,5 +1,6 @@
 package se.uu.it.todomanger.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -157,4 +158,9 @@ public class Task {
 		this.completed = completed;
 	}
 	
+	public String toString()
+	{
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+		return sdf.format(getDueDate())+" "+getTitle();
+	}
 }
