@@ -136,12 +136,6 @@ public class MainWindow extends JFrame {
 	public static final int MAINWINDOW_WIDTH = 800;
 	public static final int MAINWINDOW_HEIGHT = 600;
 	public static String lang ;
-	
-	// Widget data
-	// The instance of the widgetWindow
-	public static WidgetWindow widgetWindow;
-	// Keeps track of whether or not the widget has been opened
-	private static boolean widgetOpen = false;
 
 	public MainWindow(/* ClientController controller */) {
 		// this.controller = controller;
@@ -308,21 +302,6 @@ public class MainWindow extends JFrame {
 	private void setMainWindowText() {
 		
 		this.setTitle(LanguageManager.getString("MainWindow_Title"));
-	}
-	
-	/**
-	 * Sets the widgetOpen to false
-	 */
-	public static void setWidgetOpen(boolean val)
-	{
-		widgetOpen = val;
-	}
-	/**
-	 * Checks whether or not the widget is open
-	 */
-	public static boolean widgetOpen()
-	{
-		return widgetOpen;
 	}
 
 	/**

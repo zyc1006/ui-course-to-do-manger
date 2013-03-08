@@ -1,7 +1,6 @@
 package se.uu.it.widget;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -9,10 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import se.uu.it.todomanger.controller.LanguageManager;
-import se.uu.it.todomanger.ui.MainShowPanel;
-import se.uu.it.todomanger.ui.MainWindow;
-import se.uu.it.todomanger.ui.ToDoManagerMenuBar;
-import se.uu.it.todomanger.ui.ToDoManagerToolBar;
 
 /**
  * The widget's class
@@ -22,8 +17,15 @@ import se.uu.it.todomanger.ui.ToDoManagerToolBar;
  */
 public class WidgetWindow extends JFrame
 {
+	// The widget's height and width
 	private static final int width  = 300;
 	private static final int height = 500;
+	
+	// Widget data
+	// The instance of the widgetWindow
+	public static WidgetWindow widgetWindow;
+	// Keeps track of whether or not the widget has been opened
+	private static boolean widgetOpen = false;
 	
 	/**
 	 * Widget window's constructor, it initializes the whole thing
@@ -58,36 +60,59 @@ public class WidgetWindow extends JFrame
 		{
 			public void windowClosing(WindowEvent e)
 			{
-				MainWindow.setWidgetOpen(false);
+				WidgetWindow.setWidgetOpen(false);
 				getInstance().setVisible(false);
 			}
 		});
 	}
 	
-	/**
-	 * Gets the instance of the WidgetWindow
-	 */
+	// Gets the instance of the WidgetWindow
 	private WidgetWindow getInstance()
 	{
 		return this;
 	}
 	
+	/**
+	 * Refreshes the widget's content
+	 */
 	public void refreshWidget()
 	{
 		this.setTitle(LanguageManager.getString("WidgetWindow_Title"));
 	}
 	
+	/**
+	 * Gets the widget width
+	 * 
+	 * @return width
+	 */
 	public static int getWidgetWidth()
 	{
 		return width;
 	}
 	
+	/**
+	 * Sets the widgetOpen to false
+	 */
+	public static void setWidgetOpen(boolean val)
+	{
+		widgetOpen = val;
+	}
+	
+	/**
+	 * Checks whether or not the widget is open
+	 */
+	public static boolean widgetOpen()
+	{
+		return widgetOpen;
+	}
+	
 	// Creates what's in the Widget
 	private JPanel createPanel() {
 		JPanel panel   = new JPanel(new BorderLayout());
-		JPanel content = new JPanel();
+		WidgetContent widgetContent = new WidgetContent();
 		
-		panel.add(content);
+		panel.add(widgetContent.initContent());
+		
 		return panel;
 	}
 }

@@ -248,7 +248,7 @@ public class ToDoManagerMenuBar extends JMenuBar {
 				MainWindow mainWindow = (MainWindow)MenuBar.getTopLevelAncestor();
 				mainWindow.resetAllLanguage();
 				
-				MainWindow.widgetWindow.refreshWidget();
+				WidgetWindow.widgetWindow.refreshWidget();
 			}
 		});
 		
@@ -262,7 +262,7 @@ public class ToDoManagerMenuBar extends JMenuBar {
 				MainWindow mainWindow = (MainWindow)MenuBar.getTopLevelAncestor();
 				mainWindow.resetAllLanguage();
 				
-				MainWindow.widgetWindow.refreshWidget();
+				WidgetWindow.widgetWindow.refreshWidget();
 			}
 		});
 
@@ -277,7 +277,7 @@ public class ToDoManagerMenuBar extends JMenuBar {
 						.getTopLevelAncestor();
 				mainWindow.resetAllLanguage();
 				
-				MainWindow.widgetWindow.refreshWidget();
+				WidgetWindow.widgetWindow.refreshWidget();
 			}
 		});
 
@@ -292,7 +292,7 @@ public class ToDoManagerMenuBar extends JMenuBar {
 						.getTopLevelAncestor();
 				mainWindow.resetAllLanguage();
 				
-				MainWindow.widgetWindow.refreshWidget();
+				WidgetWindow.widgetWindow.refreshWidget();
 			}
 		});
 		
@@ -315,20 +315,20 @@ public class ToDoManagerMenuBar extends JMenuBar {
 		WidgetItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Open widget
-				if(!MainWindow.widgetOpen())
+				if(!WidgetWindow.widgetOpen())
 				{
 					// Get the appropriate position
 					int x = getInstance().getTopLevelAncestor().getLocation().x;
 					int y = getInstance().getTopLevelAncestor().getLocation().y;
 					
-					MainWindow.setWidgetOpen(true);
-					MainWindow.widgetWindow = new WidgetWindow(x-WidgetWindow.getWidgetWidth(), y);
+					WidgetWindow.setWidgetOpen(true);
+					WidgetWindow.widgetWindow = new WidgetWindow(x-WidgetWindow.getWidgetWidth(), y);
 				}
 				// Close widget
 				else
 				{
-					MainWindow.setWidgetOpen(false);
-					MainWindow.widgetWindow.setVisible(false);
+					WidgetWindow.setWidgetOpen(false);
+					WidgetWindow.widgetWindow.setVisible(false);
 				}
 			}
 		});
