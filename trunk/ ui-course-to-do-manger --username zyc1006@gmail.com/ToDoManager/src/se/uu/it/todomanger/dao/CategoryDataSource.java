@@ -2,22 +2,17 @@ package se.uu.it.todomanger.dao;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 
 import org.dom4j.Document;
-import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
-
 
 import se.uu.it.todomanger.model.Category;
 /**
@@ -128,12 +123,10 @@ public class CategoryDataSource {
 			Element index = rootElement.element("index");
 			Category.nextCategoryId = Integer.parseInt(index.attributeValue("id"));
 			
-		} catch (DocumentException e) {
+		} catch (Exception e) {
 			
 			e.printStackTrace();
-		} 	catch (NullPointerException e) {
-			
-		}
+		} 	
 		return categories;
 	}
 	

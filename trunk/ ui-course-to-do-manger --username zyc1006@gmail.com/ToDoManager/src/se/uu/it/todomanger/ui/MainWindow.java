@@ -111,23 +111,18 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.Properties;
-import java.util.ResourceBundle;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import se.uu.it.todomanger.controller.LanguageManager;
+import se.uu.it.todomanger.controller.ReminderTimerManager;
 import se.uu.it.todomanger.controller.ThemeManager;
-import se.uu.it.todomanger.controller.TaskManager;
 import se.uu.it.todomanger.dao.CategoryDataSource;
 import se.uu.it.todomanger.dao.DataSource;
-import se.uu.it.todomanger.dao.Savestate;
-import se.uu.it.todomanger.model.TaskTableModel;
-import se.uu.it.todomanger.controller.ReminderTimerManager;
 import se.uu.it.widget.WidgetWindow;
 
 /**
@@ -164,9 +159,9 @@ public class MainWindow extends JFrame {
 	public void init() {
 
 		
-		Savestate save = new Savestate();
+		//Savestate save = new Savestate();
 		// load saved size, theme and location
-		Properties prop = save.loadLocation(System.getProperty("user.home")
+		Properties prop = DataSource.loadLocation(System.getProperty("user.home")
 				+ "/TODOgroup12.properties");
 		if (null != prop) {
 			Point point = new Point();
@@ -267,9 +262,9 @@ public class MainWindow extends JFrame {
 						JFrame main = (JFrame) e.getSource();
 						Dimension size = main.getSize();
 						Point location = main.getLocationOnScreen();
-						Savestate save = new Savestate();
+						//Savestate save = new Savestate();
 
-						save.saveLocation(size, location , lang);
+						DataSource.saveLocation(size, location , lang);
 						//save tasks
 						DataSource.toXmlFile(DataSource.taskArrayList);
 						CategoryDataSource.toXmlFile(CategoryDataSource.categoryHashMap);
