@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.Timer;
 
 /**
+ * A own clock component
  * @author bjorn
  * 
  */
