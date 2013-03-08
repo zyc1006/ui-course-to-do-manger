@@ -92,6 +92,16 @@ public class WidgetWindow extends JFrame
 	}
 	
 	/**
+	 * Gets the widget height
+	 * 
+	 * @return height
+	 */
+	public static int getWidgetHeight()
+	{
+		return height;
+	}
+	
+	/**
 	 * Sets the widgetOpen to false
 	 */
 	public static void setWidgetOpen(boolean val)
