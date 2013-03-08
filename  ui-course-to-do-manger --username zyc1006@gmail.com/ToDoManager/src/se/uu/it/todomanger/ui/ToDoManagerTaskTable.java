@@ -15,6 +15,7 @@ import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
@@ -66,7 +67,25 @@ public class ToDoManagerTaskTable extends JTable {
 		taskTable.addMouseListener(new MouseAdapter() {
 		
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
+				
+				// Get the row selected
+				int r = taskTable.rowAtPoint(e.getPoint());
+				if(r >= 0 && r < taskTable.getRowCount())
+				{
+					taskTable.setRowSelectionInterval(r, r);
+				}
+				else
+				{
+					taskTable.clearSelection();
+				}
+				
+				if(SwingUtilities.isRightMouseButton(e))
+				{
+					int selectedRow = taskTable.getSelectedRow();
+					
+					System.out.println("zomg"+" "+selectedRow);
+				}
 				if (e.getClickCount() == 1) {
 					int selectedRow = taskTable.getSelectedRow();
 					if (selectedRow >= 0) {
@@ -98,7 +117,6 @@ public class ToDoManagerTaskTable extends JTable {
 					}
 				}
 				super.mouseClicked(e);
-				
 			}
 			
 		});
