@@ -23,8 +23,11 @@ import se.uu.it.todomanger.dao.DataSource;
  */
 public class NewTaskTableModel extends AbstractTableModel {
 
-	//a task list contains all the task to be displayed
-	private ArrayList<Task> taskListInCategory;
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	//a task list contains all the task 
 	private ArrayList<Task> taskList;
 	//a list contains all the column titles
@@ -45,6 +48,7 @@ public class NewTaskTableModel extends AbstractTableModel {
 	 * Constructor
 	 * @param taskList
 	 */
+	@SuppressWarnings("unchecked")
 	public NewTaskTableModel(ArrayList<Task> taskList){
 		this.taskList = (ArrayList<Task>) taskList.clone();
 		this.setTaskTableText();
@@ -74,8 +78,8 @@ public class NewTaskTableModel extends AbstractTableModel {
 		switch (columnIndex) {
 		case 0:return Integer.class;
 		case 1:return String.class;
-		case 2:return Integer.class;
-		case 3:return String.class;
+		case 2:return String.class;
+		case 3:return Integer.class;
 		case 4:return String.class;
 		case 5:
 			return Boolean.class;

@@ -86,9 +86,10 @@ public class CategoryManager {
 	 */
 	public void deleteCategory(Category category) {
 		categoryHashMap.remove(category.getCategoryId());
-		for (Task task : DataSource.taskArrayList) {
+		for (int i = 0; i < DataSource.taskArrayList.size(); i++) {
+			Task task = DataSource.taskArrayList.get(i);
 			if (task.getCategory() == category.getCategoryId()) {
-				DataSource.taskArrayList.remove(task);
+				DataSource.taskArrayList.remove(i);
 			}
 		}
 		CategoryDataSource.toXmlFile(categoryHashMap);
