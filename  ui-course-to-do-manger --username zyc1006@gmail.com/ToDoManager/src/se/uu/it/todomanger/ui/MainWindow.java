@@ -242,6 +242,8 @@ public class MainWindow extends JFrame {
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
+		// Something worth noting is that showConfirmDialog will always display
+		// yes/no in English.
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				{
