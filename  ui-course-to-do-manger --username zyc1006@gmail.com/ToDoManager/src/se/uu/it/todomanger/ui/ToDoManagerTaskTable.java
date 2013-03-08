@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package se.uu.it.todomanger.ui;
 
 import java.awt.event.ActionEvent;
@@ -8,13 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
 
-import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTable;
@@ -25,21 +17,24 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
-
 import se.uu.it.todomanger.controller.LanguageManager;
 import se.uu.it.todomanger.controller.ReminderTimerManager;
 import se.uu.it.todomanger.controller.TaskManager;
 import se.uu.it.todomanger.dao.DataSource;
-import se.uu.it.todomanger.model.Task;
 import se.uu.it.todomanger.model.NewTaskTableModel;
-import se.uu.it.todomanger.model.TaskTableModel;
+import se.uu.it.todomanger.model.Task;
 
 /**
+ * A singleton of task table for ToDoManager
  * @author Yucheng
  *
  */
 public class ToDoManagerTaskTable extends JTable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static ToDoManagerTaskTable taskTable = null;
 	private static NewTaskTableModel taskTableModel = null;
 	
@@ -48,6 +43,10 @@ public class ToDoManagerTaskTable extends JTable {
 		super(tableModel);
 	}
 	
+	/**
+	 * returns the singleton of task table
+	 * @return
+	 */
 	public static ToDoManagerTaskTable getInstance(){
 		if(null == taskTable){
 			taskTableModel = new NewTaskTableModel(DataSource.taskArrayList);
@@ -176,21 +175,23 @@ public class ToDoManagerTaskTable extends JTable {
 		});
 	}
 	
-	/**
-	 * public void displayAllTasksByOrder ({@link ArrayList} taskList, {@link Comparator} comparator)<br>
-	 * Display all tasks by specified comparator
-	 * 
-	 * @param taskList 
-	 * A task list includes the tasks to be displayed
-	 * @param comparator 
-	 * In what order the tasks will be displayed
-	 * @see TaskManager
-	 */
-//	public void displayAllTasksByOrder(ArrayList<Task> taskList, Comparator<Task> comparator){
-//
-//		taskTableModel.displayAllTasksByOrder(taskList, comparator);
-//	}
-
+//	/**
+//	 * public void displayAllTasksByOrder ({@link ArrayList} taskList, {@link Comparator} comparator)<br>
+//	 * Display all tasks by specified comparator
+//	 * 
+//	 * @param taskList 
+//	 * A task list includes the tasks to be displayed
+//	 * @param comparator 
+//	 * In what order the tasks will be displayed
+//	 * @see TaskManager
+//	 */
+////	public void displayAllTasksByOrder(ArrayList<Task> taskList, Comparator<Task> comparator){
+////
+////		taskTableModel.displayAllTasksByOrder(taskList, comparator);
+////	}
+	
+	
+	//hide column by column index
 	private void hideColumn(int index) {
 		TableColumn tc = this.getColumnModel().getColumn(index);
 		tc.setMaxWidth(0);

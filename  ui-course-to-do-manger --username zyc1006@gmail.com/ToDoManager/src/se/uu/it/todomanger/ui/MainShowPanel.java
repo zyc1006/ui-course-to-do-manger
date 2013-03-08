@@ -1,7 +1,6 @@
 package se.uu.it.todomanger.ui;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -10,16 +9,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.BevelBorder;
-
-import se.uu.it.todomanger.controller.TaskManager;
-import se.uu.it.todomanger.model.Task;
 /**
- * 
+ * A class to show the main panel
  * @author Shiyu
  */
 public class MainShowPanel {
 	
-private static MainShowPanel Panel = null;
+//private static MainShowPanel Panel = null;
 	
 	/**
 	 * Initialize main panel

@@ -5,9 +5,19 @@ import javax.swing.JOptionPane;
 
 import se.uu.it.todomanger.controller.LanguageManager;
 
+/**
+ * Show the author contact information
+ * @author Shiyu
+ *
+ */
 public class HelpDialog extends JDialog{
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Default dialog
 	 */

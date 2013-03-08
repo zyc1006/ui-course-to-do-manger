@@ -10,19 +10,11 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.Timer;
-import javax.swing.UIManager;
-
-import se.uu.it.todomanger.ui.CalendarPanel;
 
 /**
  * @author bjorn
@@ -31,8 +23,14 @@ import se.uu.it.todomanger.ui.CalendarPanel;
 public class JClock extends JButton implements ActionListener {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * The UI class ID string.
 	 */
+	@SuppressWarnings("unused")
 	private static final String uiClassID = "JClock";
 
 	private int drawWidth = 0;

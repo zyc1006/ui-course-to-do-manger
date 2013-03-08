@@ -229,6 +229,7 @@ public class NewTaskTableModel extends AbstractTableModel {
 		showTaskInCategory();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void showTaskInCategory(){
 		if(currentCategoryId == -1){
 			taskList = (ArrayList<Task>) DataSource.taskArrayList.clone();
@@ -260,6 +261,7 @@ public class NewTaskTableModel extends AbstractTableModel {
 //		this.setColumnIdentifiers(localColumnTitles);
 //	}
 //	
+	@SuppressWarnings("unused")
 	private HashMap<Integer,Task> toHashMap(ArrayList<Task> taskList){
 		HashMap<Integer,Task> taskHashMap = new HashMap<Integer, Task>();
 		for(Task task: taskList){
@@ -273,6 +275,7 @@ public class NewTaskTableModel extends AbstractTableModel {
 	 * Convert hashmap to arraylist
 	 * @return an arraylist contains all tasks to be displayed
 	 */
+	@SuppressWarnings("unused")
 	private ArrayList<Task> toArrayList(HashMap<Integer, Task> taskHashMap) {
 		ArrayList<Task> taskArrayList = new ArrayList<Task>();
 		if (taskHashMap != null) {

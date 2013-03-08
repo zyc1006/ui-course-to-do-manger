@@ -54,7 +54,7 @@ public class CategoryDataSource {
 		String userHome = System.getProperty("user.home");
 		
 		for (Entry<Integer, Category> entry : categories.entrySet()) {
-		    Integer key = entry.getKey();
+//		    Integer key = entry.getKey();
 		    Category nextCategory = entry.getValue();
 			Element category = categoriesElement.addElement("category");
 			category.addAttribute("id", Integer.toString(nextCategory.getCategoryId()));
@@ -102,6 +102,7 @@ public class CategoryDataSource {
 	 * @param fileName the xml file name
 	 * @return an HashMap contains all the cateogories
 	 */
+	@SuppressWarnings("rawtypes")
 	public static HashMap<Integer, Category> toCategoryList(String fileName){
 		HashMap<Integer,Category> categories = new HashMap<Integer,Category>();
 		

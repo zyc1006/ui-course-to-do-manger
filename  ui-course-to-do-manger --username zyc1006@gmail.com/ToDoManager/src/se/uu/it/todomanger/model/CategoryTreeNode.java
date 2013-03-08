@@ -10,7 +10,11 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 public class CategoryTreeNode extends DefaultMutableTreeNode{
 
-	   public Category category;
+	   /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public Category category;
 	   /**
 	    * Constructor
 	    * @param title

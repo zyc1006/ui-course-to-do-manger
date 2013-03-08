@@ -123,18 +123,27 @@ import se.uu.it.todomanger.controller.ReminderTimerManager;
 import se.uu.it.todomanger.controller.ThemeManager;
 import se.uu.it.todomanger.dao.CategoryDataSource;
 import se.uu.it.todomanger.dao.DataSource;
-import se.uu.it.widget.WidgetWindow;
 
 /**
+ * 
+ * The main window of ToDoMananger
+ * 
  * @author Shiyu
  * @author Edward
  * 
  */
 public class MainWindow extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// Window data
-	public static final int MAINWINDOW_WIDTH = 800;
-	public static final int MAINWINDOW_HEIGHT = 600;
+	private static final int MAINWINDOW_WIDTH = 800;
+	private static final int MAINWINDOW_HEIGHT = 600;
+	/**
+	 * Language identifier
+	 */
 	public static String lang ;
 
 	public MainWindow(/* ClientController controller */) {
@@ -309,6 +318,8 @@ public class MainWindow extends JFrame {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		@SuppressWarnings("unused")
 		MainWindow window = new MainWindow();
+		
 	}
 }

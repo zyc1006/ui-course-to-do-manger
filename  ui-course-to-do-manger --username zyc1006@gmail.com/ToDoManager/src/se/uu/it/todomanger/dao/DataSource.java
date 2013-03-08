@@ -157,7 +157,9 @@ public class DataSource {
 			Document doc = reader.read(userHome+ "/TODOgroup12.xml");
 			Element rootElement = doc.getRootElement();
 			Element tasksElement = rootElement.element("tasks");
+			@SuppressWarnings("rawtypes")
 			List taskList = tasksElement.elements("task");
+			@SuppressWarnings("rawtypes")
 			Iterator it = taskList.iterator();
 			
 			while(it.hasNext()){
@@ -234,7 +236,7 @@ public class DataSource {
     }
     
     public static void updateTask(Task task){
-    	for(Task taskupd: taskArrayList){
+    	for(@SuppressWarnings("unused") Task taskupd: taskArrayList){
     		if(task.getId()== task.getId()){
     			taskupd = task;
     		}

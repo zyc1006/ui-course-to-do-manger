@@ -7,7 +7,7 @@ import se.uu.it.todomanger.controller.LanguageManager;
 
 /**
  * Shows a dialog describing the program.
- * @author ???
+ * @author Shiyu
  * @author bjorn
  */
 public class AboutUsDialog extends JDialog

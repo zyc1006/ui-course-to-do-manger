@@ -11,6 +11,11 @@ import se.uu.it.todomanger.dao.DataSource;
 import se.uu.it.todomanger.model.Task;
 import se.uu.it.todomanger.ui.ShowRemainder;
 
+/**
+ * 
+ * A timer manager that adds undone tasks to a timer list for reminding
+ * @author shiyu
+ */
 public class ReminderTimerManager {
 
 	private ArrayList<Task> taskArrayList;
@@ -104,6 +109,7 @@ public class ReminderTimerManager {
 			this.task = task;
 		}
 
+		@SuppressWarnings("unused")
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
