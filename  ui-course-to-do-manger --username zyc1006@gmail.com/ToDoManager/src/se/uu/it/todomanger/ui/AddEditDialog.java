@@ -555,15 +555,14 @@ public class AddEditDialog extends JDialog {
 		cmbDueDateHour.setSelectedIndex(editTask.getDueDate().getHours());
 		sliPriority.setValue(editTask.getPriority());
 		txtDescription.setText(editTask.getDescription());
+		PopulateCategoryComboBox();
+		UpdatePriorityTextBox();
 		for(int i = 0; i < cmdHiddenCaegoryId.getItemCount(); i++){
 			if((Integer)cmdHiddenCaegoryId.getItemAt(i) == editTask.getCategory()){
 				cmbCategory.setSelectedIndex(i);
 				System.out.println(i);
-			}
-				
+			}		
 		}
-		PopulateCategoryComboBox();
-		UpdatePriorityTextBox();
 		this.setTitle(LanguageManager
 				.getString("AddEditDialog_Edit_Dialog_Title"));
 		this.setVisible(true);

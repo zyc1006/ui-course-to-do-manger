@@ -255,9 +255,11 @@ public class ShowCatalog  {
 					    } else {
 						    CategoryManager cm = CategoryManager.getInstance();
 						    cm.deleteCategory(selCategoryNode.getCategory());
-						    
+						   
 					    	//Remove node from tree
 						    model.removeNodeFromParent(selNode);
+						    //show all tasks
+						    TaskManager.getInstance().showTaskInCategory(-1);
 					    }
 			    	}
 			    
