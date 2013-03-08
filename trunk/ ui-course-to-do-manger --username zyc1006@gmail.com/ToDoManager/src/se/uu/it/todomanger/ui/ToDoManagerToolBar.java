@@ -1,6 +1,7 @@
 package se.uu.it.todomanger.ui;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
+import se.uu.it.clock.JClock;
 import se.uu.it.todomanger.controller.LanguageManager;
 import se.uu.it.todomanger.controller.ReminderTimerManager;
 import se.uu.it.todomanger.controller.TaskManager;
@@ -96,6 +98,8 @@ public class ToDoManagerToolBar extends JToolBar {
 		toolBar.add(editTaskButton);
 		toolBar.addSeparator();
 		toolBar.add(delTaskButton);
+//		toolBar.addSeparator();
+//		toolBar.add(new JClock(new Font("Helvetica", 0, 72), new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"), 1000));
 
 		// Actions for the buttons
 		createTaskButton.addActionListener(new ActionListener() {
