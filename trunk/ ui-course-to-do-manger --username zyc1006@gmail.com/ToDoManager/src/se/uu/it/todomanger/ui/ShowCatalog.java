@@ -31,11 +31,12 @@ import se.uu.it.todomanger.model.Category;
 import se.uu.it.todomanger.model.CategoryTreeNode;
 
 /**
- *  A class that display the categories
+ * A class that display the categories
+ * 
  * @author Sara
  */
 
-public class ShowCatalog  {
+public class ShowCatalog {
 	private static DefaultMutableTreeNode root;
 	private static DefaultTreeModel model;
 	private static JPanel panel;
@@ -44,178 +45,189 @@ public class ShowCatalog  {
 	private static JButton removeButton;
 	private static JClock clockTime;
 	private static JClock clockDate;
-	
+
 	// Size of buttons
 	public static final int CATEGORY_BUTTON_WIDTH = 50;
 	public static final int CATEGORY_BUTTON_HEIGHT = 36;
 
-	
 	/**
 	 * Defines the GUI for categories
 	 * 
 	 * @author sara
 	 */
 	public JPanel init() {
-		//Init GridBagLayout
+		// Init GridBagLayout
 		panel = new JPanel();
 		GridBagLayout gridbagLayoutSettings = new GridBagLayout();
-		panel.setLayout(gridbagLayoutSettings); 
-		GridBagConstraints gc = new GridBagConstraints();	
-	    gc.fill = GridBagConstraints.BOTH;
-	    gc.anchor = GridBagConstraints.NORTHWEST;
-	    
+		panel.setLayout(gridbagLayoutSettings);
+		GridBagConstraints gc = new GridBagConstraints();
+		gc.fill = GridBagConstraints.BOTH;
+		gc.anchor = GridBagConstraints.NORTHWEST;
 
-		//Init tree
-		root = new DefaultMutableTreeNode(LanguageManager.getString("MainWindow_AllCategories_Label"));
+		// Init tree
+		root = new DefaultMutableTreeNode(
+				LanguageManager.getString("MainWindow_AllCategories_Label"));
 		model = new DefaultTreeModel(root);
-	    tree = new JTree(model);
+		tree = new JTree(model);
 		tree.setEditable(true);
-	    tree.setSelectionRow(0);
-	    model.addTreeModelListener(new CategoryTreeModelListener());
-	    setTreeNodeListener();
-        gc.weightx = 0.0;
-        gc.weighty = 1.0;
-        gc.gridwidth = 3;
-        gc.gridx = 0;
-        gc.gridy = 0;
+		tree.setSelectionRow(0);
+		model.addTreeModelListener(new CategoryTreeModelListener());
+		setTreeNodeListener();
+		gc.weightx = 0.0;
+		gc.weighty = 1.0;
+		gc.gridwidth = 3;
+		gc.gridx = 0;
+		gc.gridy = 0;
 		gridbagLayoutSettings.setConstraints(tree, gc);
-		
 
-		//Init Add Button
-		addButton = new JButton(LanguageManager.getString("MainWindow_AddCategory_Label"));
-	    gc.weightx = 0.5;
-	    gc.gridx = 0;
-	    gc.gridy = 1;
-	    gc.gridwidth = 1;
-	    gc.weighty = 0.0;
+		// Init Add Button
+		addButton = new JButton(
+				LanguageManager.getString("MainWindow_AddCategory_Label"));
+		gc.weightx = 0.5;
+		gc.gridx = 0;
+		gc.gridy = 1;
+		gc.gridwidth = 1;
+		gc.weighty = 0.0;
 		setAddButtonListener(addButton);
 		gridbagLayoutSettings.setConstraints(addButton, gc);
-		addButton.setMargin(new Insets(2,0,2,0));
-	    panel.add(addButton);
+		addButton.setMargin(new Insets(2, 0, 2, 0));
+		panel.add(addButton);
 
-		//Init Remove Button 
-	    removeButton = new JButton(LanguageManager.getString("MainWindow_RemoveCategory_Label"));
-	    gc.gridx = 2;
-	    gc.gridy = 1;
-	    gc.weighty = 0.0;
+		// Init Remove Button
+		removeButton = new JButton(
+				LanguageManager.getString("MainWindow_RemoveCategory_Label"));
+		gc.gridx = 2;
+		gc.gridy = 1;
+		gc.weighty = 0.0;
 		setRemoveButtonListener(removeButton);
 		gridbagLayoutSettings.setConstraints(removeButton, gc);
-		removeButton.setMargin(new Insets(2,0,2,0));
-	    panel.add(removeButton);
-	    
-	    // Init clock
-	    clockTime = new JClock(new Font("Courier", 0, 32), new SimpleDateFormat("HH:mm:ss"), 1000);
-	    clockTime.setTransparent(true);
-	    clockTime.setForeground(Color.BLACK);
-	    gc.gridx = 0;
-	    gc.gridy = 2;
-	    gc.gridwidth = 3;
-	    gc.weightx = 0.0;
-	    gc.weighty = 0.0;
-	    gc.anchor = GridBagConstraints.CENTER;
-	    gc.fill = GridBagConstraints.NONE;
+		removeButton.setMargin(new Insets(2, 0, 2, 0));
+		panel.add(removeButton);
+
+		// Init clock
+		clockTime = new JClock(new Font("Arial", 0, 32),
+				new SimpleDateFormat(LanguageManager
+						.getString("MainWindow_Clock_TimeFormat")),
+				1000);
+		clockTime.setForeground(Color.BLACK);
+		gc.gridx = 0;
+		gc.gridy = 2;
+		gc.gridwidth = 3;
+		gc.weightx = 0.0;
+		gc.weighty = 0.0;
+		gc.anchor = GridBagConstraints.CENTER;
+		gc.fill = GridBagConstraints.NONE;
 		gridbagLayoutSettings.setConstraints(clockTime, gc);
 		panel.add(clockTime, gc);
 
 		// Init clock
-	    clockDate = new JClock(new Font("Courier", 0, 16), new SimpleDateFormat("yyyy-MM-dd"), 1000);
-	    clockDate.setTransparent(true);
-	    clockDate.setForeground(Color.BLACK);
-	    gc.gridx = 0;
-	    gc.gridy = 3;
-	    gc.gridwidth = 3;
-	    gc.weightx = 0.0;
-	    gc.weighty = 0.0;
-	    gc.anchor = GridBagConstraints.CENTER;
-	    gc.fill = GridBagConstraints.NONE;
+		clockDate = new JClock(new Font("Arial", 0, 16),
+				new SimpleDateFormat(LanguageManager
+						.getString("MainWindow_Clock_DateFormat")),
+				1000);
+		clockDate.setForeground(Color.BLACK);
+		gc.gridx = 0;
+		gc.gridy = 3;
+		gc.gridwidth = 3;
+		gc.weightx = 0.0;
+		gc.weighty = 0.0;
+		gc.anchor = GridBagConstraints.CENTER;
+		gc.fill = GridBagConstraints.NONE;
 		gridbagLayoutSettings.setConstraints(clockDate, gc);
 		panel.add(clockDate, gc);
-		
-		
+
 		CategoryManager cm = CategoryManager.getInstance();
 
-
-		//Create nodes for all loaded categories from xml
+		// Create nodes for all loaded categories from xml
 		for (Entry<Integer, Category> entry : cm.getCategories().entrySet()) {
-			CategoryTreeNode loadNode = new CategoryTreeNode(entry.getValue().getCategoryTitle());
-	        model.insertNodeInto(loadNode, root, root.getChildCount());
-	 
-	        Category nc = new Category(entry.getKey(), entry.getValue().getCategoryTitle());
-	        loadNode.setCategory(nc);
-	        
-	        cm.addCategory(nc);
+			CategoryTreeNode loadNode = new CategoryTreeNode(entry.getValue()
+					.getCategoryTitle());
+			model.insertNodeInto(loadNode, root, root.getChildCount());
+
+			Category nc = new Category(entry.getKey(), entry.getValue()
+					.getCategoryTitle());
+			loadNode.setCategory(nc);
+
+			cm.addCategory(nc);
 		}
-	
+
 		tree.expandRow(0);
-	    panel.add(tree);
+		panel.add(tree);
 		return panel;
 	}
-	
-	
-	
+
 	/**
 	 * Handles selecting of treenodes
 	 * 
 	 * @author sara
 	 */
-	
+
 	private void setTreeNodeListener() {
 		tree.addTreeSelectionListener(new TreeSelectionListener() {
-		    public void valueChanged(TreeSelectionEvent e) { 
-			    try {
-				    //Try if a node has been selected
-		    		DefaultMutableTreeNode selNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-		    		
-		    		//Display tasks in the selected category. If root is selected all tasks is dispayed.
-		    		if (selNode.equals(root)) {
-		    			TaskManager.getInstance().showTaskInCategory(-1);
-		    			System.out.print("Selected category: All \n");
-		    			System.out.print("Change this in ShowCatalog, row 130-138\n\n");
-		    		} else {
-				    	CategoryTreeNode selCategoryNode = (CategoryTreeNode) selNode;
-			    		System.out.print("Selected Category: "+ selCategoryNode.getCategory().getCategoryTitle() + " with id: " + selCategoryNode.getCategory().getCategoryId() + "\n");
-		    			System.out.print("Change this in ShowCatalog, row 130-138\n\n");
-		    			TaskManager.getInstance().showTaskInCategory(selCategoryNode.getCategory().getCategoryId());
-		    		}
-			    	
+			public void valueChanged(TreeSelectionEvent e) {
+				try {
+					// Try if a node has been selected
+					DefaultMutableTreeNode selNode = (DefaultMutableTreeNode) tree
+							.getLastSelectedPathComponent();
 
-			    } catch (NullPointerException exc) {}
+					// Display tasks in the selected category. If root is
+					// selected all tasks is dispayed.
+					if (selNode.equals(root)) {
+						TaskManager.getInstance().showTaskInCategory(-1);
+						System.out.print("Selected category: All \n");
+						System.out
+								.print("Change this in ShowCatalog, row 130-138\n\n");
+					} else {
+						CategoryTreeNode selCategoryNode = (CategoryTreeNode) selNode;
+						System.out.print("Selected Category: "
+								+ selCategoryNode.getCategory()
+										.getCategoryTitle() + " with id: "
+								+ selCategoryNode.getCategory().getCategoryId()
+								+ "\n");
+						System.out
+								.print("Change this in ShowCatalog, row 130-138\n\n");
+						TaskManager.getInstance().showTaskInCategory(
+								selCategoryNode.getCategory().getCategoryId());
+					}
 
-		    }
+				} catch (NullPointerException exc) {
+				}
+
+			}
 		});
 	}
-	
-	
-	
+
 	/**
 	 * Handles the add button
 	 * 
 	 * @author sara
 	 * @author bjorn
 	 */
-	
+
 	private void setAddButtonListener(JButton addButton) {
 		addButton.addActionListener(new ActionListener() {
-    	
+
 			public void actionPerformed(ActionEvent event) {
-			    //Create new tree node
-		        CategoryTreeNode newNode = new CategoryTreeNode(LanguageManager.getString("MainWindow_NewCategoryName"));
-		        model.insertNodeInto(newNode, root, root.getChildCount());
-		        TreeNode[] nodes = model.getPathToRoot(newNode);
-		        TreePath path = new TreePath(nodes);
-		        tree.scrollPathToVisible(path);
-		        tree.setSelectionPath(path);
-		        tree.startEditingAtPath(path);
-		         
-		        //Add category to tree node
-		        Category nc = new Category(Category.nextCategoryId, newNode.getUserObject().toString());
-		        newNode.setCategory(nc);
-		          
-		        //Add category to category list
-		        CategoryManager cm = CategoryManager.getInstance();
-		        cm.addCategory(nc);
-		  	 }
-	    });
+				// Create new tree node
+				CategoryTreeNode newNode = new CategoryTreeNode(LanguageManager
+						.getString("MainWindow_NewCategoryName"));
+				model.insertNodeInto(newNode, root, root.getChildCount());
+				TreeNode[] nodes = model.getPathToRoot(newNode);
+				TreePath path = new TreePath(nodes);
+				tree.scrollPathToVisible(path);
+				tree.setSelectionPath(path);
+				tree.startEditingAtPath(path);
+
+				// Add category to tree node
+				Category nc = new Category(Category.nextCategoryId, newNode
+						.getUserObject().toString());
+				newNode.setCategory(nc);
+
+				// Add category to category list
+				CategoryManager cm = CategoryManager.getInstance();
+				cm.addCategory(nc);
+			}
+		});
 	}
 
 	/**
@@ -223,95 +235,117 @@ public class ShowCatalog  {
 	 * 
 	 * @author sara
 	 */
-	
+
 	private void setRemoveButtonListener(JButton addButton) {
 		addButton.addActionListener(new ActionListener() {
-    	
+
 			public void actionPerformed(ActionEvent event) {
-			    try {
-				    //Try if a node has been selected
-			    	DefaultMutableTreeNode selNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-			    	
-			    	//Show error if root is marked since that category is not allowed to delete
-			    	if (selNode.equals(root)) {
-			    		JOptionPane.showMessageDialog(panel, LanguageManager.getString("Category_Delete_Error"), LanguageManager
-			    				.getString("AddEditDialog_Error_Dialog_Title"),
-			    				JOptionPane.ERROR_MESSAGE);
-			    	} else {
-				    
-					    //Remove category from category list
-					    CategoryTreeNode selCategoryNode = (CategoryTreeNode) selNode;
-					    
-				    	//Show error if "No Category" is marked since that category is not allowed to delete
-					    if (selCategoryNode.getCategory().getCategoryId() == 0) {
-				    		JOptionPane.showMessageDialog(panel, LanguageManager.getString("Category_Delete_Error"), LanguageManager
-				    				.getString("AddEditDialog_Error_Dialog_Title"),
-				    				JOptionPane.ERROR_MESSAGE);
-					    } else {
-						    CategoryManager cm = CategoryManager.getInstance();
-						    cm.deleteCategory(selCategoryNode.getCategory());
-						   
-					    	//Remove node from tree
-						    model.removeNodeFromParent(selNode);
-						    //show all tasks
-						    TaskManager.getInstance().showTaskInCategory(-1);
-					    }
-			    	}
-			    
-			        
-			    } catch (NullPointerException exc) {} 
+				try {
+					// Try if a node has been selected
+					DefaultMutableTreeNode selNode = (DefaultMutableTreeNode) tree
+							.getLastSelectedPathComponent();
+
+					// Show error if root is marked since that category is not
+					// allowed to delete
+					if (selNode.equals(root)) {
+						JOptionPane.showMessageDialog(
+								panel,
+								LanguageManager
+										.getString("Category_Delete_Error"),
+								LanguageManager
+										.getString("AddEditDialog_Error_Dialog_Title"),
+								JOptionPane.ERROR_MESSAGE);
+					} else {
+
+						// Remove category from category list
+						CategoryTreeNode selCategoryNode = (CategoryTreeNode) selNode;
+
+						// Show error if "No Category" is marked since that
+						// category is not allowed to delete
+						if (selCategoryNode.getCategory().getCategoryId() == 0) {
+							JOptionPane.showMessageDialog(
+									panel,
+									LanguageManager
+											.getString("Category_Delete_Error"),
+									LanguageManager
+											.getString("AddEditDialog_Error_Dialog_Title"),
+									JOptionPane.ERROR_MESSAGE);
+						} else {
+							CategoryManager cm = CategoryManager.getInstance();
+							cm.deleteCategory(selCategoryNode.getCategory());
+
+							// Remove node from tree
+							model.removeNodeFromParent(selNode);
+							// show all tasks
+							TaskManager.getInstance().showTaskInCategory(-1);
+						}
+					}
+
+				} catch (NullPointerException exc) {
+				}
 			}
 		});
-	
+
 	}
-	
+
 	/**
 	 * Handles the language for add and remove buttons
 	 * 
 	 * @author bjorn
 	 */
 	public static void UpdateLanguageText() {
-//		Integer width, height;
-		removeButton.setText(LanguageManager.getString("MainWindow_RemoveCategory_Label"));
-		addButton.setText(LanguageManager.getString("MainWindow_AddCategory_Label"));
-		root.setUserObject(new String(LanguageManager.getString("MainWindow_AllCategories_Label")));
+		// Integer width, height;
+		removeButton.setText(LanguageManager
+				.getString("MainWindow_RemoveCategory_Label"));
+		addButton.setText(LanguageManager
+				.getString("MainWindow_AddCategory_Label"));
+		root.setUserObject(new String(LanguageManager
+				.getString("MainWindow_AllCategories_Label")));
 		tree.updateUI();
+		clockTime.setDateFormat(new SimpleDateFormat(LanguageManager
+				.getString("MainWindow_Clock_TimeFormat")));
+		clockDate.setDateFormat(new SimpleDateFormat(LanguageManager
+				.getString("MainWindow_Clock_DateFormat")));
+		clockTime.updateUI();
+		clockDate.updateUI();
 	}
-	
-	
+
 	/**
 	 * Handles changes of category titles
 	 * 
 	 * @author sara
 	 */
-	
-	//Handles changes in nodes
+
+	// Handles changes in nodes
 	private class CategoryTreeModelListener implements TreeModelListener {
-	
+
 		public void treeNodesChanged(TreeModelEvent e) {
-		    //Get current selected node
+			// Get current selected node
 			DefaultMutableTreeNode node;
-		    node = (DefaultMutableTreeNode) (e.getTreePath().getLastPathComponent());
+			node = (DefaultMutableTreeNode) (e.getTreePath()
+					.getLastPathComponent());
 
-		    //Try if a node has been selected
-		    try {
-		        int index = e.getChildIndices()[0];
-		        node = (CategoryTreeNode) (node.getChildAt(index));
-		    } catch (NullPointerException exc) {}
+			// Try if a node has been selected
+			try {
+				int index = e.getChildIndices()[0];
+				node = (CategoryTreeNode) (node.getChildAt(index));
+			} catch (NullPointerException exc) {
+			}
 
-		    //Change the title of the current category to the new value
-            ((CategoryTreeNode) node).getCategory().setCategoryTitle(node.getUserObject().toString());
-            System.out.println(node.getUserObject().toString());
-            CategoryManager.updateXmlFile();
+			// Change the title of the current category to the new value
+			((CategoryTreeNode) node).getCategory().setCategoryTitle(
+					node.getUserObject().toString());
+			System.out.println(node.getUserObject().toString());
+			CategoryManager.updateXmlFile();
 		}
-		
+
 		public void treeNodesInserted(TreeModelEvent e) {
 		}
-		
+
 		public void treeNodesRemoved(TreeModelEvent e) {
 
 		}
-		
+
 		public void treeStructureChanged(TreeModelEvent e) {
 		}
 
