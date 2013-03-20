@@ -42,7 +42,6 @@ public class JClock extends JButton implements ActionListener {
 	private Font clockFont;
 	private FontMetrics metrics;
 	private Timer redrawTimer;
-	private Boolean transparent;
 
 	/**
 	 * Creates a new clock with font font, date format sdf and redrawing
@@ -54,7 +53,10 @@ public class JClock extends JButton implements ActionListener {
 	 */
 	public JClock(Font font, SimpleDateFormat sdf, int redrawDelay) {
 
-		transparent = false;
+		System.out.println("Date format is: " + sdf.toPattern());
+		
+		// The default is that we don't put any custom background color.
+		bgColor = super.getBackground();
 
 		clockFont = font;
 		metrics = this.getFontMetrics(clockFont);
@@ -71,6 +73,8 @@ public class JClock extends JButton implements ActionListener {
 
 		redrawTimer = new Timer(redrawDelay, this);
 		redrawTimer.start();
+		
+		super.updateUI();
 	}
 
 	/**
@@ -109,24 +113,6 @@ public class JClock extends JButton implements ActionListener {
 	}
 
 	/**
-	 * Removes the background if b is true.
-	 * 
-	 * @param b
-	 */
-	public void setTransparent(Boolean b) {
-		transparent = b;
-	}
-
-	/**
-	 * Returns true if the component is transparent.
-	 * 
-	 * @return true if transparent is enabled.
-	 */
-	public Boolean getTransparent() {
-		return transparent;
-	}
-
-	/**
 	 * Sets the repainting interval to delay miliseconds.
 	 * 
 	 * @param delay
@@ -142,6 +128,14 @@ public class JClock extends JButton implements ActionListener {
 	 */
 	public void setDateFormat(SimpleDateFormat sdf) {
 		dateFormat = sdf;
+		
+		drawWidth = metrics.stringWidth(dateFormat.format(new Date())) + 4;
+		drawHeight = metrics.getMaxAscent() + 8;
+
+		Dimension componentSize = new Dimension(drawWidth, drawHeight);
+		setSize(componentSize);
+		setPreferredSize(componentSize);
+		setMinimumSize(componentSize);
 	}
 
 	/**
@@ -159,13 +153,8 @@ public class JClock extends JButton implements ActionListener {
 	public void paint(Graphics g) {
 
 		g.setFont(clockFont);
-
-		if (transparent) {
-			g.clearRect(0, 0, drawWidth, drawHeight);
-		} else {
-			g.setColor(bgColor);
-			g.fillRect(0, 0, drawWidth, drawHeight);
-		}
+		g.setColor(bgColor);
+		g.fillRect(0, 0, drawWidth, drawHeight);
 
 		g.setColor(textColor);
 		g.drawString(dateFormat.format(new Date()), 4, metrics.getMaxAscent());
