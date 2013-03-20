@@ -216,6 +216,7 @@ public class ToDoManagerTaskTable extends JTable {
 	public void setTaskTableText(){
 		((NewTaskTableModel)taskTable.getModel()).setTaskTableText();
 		taskTable.hideColumn(0);
+		taskTable.hideColumn(6);
 	}
 	
 	
