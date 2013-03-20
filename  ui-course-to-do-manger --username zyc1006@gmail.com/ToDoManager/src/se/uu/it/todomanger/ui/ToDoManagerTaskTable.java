@@ -217,6 +217,9 @@ public class ToDoManagerTaskTable extends JTable {
 		((NewTaskTableModel)taskTable.getModel()).setTaskTableText();
 		taskTable.hideColumn(0);
 		taskTable.hideColumn(6);
+		taskTable.setColumnStyle(2, SwingConstants.CENTER);//category,center
+		taskTable.setColumnStyle(3, SwingConstants.CENTER);//priority, center
+		taskTable.setColumnStyle(4, SwingConstants.CENTER);//duedate, center
 	}
 	
 	

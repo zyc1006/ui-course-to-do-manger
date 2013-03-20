@@ -71,7 +71,7 @@ public class CategoryDataSource {
 		XMLWriter output;
 		try {
 			OutputFormat format = OutputFormat.createPrettyPrint();
-			
+			format.setEncoding("GBK");
 			if (fileName == null) {
 				output = new XMLWriter(new FileWriter(userHome
 						+ "/TODOgroup12_cataegories.xml"),format);
@@ -112,7 +112,7 @@ public class CategoryDataSource {
 		
 		try {
 			Document doc = reader.read(userHome + "/TODOgroup12_cataegories.xml");
-			doc.setXMLEncoding("UTF-8");
+			doc.setXMLEncoding("GBK");
 			Element rootElement = doc.getRootElement();
 			Element categoriesElement = rootElement.element("categories");
 			List categoryList = categoriesElement.elements("category");

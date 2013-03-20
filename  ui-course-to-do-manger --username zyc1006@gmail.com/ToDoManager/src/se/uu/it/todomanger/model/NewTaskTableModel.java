@@ -246,21 +246,7 @@ public class NewTaskTableModel extends AbstractTableModel {
 	}
 	
 	
-//	/**
-//	 * reset the column text of the a task table
-//	 */
-//	public void setTaskTableText() {
-//		// Create the list of column header names
-//		String[] localColumnTitles = { "id",
-//				LanguageManager.getString("TaskTable_Column_Title_Label"),
-//				LanguageManager.getString("TaskTable_Column_Category_Label"),
-//				LanguageManager.getString("TaskTable_Column_Priority_Label"),
-//				LanguageManager.getString("TaskTable_Column_DueDate_Label") };
-//
-//		// Set the column header names
-//		this.setColumnIdentifiers(localColumnTitles);
-//	}
-//	
+
 	@SuppressWarnings("unused")
 	private HashMap<Integer,Task> toHashMap(ArrayList<Task> taskList){
 		HashMap<Integer,Task> taskHashMap = new HashMap<Integer, Task>();

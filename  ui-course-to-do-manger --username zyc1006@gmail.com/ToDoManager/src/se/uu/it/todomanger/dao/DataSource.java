@@ -38,29 +38,7 @@ public class DataSource {
 	/**An arraylist stores all the task, used for sorting */
 	public static ArrayList<Task> taskArrayList = new ArrayList<Task>();
 	
-//	/**
-//	 * get the hashmap of tasks
-//	 * @return a hashmap contanis all the tasks
-//	 */
-//	public HashMap<Integer, Task> getTaskHashMap() {
-//		return taskHashMap;
-//	}
-	
-//	/**
-//	 * get the ArrayList of tasks
-//	 * @return an ArrayList contanis all the tasks
-//	 */
-//	public ArrayList<Task> getTaskArrayList() {
-//		return taskArrayList;
-//	}
-//	
-//	/**
-//	 * set the ArrayList of tasks
-//	 */
-//	public void setTaskArrayList(ArrayList<Task> taskArrayList) {
-//		this.taskArrayList = taskArrayList;
-//		toHashMap();
-//	}
+
 	
 	/**
 	 * public staitc toXmlFile({@link ArrayList} task)<br>
@@ -111,6 +89,7 @@ public class DataSource {
 		XMLWriter output;
 		try {
 			OutputFormat format = OutputFormat.createPrettyPrint();
+			format.setEncoding("GBK");
 			if (fileName == null) {
 				output = new XMLWriter(new FileWriter(userHome
 						+ "/TODOgroup12.xml"),format);
@@ -155,6 +134,7 @@ public class DataSource {
 		
 		try {
 			Document doc = reader.read(userHome+ "/TODOgroup12.xml");
+			doc.setXMLEncoding("GBK");
 			Element rootElement = doc.getRootElement();
 			Element tasksElement = rootElement.element("tasks");
 			@SuppressWarnings("rawtypes")
