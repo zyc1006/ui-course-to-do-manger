@@ -94,46 +94,7 @@ public class TaskManager {
 		((NewTaskTableModel)taskTable.getModel()).showTaskInCategory();
 	}
 
-//	/**
-//	 * display the tasks by due date in ascending order
-//	 */
-//	public void displayTaskByDueDateAsc() {
-//		taskTable.displayAllTasksByOrder(taskArrayList, new SortByDueDateAsc());
-//	}
-//	/**
-//	 * display the tasks by due date in descending order
-//	 */
-//	public void displayTaskByDueDateDesc() {
-//		taskTable.displayAllTasksByOrder(taskArrayList, new SortByDueDateDesc());
-//	}
-//	
-	//inner class for sorting
-//	class SortByDueDateAsc implements Comparator<Task> {
-//		public int compare(Task s1, Task s2) {
-//			
-//			if (s1.getDueDate().after(s2.getDueDate())) {
-//				return 1;
-//			} else if(s1.getDueDate().equals(s2.getDueDate())){
-//				return 0;
-//			}
-//			else
-//				return -1;
-//
-//		}
-//	}
-//
-//	//inner class for sorting
-//	class SortByDueDateDesc implements Comparator<Task> {
-//		public int compare(Task s1, Task s2) {		
-//			if (s1.getDueDate().before(s2.getDueDate())) {
-//				return 1;
-//			} else if(s1.getDueDate().equals(s2.getDueDate())){
-//				return 0;
-//			}else
-//				return -1;
-//
-//		}
-//	}
+
 	
 	
 	/**
@@ -151,23 +112,8 @@ public class TaskManager {
 		return nextid;
 	}
 	
-	/**
-	 * private {@link ArrayList} toArrayList() <br>
-	 * Convert hashmap to arraylist
-	 * @return an arraylist contains all tasks to be displayed
-	 */
-//	private ArrayList<Task> toArrayList() {
-//		taskArrayList.clear();
-//		if (taskHashMap != null) {
-//			Iterator<Entry<Integer, Task>> it = taskHashMap.entrySet()
-//					.iterator();
-//			while (it.hasNext()) {
-//				Entry<Integer, Task> entry = (Entry<Integer, Task>) it.next();
-//				taskArrayList.add(entry.getValue());
-//			}
-//		}
-//		return taskArrayList;
-//	}
+	
+
 	
 	
 }

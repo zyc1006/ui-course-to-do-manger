@@ -54,18 +54,14 @@ public class ReminderTimerManager {
 	public void TimeMonitor() 
 	{
 		Task task = new Task();
-		//ReminderTask[] rt = new ReminderTask[taskArrayList.size()];
-		//Date[] t = new Date[taskArrayList.size()];
-		//int i = 0;
+
 		
 		// SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Iterator<Task> it = taskArrayList.iterator();
 		while (it.hasNext()) {
 			task = it.next();
-			//rt[i] = new ReminderTask(task);
-			//t[i] = task.getDueDate();
 			TimeMonitorTask(task);
-			//i++;
+
 		}
 	}
 	/**
@@ -80,8 +76,7 @@ public class ReminderTimerManager {
 			timetask.schedule(new ReminderTask(task) , task.getDueDate());
 			timerHashMapList.put(task.getId(), timetask);
 		}
-		// System.out.println(task.getId() + ":" + task.getTitle() + ":" +
-		// task.getDueDate());
+		
 	}
 	public void resetTaskTimer(Task task)
 	{
@@ -112,11 +107,9 @@ public class ReminderTimerManager {
 		@SuppressWarnings("unused")
 		@Override
 		public void run() {
-			// TODO Auto-generated method stub
+
 			ShowRemainder sr = new ShowRemainder(task);
-			// System.out.println(task.getId()+ ":" + task.getDueDate() +"::" +
-			// new Date() +"need to do");
-			// System.out.println(new Date());
+			
 
 		}
 	}
